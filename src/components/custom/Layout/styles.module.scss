@@ -1,0 +1,49 @@
+.layoutSize {
+  min-height: 100vh;
+}
+
+.profileCard {
+  background: #252425;
+  border-radius: 5px;
+  width: 100%;
+  text-align: left;
+  padding: 10px 20px;
+  box-sizing: border-box;
+  margin: 0 0 10px;
+}
+
+.heightNav {
+  height: 100vh;
+}
+
+.headerStyle {
+  background: var(--black);
+  margin: 10.5px auto;
+  max-width: 1140px;
+  justify-content: space-between;
+}
+
+.footerStyle {
+  background: var(--black);
+  padding: 51px 111px 70px 166px;
+  border-top: 1px solid rgba(217, 217, 217, 0.44);
+  margin-top: 266px;
+}
+
+@media only screen and (max-width: 500px) {
+  .mobileHeaderContainer {
+    height: 100vh;
+    align-items: start;
+  }
+
+  .bgHeader {
+    background-color: white !important;
+  }
+
+  .footerStyle {
+    background: var(--black);
+    padding: 5px;
+    border-top: 1px solid rgba(217, 217, 217, 0.44);
+    margin-top: 20px;
+  }
+}

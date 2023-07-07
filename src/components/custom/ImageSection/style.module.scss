@@ -1,0 +1,40 @@
+.background {
+  background-image: url(../../../assets/imageDubai.svg);
+  margin-left: 134px;
+  margin-right: 116px;
+  background-repeat: no-repeat;
+  width: 100%;
+  max-width: 1190px;
+}
+
+.paddingText {
+  padding-top: 126px;
+  padding-bottom: 10px;
+}
+
+.blackBg {
+  display: flex;
+  justify-content: center;
+  background-color: #000;
+  padding-bottom: 58px;
+}
+
+.preview {
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: 0px 4px 4px #060c11;
+  border-radius: 10px;
+  width: 190px;
+  height: 40px;
+  margin-bottom: 10px;
+}
+
+@media only screen and (max-width: 500px) {
+    .background {
+        background-image: url(../../../assets/imageDubai.svg);
+        margin-left: 0;
+        margin-right: 0;
+        background-repeat: no-repeat;
+        width: auto;
+        background-size: contain;
+      }
+  }

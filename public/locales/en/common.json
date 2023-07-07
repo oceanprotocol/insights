@@ -1,0 +1,34 @@
+{
+  "footer": {
+    "computeLink": "Compute to Data",
+    "aboutLink": "About",
+    "pressLink": "Press",
+    "reserved": ", OceanInsight. All Rights Reserved."
+  },
+  "dubai": "DUBAI Dream Apartments",
+  "update": "Updated data set on apartment listings in Dubai",
+  "buttonDownload": "Download Report",
+  "preview": "Preview Dataset",
+  "price": "Price per m2",
+  "location": "Location",
+  "secure": "Secure Access to Diverse Data Sets",
+  "compute": "Compute-to-Data Technology",
+  "textCard": "This algorithm predicts the price of Dubai apartments by analysing historical pricing data, considering variables like location, size, and amenities to provide customised predictions for both rental and sale listings.",
+  "titleTwitter": "Twitter Sentiment Analysis",
+  "titleUpdate": "Updated data set on hate speech in tweets",
+  "titleCard": {
+    "price": "Price Prediction",
+    "rate": "Occupancy Rate",
+    "costumer": "Customer Segmentation",
+    "sentiment": "Sentiment Analysis",
+    "support": "Support Vector Machine",
+    "convolutional": "Convolutional Neural Network"
+  },
+  "routes": {
+    "homepage": "Homepage",
+    "chatgptPrompts": "chatgpt-prompts",
+    "midjourneyPrompts": "midjourney-prompts",
+    "challanges": "challanges",
+    "ecosystem": "ecosystem"
+  }
+}

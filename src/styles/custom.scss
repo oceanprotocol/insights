@@ -1,0 +1,405 @@
+@font-face {
+  font-family: 'Poppins Light';
+  src: url(../../public/fonts/Poppins-Light.ttf) format('opentype');
+}
+
+@font-face {
+  font-family: 'Play bold';
+  src: url(../../public/fonts/Play-Bold.ttf) format('opentype');
+}
+
+@font-face {
+  font-family: 'Play';
+  src: url(../../public/fonts/Play-Regular.ttf) format('opentype');
+}
+
+.play15 {
+  font-family: 'Play';
+  font-size: 15px;
+  letter-spacing: 0;
+}
+
+.playb15 {
+  font-family: 'Play bold';
+  font-size: 15px;
+  letter-spacing: 0;
+}
+
+.play12 {
+  font-family: 'Play';
+  font-size: 12px;
+  letter-spacing: 0;
+}
+
+.play10 {
+  font-family: 'Play';
+  font-size: 10px;
+  letter-spacing: 0;
+}
+
+.play18 {
+  font-family: 'Play';
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+}
+
+.play30 {
+  font-family: 'Play';
+  font-size: 30px;
+  letter-spacing: 0;
+}
+
+.playBold30 {
+  font-family: 'Play bold';
+  font-size: 30px;
+  letter-spacing: 0;
+}
+
+.play20 {
+  font-family: 'Play';
+  font-size: 20px;
+  letter-spacing: 0;
+}
+
+.play40 {
+  font-family: 'Play bold';
+  font-size: 40px;
+  letter-spacing: 0;
+}
+
+.play70 {
+  font-family: 'Play bold';
+  font-size: 70px;
+  letter-spacing: 0;
+}
+
+.play36 {
+  font-family: 'Play bold';
+  font-size: 36px;
+  letter-spacing: 0;
+}
+
+.poppins14 {
+  font-family: 'Poppins Light';
+  font-size: 14px;
+  letter-spacing: 0;
+}
+
+.urbanist16 {
+  font-family: 'Urbanist';
+  font-size: 16px;
+  letter-spacing: 0;
+}
+
+.signikaRegular17 {
+  font-family: 'Signika Negative Regular';
+  font-size: 17px;
+  letter-spacing: 0;
+}
+
+.signikaMedium14 {
+  font-family: 'Signika Negative Medium';
+  font-size: 20px;
+  letter-spacing: 0;
+}
+
+.signikaMedium20 {
+  font-family: 'Signika Negative Medium';
+  font-size: 20px;
+  line-height: 25px;
+  letter-spacing: 0;
+}
+
+.signikaLight18 {
+  font-family: 'Signika Negative Light';
+  font-size: 18px;
+  letter-spacing: 0;
+}
+
+.signikaBold40 {
+  font-family: 'Signika Negative Bold';
+  font-size: 40px;
+  letter-spacing: 0;
+}
+
+.signikaBold30 {
+  font-family: 'SignikaNegative-Bold';
+  letter-spacing: 0;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 37px;
+}
+
+.signikaBold25 {
+  font-family: 'Signika Negative Bold';
+  font-size: 25px;
+  letter-spacing: 0;
+}
+
+.signikaLight15 {
+  font-family: 'Signika Negative Light';
+  font-size: 15px;
+  letter-spacing: 0;
+  text-align: justify;
+}
+
+.UrbanistExtraLight16 {
+  font-family: 'Urbanist-ExtraLight';
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 17px;
+}
+
+.UrbanistExtraLight14 {
+  font-family: 'Urbanist-ExtraLight';
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 19px;
+}
+
+.UrbanistLight16 {
+  font-family: 'Urbanist-Light';
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+}
+
+.UrbanistLight14 {
+  font-family: 'Urbanist-Light';
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.UrbanistMedium20 {
+  font-family: 'Urbanist-Medium';
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.UrbanistRegular20 {
+  font-family: 'Urbanist-Regular';
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.UrbanistRegular18 {
+  font-family: 'Urbanist-Regular';
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+}
+
+.UrbanistRegular16 {
+  font-family: 'Urbanist-Regular';
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+}
+
+.UrbanistBold14 {
+  font-family: 'Urbanist-Bold';
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.UrbanistExtraBold24 {
+  font-family: 'Urbanist-ExtraBold';
+  font-weight: 800;
+  font-size: 24px;
+  line-height: 29px;
+}
+
+.UrbanistExtraBold11 {
+  font-family: 'Urbanist-ExtraBold';
+  font-weight: 900;
+  font-size: 11px;
+  line-height: 13px;
+}
+
+.colorPrimary {
+  color: var(--primary);
+}
+
+.colorBackground {
+  color: var(--background);
+}
+
+.colorOrange {
+  color: var(--orange);
+}
+
+.colorGrey {
+  color: var(--grey);
+}
+
+.colorGreyLighter {
+  color: var(--grey-lighter);
+}
+
+.colorWhite {
+  color: var(--white);
+}
+
+.colorFadeGrey {
+  color: var(--fade-grey);
+}
+
+.colorMaxWhite {
+  color: var(--max-white);
+}
+
+.colorCoal {
+  color: var(--coal);
+}
+
+.colorAmaranth {
+  color: var(--amaranth);
+}
+
+.colorRed {
+  color: var(--red);
+}
+
+.colorSilver {
+  color: var(--silver);
+}
+
+.colorRaisinBlack {
+  color: var(--raisin-black);
+}
+
+.iconBtn {
+  border: none;
+  width: 35px;
+  height: 35px;
+}
+
+.line-height-25 {
+  line-height: 25px;
+}
+
+.loader {
+  width: 100px;
+  height: 100px;
+  border: 5px solid var(--orange);
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+.navbar {
+  background: black;
+  transition: all .6s;
+  backface-visibility: hidden;
+  box-shadow: 0 2px 5px 1px rgba(51, 51, 51, 0.5);
+}
+
+.navbar-dark .navbar-nav {
+  font-size: 15px;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.navbar-dark .navbar-toggler span {
+  display: block;
+  width: 30px;
+  height: 2px;
+  margin: 6px auto;
+  background: #fff;
+  transition: all .6s cubic-bezier(0.250, 0.100, 0.250, 1.000);
+}
+
+.navbar-dark .navbar-toggler[aria-expanded="true"] span:first-of-type {
+  transform: rotate(45deg) translate(6px, 6px);
+}
+
+.navbar-dark .navbar-toggler[aria-expanded="true"] span:nth-of-type(2) {
+  opacity: 0;
+}
+
+.navbar-dark .navbar-toggler[aria-expanded="true"] span:last-of-type {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+.navbar-dark .navbar-toggler[aria-expanded="false"] span {
+  transform: none;
+}
+
+.navbar-brand {
+  width: 162px;
+  background: left center no-repeat;
+  border: 0;
+  text-indent: -99999px;
+}
+
+.navbar-dark .navbar-toggler span {
+  display: block;
+  width: 30px;
+  height: 2px;
+  margin: 6px auto;
+  background: #fff;
+  transition: all .6s cubic-bezier(0.250, 0.100, 0.250, 1.000);
+}
+
+.navbar-dark .navbar-toggler[aria-expanded="true"] span:first-of-type {
+  transform: rotate(45deg) translate(6px, 6px);
+}
+
+.navbar-dark .navbar-toggler[aria-expanded="true"] span:nth-of-type(2) {
+  opacity: 0;
+}
+
+.navbar-dark .navbar-toggler[aria-expanded="true"] span:last-of-type {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+.navbar-dark .navbar-toggler[aria-expanded="false"] span {
+  transform: none;
+  opacity: 1;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .signikaMedium14 {
+    font-family: 'Signika Negative Medium';
+    font-size: 14px;
+    letter-spacing: 0;
+  }
+
+  .signikaBold30 {
+    font-size: 20px;
+    line-height: 25px;
+  }
+
+  .UrbanistRegular18 {
+    font-size: 12px;
+    line-height: 24px;
+  }
+
+  .play70 {
+    font-family: 'Play bold';
+    font-size: 36px;
+    letter-spacing: 0;
+  }
+  
+  .play36 {
+    font-family: 'Play bold';
+    font-size: 16px;
+    letter-spacing: 0;
+  }
+}

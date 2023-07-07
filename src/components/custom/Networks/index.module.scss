@@ -1,0 +1,136 @@
+.networks {
+  margin-right: calc(var(--spacer) / 3);
+  position: relative;
+  overflow: hidden;
+}
+
+.chainsSelected {
+  text-align: center;
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 100%;
+}
+
+.chainsSelectedIndicator {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  margin: 0 1px;
+  display: inline-block;
+  background-color: var(--color-primary);
+}
+
+.preferences {
+  padding: calc(var(--spacer) / 4) calc(var(--spacer) / 3);
+  cursor: pointer;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  margin-left: calc(var(--spacer) / 3);
+  background-color: var(--background-content);
+  white-space: nowrap;
+  min-width: fit-content;
+}
+
+@media screen and (max-width: 42rem) {
+  .preferences {
+    padding: calc(var(--spacer) / 4) calc(var(--spacer) / 3);
+    cursor: pointer;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    margin-left: 0;
+    background-color: var(--background-content);
+    white-space: nowrap;
+    min-width: fit-content;
+  }
+}
+
+.preferences svg {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.caret,
+svg.caret {
+  display: none;
+  width: var(--font-size-small);
+  height: var(--font-size-small);
+  fill: var(--border-color);
+  transition: transform 0.2s ease-out;
+  vertical-align: middle;
+  margin-left: calc(var(--spacer) / 4);
+}
+
+[aria-expanded="true"] .caret {
+  transform: rotate(180deg);
+}
+
+.badge .caret {
+  fill: var(--brand-white);
+  opacity: 0.7;
+  width: var(--font-size-mini);
+  height: var(--font-size-mini);
+  margin-left: calc(var(--spacer) / 12);
+}
+
+@media screen and (min-width: 42rem) {
+  .caret,
+  svg.caret {
+    display: inline-block;
+  }
+
+  .navigation {
+    margin-left: calc(var(--spacer) / 2);
+  }
+}
+
+.icon {
+  fill: var(--brand-grey-light);
+  transition: 0.2s ease-out;
+  width: 1em;
+  height: 1em;
+  margin-left: calc(var(--spacer) * 0.1);
+}
+
+.preferences:hover .icon,
+.preferences:focus .icon,
+.preferences:active .icon,
+.preferences[aria-expanded="true"] .icon {
+  fill: var(--font-color-text);
+}
+
+.preferencesDetails {
+  padding: calc(var(--spacer) / 4) calc(var(--spacer) / 2);
+  max-width: 20rem;
+}
+
+.preferencesDetails > li > div,
+.preferencesDetails p:last-child {
+  margin-bottom: 0;
+}
+
+.preferencesDetails li p {
+  margin-top: calc(var(--spacer) / 8);
+}
+
+.preferencesDetails > li {
+  padding-top: calc(var(--spacer) / 3);
+  padding-bottom: calc(var(--spacer) / 3);
+}
+
+.preferencesDetails li:last-child,
+.preferencesDetails li:last-child p {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+@media only screen and (max-width: 500px) {
+  // .networks {
+  //   margin-right: 0;
+  // }
+
+  .preferences {
+    margin-left: 0;
+    max-width: 50px;
+  }
+}
