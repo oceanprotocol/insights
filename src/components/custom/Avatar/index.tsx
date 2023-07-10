@@ -20,5 +20,5 @@ export default function Avatar({
       alt="Avatar"
       aria-hidden="true"
     />
-  )
+  );
 }
