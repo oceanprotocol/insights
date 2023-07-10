@@ -4,12 +4,9 @@
   min-height: 710px;
 }
 
-.addressContainer {
-  max-width: 542px;
-}
-
 .linkBox {
   width: 100%;
+  max-width: 542px;
 }
 
 .publishedButton {
@@ -33,6 +30,11 @@
 
 .separator {
   border-right: 1px solid var(--gainsboro);
+}
+
+.profileAvatar {
+  width: 108px;
+  height: 108px;
 }
 
 @media only screen and (max-width: 500px) {
