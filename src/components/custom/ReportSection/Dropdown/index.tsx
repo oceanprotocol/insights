@@ -1,9 +1,5 @@
 import react from "react";
-import Dropdown from "react-bootstrap/Dropdown";
-import cx from "classnames";
-
-import styles from "./styles.module.scss";
-import { useTranslation } from "react-i18next";
+import Dropdown from 'react-bootstrap/Dropdown';
 
 type OptionsType = {
   id: number;
@@ -19,11 +15,14 @@ export default function PriceDropdown({
   placeholder,
   options,
 }: DropdownPropType) {
-  const { t } = useTranslation(["common"]);
   return (
     <div className="mx-2">
       <Dropdown>
-        <Dropdown.Toggle variant="success" id="dropdown-basic" className="d-flex justify-content-center align-items-center">
+        <Dropdown.Toggle
+          variant="success"
+          id="dropdown-basic"
+          className="d-flex justify-content-center align-items-center"
+        >
           {placeholder}
         </Dropdown.Toggle>
         <Dropdown.Menu>
