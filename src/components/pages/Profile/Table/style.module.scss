@@ -1,0 +1,9 @@
+.customTable {
+    width: 100vh;
+}
+
+@media only screen and (max-width: 500px) {
+    .customTable {
+        width: 100%;
+    }
+  }

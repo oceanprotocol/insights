@@ -4,21 +4,22 @@
   min-height: 710px;
 }
 
-.linkBox {
-  width: 100%;
+.addressContainer {
   max-width: 542px;
 }
 
-.publishedButton {
-  margin-right: 8px;
+.button {
+  background: #ffffff;
+  border-radius: 5px;
+  width: 170px;
+  height: 50px;
+  color: black;
+  padding: 6px 6px;
+  margin-right: 17px;
 }
 
-.downloadButton {
-  margin: 0 8px;
-}
-
-.computeJobsButton {
-  margin-left: 8px;
+.linkBox {
+  width: 100%;
 }
 
 .assetsDetails {
@@ -30,11 +31,6 @@
 
 .separator {
   border-right: 1px solid var(--gainsboro);
-}
-
-.profileAvatar {
-  width: 108px;
-  height: 108px;
 }
 
 @media only screen and (max-width: 500px) {
