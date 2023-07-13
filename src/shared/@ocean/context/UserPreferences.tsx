@@ -36,7 +36,7 @@ const localStorageKey = 'ocean-user-preferences-v4';
 
 function getLocalStorage(): UserPreferencesValue {
   const storageParsed =
-    isBrowser && JSON.parse(window.localStorage.getItem(localStorageKey) || '');
+    isBrowser && JSON.parse(window.localStorage.getItem(localStorageKey) ?? '');
   return storageParsed;
 }
 
