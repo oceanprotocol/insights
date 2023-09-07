@@ -1,8 +1,10 @@
-from PIL import Image, ImageFilter
 import requests
+import sys
+
+from PIL import Image, ImageFilter
 from io import BytesIO
 
-def apply_filters(image_url, filter, save_path='output/'):
+def apply_filters(image_url, filter):
     response = requests.get(image_url)
     img = Image.open(BytesIO(response.content))
     filtered_img = None
@@ -10,15 +12,12 @@ def apply_filters(image_url, filter, save_path='output/'):
     # Apply filter
     if filter == 'blur':
         blurred_img = img.filter(ImageFilter.GaussianBlur(radius=5))
-        blurred_img.save(save_path + "blurred.png")
         filtered_img = blurred_img
     elif filter == 'grayscale':
         grayscale_img = img.convert("L")
-        grayscale_img.save(save_path + "grayscale.png")
         filtered_img = grayscale_img
     elif filter == 'unsharp':
         unsharp_img = img.filter(ImageFilter.UnsharpMask(radius=5))
-        unsharp_img.save(save_path + "unsharp_mask.png")
         filtered_img = unsharp_img
     else:
         print("Unknown filter.")
@@ -27,8 +26,8 @@ def apply_filters(image_url, filter, save_path='output/'):
 
 if __name__ == "__main__":
     # The URL for image must be public and accessible
-    image_url = input("Enter the URL of the image: ")
-    img_filter = input("Enter the filter for the image: ")
+    image_url = sys.argv[1]
+    img_filter = sys.argv[2]
 
     apply_filters(image_url, filter=img_filter)
     print("Filters applied and images saved successfully.")
