@@ -16,9 +16,6 @@ def apply_filters(image_url, filter, save_path='output/'):
     elif filter == 'unsharp':
         unsharp_img = img.filter(ImageFilter.UnsharpMask(radius=5))
         unsharp_img.save(save_path + "unsharp_mask.png")
-    elif filter == 'median':
-        median_img = img.filter(ImageFilter.MedianFilter(size=3))
-        median_img.save(save_path + 'median_filter.png')
     else:
         print("Unknown filter.")
     
