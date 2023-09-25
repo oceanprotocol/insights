@@ -1,7 +1,7 @@
 # Create Ocean instance
 from ocean_lib.example_config import get_config_dict
 from ocean_lib.ocean.ocean import Ocean
-from ocean_lib.ocean.util import to_wei, from_wei
+from ocean_lib.ocean.util import to_wei
 
 config = get_config_dict("development")
 
@@ -38,8 +38,8 @@ DATA_date_created = "2021-12-28T10:55:11Z"
 DATA_metadata = {
     "created": DATA_date_created,
     "updated": DATA_date_created,
-    "description": "peppers image",
-    "name": "peppers",
+    "description": "filtered image",
+    "name": "image processing",
     "type": "dataset",
     "author": "Ocean Protocol Foundation",
     "license": "CC0: PublicDomain",
@@ -50,17 +50,39 @@ DATA_url_file = UrlFile(
     url="https://raw.githubusercontent.com/oceanprotocol/c2d-examples/main/peppers_and_grayscale/peppers.tiff"
 )
 
-name = "Branin dataset"
+name = "Peppers"
 (DATA_data_nft, DATA_datatoken, DATA_ddo) = ocean.assets.create_url_asset(name, DATA_url_file.url, {"from": alice}, metadata= DATA_metadata, with_compute=True, wait_for_aqua=True)
 print(f"DATA_data_nft address = '{DATA_data_nft.address}'")
 print(f"DATA_datatoken address = '{DATA_datatoken.address}'")
 
 print(f"DATA_ddo did = '{DATA_ddo.did}'")
 
-# Publish data NFT & datatoken for algorithm
-ALGO_url = "<HOSTED_ALGO_URL>"
+image_filter = "blur"
 
-name = "image processing"
+# Publish data NFT & datatoken for algorithm
+ALGO_date_created = "2021-12-28T10:55:11Z"
+ALGO_metadata = {
+    "created": ALGO_date_created,
+    "updated": ALGO_date_created,
+    "description": "image processing",
+    "name": "image processing",
+    "type": "algorithm",
+    "author": "Ocean Protocol Foundation",
+    "license": "CC0: PublicDomain",
+    "algorithm": {
+        "language": "python",
+        "format": "docker-image",
+        "version": "0.1",
+        "container": {
+            "entrypoint": f"python3 /tmp/image_processing.py {DATA_url_file.url} blur",
+            "image": "oceanprotocol/algo_dockers",
+            "tag": "image-processing",  # This image provides all the dependencies of the image-processing.py algorithm
+            "checksum": "sha256:ec79db26aa3fa53f09b6d312cd98f1832c346f780bb367212d9126149d7c06f3",
+        },
+    }
+}
+ALGO_url = "https://raw.githubusercontent.com/oceanprotocol/c2d-examples/main/image_processing/image_processing.py"
+
 (ALGO_data_nft, ALGO_datatoken, ALGO_ddo) = ocean.assets.create_algo_asset(name, ALGO_url, {"from": alice}, wait_for_aqua=True)
 
 print(f"ALGO_data_nft address = '{ALGO_data_nft.address}'")
@@ -115,7 +137,24 @@ job_id = ocean.compute.start(
 )
 print(f"Started compute job with id: {job_id}")
 
-status = ocean.compute.status(DATA_ddo, compute_service, job_id, bob)
+# Wait until job is done
+import time
+from decimal import Decimal
+succeeded = False
+for _ in range(0, 350):
+    status = ocean.compute.status(DATA_ddo, compute_service, job_id, bob)
+    if status.get("dateFinished") and Decimal(status["dateFinished"]) > 0:
+        succeeded = True
+        break
+    time.sleep(5)
 
 
+output = ocean.compute.compute_job_result_logs(
+    DATA_ddo, compute_service, job_id, bob
+)[0]
 
+from PIL import Image
+import io
+
+image = Image.open(io.BytesIO(output))
+image.show()
