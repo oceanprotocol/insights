@@ -8,9 +8,11 @@ def apply_filters(image_url, filter):
     if not image_url:
         print("Image URL is not provided.")
         return
+
     if not filter:
         print("Filter is not provided.")
         return
+
     response = requests.get(image_url)
     img = Image.open(BytesIO(response.content))
     filtered_img = None
@@ -27,6 +29,7 @@ def apply_filters(image_url, filter):
         filtered_img = unsharp_img
     else:
         print("Unknown filter.")
+        return
     
     img.save(filtered_img)
 
