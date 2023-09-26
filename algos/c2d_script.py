@@ -77,7 +77,7 @@ ALGO_metadata = {
             "entrypoint": f"python3 /tmp/image_processing.py {DATA_url_file.url} blur",
             "image": "oceanprotocol/algo_dockers",
             "tag": "image-processing",  # This image provides all the dependencies of the image-processing.py algorithm
-            "checksum": "sha256:ec79db26aa3fa53f09b6d312cd98f1832c346f780bb367212d9126149d7c06f3",
+            "checksum": "sha256:2ed48807d174b8fb25e46b405524cfc6a84eeff71682c17fbc41d01083d64dc7",
         },
     }
 }
@@ -141,17 +141,18 @@ print(f"Started compute job with id: {job_id}")
 import time
 from decimal import Decimal
 succeeded = False
-for _ in range(0, 350):
+for _ in range(0, 500):
     status = ocean.compute.status(DATA_ddo, compute_service, job_id, bob)
     if status.get("dateFinished") and Decimal(status["dateFinished"]) > 0:
         succeeded = True
         break
     time.sleep(5)
 
+import pdb;pdb.set_trace()
 
-output = ocean.compute.compute_job_result_logs(
-    DATA_ddo, compute_service, job_id, bob
-)[0]
+output = ocean.compute.compute_job_result_logs(DATA_ddo, compute_service, job_id, bob)
+
+result = ocean.compute.result(DATA_ddo, compute_service, job_id, 0, bob)
 
 from PIL import Image
 import io
