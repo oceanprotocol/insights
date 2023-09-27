@@ -74,16 +74,16 @@ ALGO_metadata = {
         "format": "docker-image",
         "version": "0.1",
         "container": {
-            "entrypoint": f"python3 /tmp/image_processing.py {DATA_url_file.url} blur",
+            "entrypoint": f"python $ALGO {DATA_url_file.url} {image_filter}",
             "image": "oceanprotocol/algo_dockers",
             "tag": "image-processing",  # This image provides all the dependencies of the image-processing.py algorithm
-            "checksum": "sha256:2ed48807d174b8fb25e46b405524cfc6a84eeff71682c17fbc41d01083d64dc7",
+            "checksum": "sha256:7421d79ecd1a280d41aa72bbc9b7c1ec03e4e706551ad7b9caf9f2fbdada5ac4",
         },
     }
 }
 ALGO_url = "https://raw.githubusercontent.com/oceanprotocol/c2d-examples/main/image_processing/image_processing.py"
 
-(ALGO_data_nft, ALGO_datatoken, ALGO_ddo) = ocean.assets.create_algo_asset(name, ALGO_url, {"from": alice}, wait_for_aqua=True)
+(ALGO_data_nft, ALGO_datatoken, ALGO_ddo) = ocean.assets.create_algo_asset(name, ALGO_url, {"from": alice}, image="oceanprotocol/algo_dockers", tag="image-processing", checksum="sha256:7421d79ecd1a280d41aa72bbc9b7c1ec03e4e706551ad7b9caf9f2fbdada5ac4", metadata=ALGO_metadata, wait_for_aqua=True)
 
 print(f"ALGO_data_nft address = '{ALGO_data_nft.address}'")
 print(f"ALGO_datatoken address = '{ALGO_datatoken.address}'")
@@ -148,14 +148,10 @@ for _ in range(0, 500):
         break
     time.sleep(5)
 
-import pdb;pdb.set_trace()
-
-output = ocean.compute.compute_job_result_logs(DATA_ddo, compute_service, job_id, bob)
-
 result = ocean.compute.result(DATA_ddo, compute_service, job_id, 0, bob)
 
 from PIL import Image
 import io
 
-image = Image.open(io.BytesIO(output))
+image = Image.open(io.BytesIO(result))
 image.show()
