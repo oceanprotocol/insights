@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -15,7 +15,7 @@
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@next/font": "13.1.6",
-    "@oceanprotocol/lib": "3.0.0-next.0",
+    "@oceanprotocol/lib": "3.1.2",
     "@tippyjs/react": "^4.2.6",
     "@types/node": "^18.15.5",
     "@types/numeral": "^2.0.2",
