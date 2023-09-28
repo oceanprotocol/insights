@@ -48,10 +48,10 @@ DATA_metadata = {
 from ocean_lib.structures.file_objects import UrlFile
 from ocean_lib.models.dispenser import DispenserArguments
 DATA_url_file = UrlFile(
-    url="https://raw.githubusercontent.com/oceanprotocol/c2d-examples/main/peppers_and_grayscale/peppers.tiff"
+    url="https://raw.githubusercontent.com/CkauNui/ckau-book-addons-Colorful-4K-Images/main/ckau-book-addons/_inc/anim/4K/bbcmicro.png"
 )
 
-name = "Peppers"
+name = "Image processing dataset"
 (DATA_data_nft, DATA_datatoken, DATA_ddo) = ocean.assets.create_url_asset(name, DATA_url_file.url, {"from": alice}, metadata= DATA_metadata, with_compute=True, pricing_schema_args=DispenserArguments(to_wei(1), to_wei(1)), wait_for_aqua=True)
 print(f"DATA_data_nft address = '{DATA_data_nft.address}'")
 print(f"DATA_datatoken address = '{DATA_datatoken.address}'")
@@ -78,7 +78,7 @@ ALGO_metadata = {
             "entrypoint": f"python $ALGO {DATA_url_file.url} {image_filter}",
             "image": "oceanprotocol/algo_dockers",
             "tag": "image-processing",  # This image provides all the dependencies of the image-processing.py algorithm
-            "checksum": "sha256:7421d79ecd1a280d41aa72bbc9b7c1ec03e4e706551ad7b9caf9f2fbdada5ac4",
+            "checksum": "sha256:1901f1642ec7c2b67f6887d233ad945756216a1946854809d769a760a285a126",
         },
     }
 }
@@ -95,8 +95,8 @@ compute_service.add_publisher_trusted_algorithm(ALGO_ddo)
 DATA_ddo = ocean.assets.update(DATA_ddo, {"from": alice})
 
 from ocean_lib.ocean.util import to_wei
-DATA_datatoken.dispense(bob, to_wei(1), {"from": alice})
-ALGO_datatoken.dispense(bob, to_wei(1), {"from": alice})
+DATA_datatoken.dispense(to_wei(1), {"from": bob})
+ALGO_datatoken.dispense(to_wei(1), {"from": bob})
 
 
 DATA_did = DATA_ddo.did
@@ -155,4 +155,4 @@ from PIL import Image
 import io
 
 image = Image.open(io.BytesIO(result))
-image.show()
+image.save("output.png")
