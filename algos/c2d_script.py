@@ -46,12 +46,13 @@ DATA_metadata = {
 }
 
 from ocean_lib.structures.file_objects import UrlFile
+from ocean_lib.models.dispenser import DispenserArguments
 DATA_url_file = UrlFile(
     url="https://raw.githubusercontent.com/oceanprotocol/c2d-examples/main/peppers_and_grayscale/peppers.tiff"
 )
 
 name = "Peppers"
-(DATA_data_nft, DATA_datatoken, DATA_ddo) = ocean.assets.create_url_asset(name, DATA_url_file.url, {"from": alice}, metadata= DATA_metadata, with_compute=True, wait_for_aqua=True)
+(DATA_data_nft, DATA_datatoken, DATA_ddo) = ocean.assets.create_url_asset(name, DATA_url_file.url, {"from": alice}, metadata= DATA_metadata, with_compute=True, pricing_schema_args=DispenserArguments(to_wei(1), to_wei(1)), wait_for_aqua=True)
 print(f"DATA_data_nft address = '{DATA_data_nft.address}'")
 print(f"DATA_datatoken address = '{DATA_datatoken.address}'")
 
@@ -83,7 +84,7 @@ ALGO_metadata = {
 }
 ALGO_url = "https://raw.githubusercontent.com/oceanprotocol/c2d-examples/main/image_processing/image_processing.py"
 
-(ALGO_data_nft, ALGO_datatoken, ALGO_ddo) = ocean.assets.create_algo_asset(name, ALGO_url, {"from": alice}, image="oceanprotocol/algo_dockers", tag="image-processing", checksum="sha256:7421d79ecd1a280d41aa72bbc9b7c1ec03e4e706551ad7b9caf9f2fbdada5ac4", metadata=ALGO_metadata, wait_for_aqua=True)
+(ALGO_data_nft, ALGO_datatoken, ALGO_ddo) = ocean.assets.create_algo_asset(name, ALGO_url, {"from": alice}, image="oceanprotocol/algo_dockers", tag="image-processing", checksum="sha256:7421d79ecd1a280d41aa72bbc9b7c1ec03e4e706551ad7b9caf9f2fbdada5ac4", metadata=ALGO_metadata, pricing_schema_args=DispenserArguments(to_wei(1), to_wei(1)), wait_for_aqua=True)
 
 print(f"ALGO_data_nft address = '{ALGO_data_nft.address}'")
 print(f"ALGO_datatoken address = '{ALGO_datatoken.address}'")
@@ -94,8 +95,8 @@ compute_service.add_publisher_trusted_algorithm(ALGO_ddo)
 DATA_ddo = ocean.assets.update(DATA_ddo, {"from": alice})
 
 from ocean_lib.ocean.util import to_wei
-DATA_datatoken.mint(bob, to_wei(5), {"from": alice})
-ALGO_datatoken.mint(bob, to_wei(5), {"from": alice})
+DATA_datatoken.dispense(bob, to_wei(1), {"from": alice})
+ALGO_datatoken.dispense(bob, to_wei(1), {"from": alice})
 
 
 DATA_did = DATA_ddo.did
