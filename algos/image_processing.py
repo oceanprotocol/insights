@@ -31,12 +31,13 @@ def apply_filters(image_url, filter):
         print("Unknown filter.")
         return
     
-    img.save(filtered_img)
+    return filtered_img
 
 if __name__ == "__main__":
     # The URL for image must be public and accessible
     image_url = sys.argv[1]
     img_filter = sys.argv[2]
     
-    apply_filters(image_url, filter=img_filter)
+    filtered_img = apply_filters(image_url, filter=img_filter)
     print("Filters applied and images saved successfully.")
+    filtered_img.show()
