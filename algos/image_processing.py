@@ -40,5 +40,5 @@ if __name__ == "__main__":
     
     filtered_img = apply_filters(image_url, filter=img_filter)
     filename = "/data/outputs/filtered_image.png"
-    print(f"Filters applied and images saved successfully as {filename}")
     filtered_img.save(filename)
+    print(f"Filters applied and images saved successfully as {filename}")
