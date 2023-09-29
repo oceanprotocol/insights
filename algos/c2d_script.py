@@ -10,6 +10,7 @@ ocean = Ocean(config)
 OCEAN = ocean.OCEAN_token
 
 from ocean_lib.ocean.mint_fake_ocean import mint_fake_OCEAN
+
 mint_fake_OCEAN(config)
 
 # Create Alice's wallet
@@ -22,7 +23,7 @@ assert ocean.wallet_balance(alice) > 0, "Alice needs ETH"
 assert OCEAN.balanceOf(alice) > 0, "Alice needs OCEAN"
 
 # Create additional wallets. While some flows just use Alice wallet, it's simpler to do all here.
-bob_private_key = os.getenv('TEST_PRIVATE_KEY2')
+bob_private_key = os.getenv("TEST_PRIVATE_KEY2")
 bob = Account.from_key(private_key=bob_private_key)
 assert ocean.wallet_balance(bob) > 0, "Bob needs ETH"
 assert OCEAN.balanceOf(bob) > 0, "Bob needs OCEAN"
@@ -42,12 +43,21 @@ DATA_metadata = {
 
 from ocean_lib.structures.file_objects import UrlFile
 from ocean_lib.models.dispenser import DispenserArguments
+
 DATA_url_file = UrlFile(
     url="https://raw.githubusercontent.com/CkauNui/ckau-book-addons-Colorful-4K-Images/main/ckau-book-addons/_inc/anim/4K/bbcmicro.png"
 )
 
 name = "Image processing dataset"
-(DATA_data_nft, DATA_datatoken, DATA_ddo) = ocean.assets.create_url_asset(name, DATA_url_file.url, {"from": alice}, metadata= DATA_metadata, with_compute=True, pricing_schema_args=DispenserArguments(to_wei(1), to_wei(1)), wait_for_aqua=True)
+(DATA_data_nft, DATA_datatoken, DATA_ddo) = ocean.assets.create_url_asset(
+    name,
+    DATA_url_file.url,
+    {"from": alice},
+    metadata=DATA_metadata,
+    with_compute=True,
+    pricing_schema_args=DispenserArguments(to_wei(1), to_wei(1)),
+    wait_for_aqua=True,
+)
 print(f"DATA_data_nft address = '{DATA_data_nft.address}'")
 print(f"DATA_datatoken address = '{DATA_datatoken.address}'")
 
@@ -77,14 +87,6 @@ ALGO_metadata = {
         },
         "consumerParameters": [
             {
-                "name": "did",
-                "type": "string",
-                "label": "did",
-                "required": True,
-                "default": f"{DATA_ddo.did}",
-                "description": "This parameter is the dataset DID which contains the image.",
-            },
-            {
                 "name": "image_filter",
                 "type": "string",
                 "label": "filter",
@@ -92,12 +94,22 @@ ALGO_metadata = {
                 "default": "blur",
                 "description": "This parameter filters the image from the dataset.",
             }
-            ],
-    }
+        ],
+    },
 }
 ALGO_url = "https://raw.githubusercontent.com/oceanprotocol/c2d-examples/main/image_processing/image_processing.py"
 
-(ALGO_data_nft, ALGO_datatoken, ALGO_ddo) = ocean.assets.create_algo_asset(name, ALGO_url, {"from": alice}, image="oceanprotocol/algo_dockers", tag="image-processing", checksum="sha256:7421d79ecd1a280d41aa72bbc9b7c1ec03e4e706551ad7b9caf9f2fbdada5ac4", metadata=ALGO_metadata, pricing_schema_args=DispenserArguments(to_wei(1), to_wei(1)), wait_for_aqua=True)
+(ALGO_data_nft, ALGO_datatoken, ALGO_ddo) = ocean.assets.create_algo_asset(
+    name,
+    ALGO_url,
+    {"from": alice},
+    image="oceanprotocol/algo_dockers",
+    tag="image-processing",
+    checksum="sha256:7421d79ecd1a280d41aa72bbc9b7c1ec03e4e706551ad7b9caf9f2fbdada5ac4",
+    metadata=ALGO_metadata,
+    pricing_schema_args=DispenserArguments(to_wei(1), to_wei(1)),
+    wait_for_aqua=True,
+)
 
 print(f"ALGO_data_nft address = '{ALGO_data_nft.address}'")
 print(f"ALGO_datatoken address = '{ALGO_datatoken.address}'")
@@ -108,6 +120,7 @@ compute_service.add_publisher_trusted_algorithm(ALGO_ddo)
 DATA_ddo = ocean.assets.update(DATA_ddo, {"from": alice})
 
 from ocean_lib.ocean.util import to_wei
+
 DATA_datatoken.dispense(to_wei(1), {"from": bob})
 ALGO_datatoken.dispense(to_wei(1), {"from": bob})
 
@@ -121,7 +134,9 @@ ALGO_ddo = ocean.assets.resolve(ALGO_did)
 
 compute_service = DATA_ddo.services[1]
 algo_service = ALGO_ddo.services[0]
-free_c2d_env = ocean.compute.get_free_c2d_environment(compute_service.service_endpoint, DATA_ddo.chain_id)
+free_c2d_env = ocean.compute.get_free_c2d_environment(
+    compute_service.service_endpoint, DATA_ddo.chain_id
+)
 
 from datetime import datetime, timedelta, timezone
 from ocean_lib.models.compute_input import ComputeInput
@@ -154,6 +169,7 @@ print(f"Started compute job with id: {job_id}")
 # Wait until job is done
 import time
 from decimal import Decimal
+
 succeeded = False
 for _ in range(0, 500):
     status = ocean.compute.status(DATA_ddo, compute_service, job_id, bob)
