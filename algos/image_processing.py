@@ -1,11 +1,8 @@
-import requests
-import sys
-
+import json
 from PIL import Image, ImageFilter
-from io import BytesIO
 
-def apply_filters(image_url, filter):
-    if not image_url:
+def apply_filters(did, filter):
+    if not did:
         print("Image URL is not provided.")
         return
 
@@ -13,8 +10,8 @@ def apply_filters(image_url, filter):
         print("Filter is not provided.")
         return
 
-    response = requests.get(image_url)
-    img = Image.open(BytesIO(response.content))
+    filename = f"data/inputs/{did}/0"
+    img = Image.open(filename)
     filtered_img = None
 
     # Apply filter
@@ -34,11 +31,11 @@ def apply_filters(image_url, filter):
     return filtered_img
 
 if __name__ == "__main__":
-    # The URL for image must be public and accessible
-    image_url = sys.argv[1]
-    img_filter = sys.argv[2]
+    # Open and read the JSON file
+    with open('/data/inputs/algoCustomData.json', 'r') as file:
+        data = json.load(file)
     
-    filtered_img = apply_filters(image_url, filter=img_filter)
+    filtered_img = apply_filters(data['did'], filter=data['image_filter'])
     filename = "/data/outputs/filtered_image.png"
     filtered_img.save(filename)
     print(f"Filters applied and images saved successfully as {filename}")

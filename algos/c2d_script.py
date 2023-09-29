@@ -27,11 +27,6 @@ bob = Account.from_key(private_key=bob_private_key)
 assert ocean.wallet_balance(bob) > 0, "Bob needs ETH"
 assert OCEAN.balanceOf(bob) > 0, "Bob needs OCEAN"
 
-carlos_private_key = os.getenv('TEST_PRIVATE_KEY3')
-carlos = Account.from_key(private_key=carlos_private_key)
-assert ocean.wallet_balance(carlos) > 0, "Carlos needs ETH"
-assert OCEAN.balanceOf(carlos) > 0, "Carlos needs OCEAN"
-
 
 # Specify metadata, using the peppers.tiff image
 DATA_date_created = "2021-12-28T10:55:11Z"
@@ -75,11 +70,29 @@ ALGO_metadata = {
         "format": "docker-image",
         "version": "0.1",
         "container": {
-            "entrypoint": f"python $ALGO {DATA_url_file.url} {image_filter}",
+            "entrypoint": f"python $ALGO",
             "image": "oceanprotocol/algo_dockers",
             "tag": "image-processing",  # This image provides all the dependencies of the image-processing.py algorithm
             "checksum": "sha256:1901f1642ec7c2b67f6887d233ad945756216a1946854809d769a760a285a126",
         },
+        "consumerParameters": [
+            {
+                "name": "did",
+                "type": "string",
+                "label": "did",
+                "required": True,
+                "default": f"{DATA_ddo.did}",
+                "description": "This parameter is the dataset DID which contains the image.",
+            },
+            {
+                "name": "image_filter",
+                "type": "string",
+                "label": "filter",
+                "required": True,
+                "default": "blur",
+                "description": "This parameter filters the image from the dataset.",
+            }
+            ],
     }
 }
 ALGO_url = "https://raw.githubusercontent.com/oceanprotocol/c2d-examples/main/image_processing/image_processing.py"
