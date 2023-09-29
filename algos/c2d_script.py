@@ -83,7 +83,7 @@ ALGO_metadata = {
             "entrypoint": f"python $ALGO",
             "image": "oceanprotocol/algo_dockers",
             "tag": "image-processing",  # This image provides all the dependencies of the image-processing.py algorithm
-            "checksum": "sha256:1901f1642ec7c2b67f6887d233ad945756216a1946854809d769a760a285a126",
+            "checksum": "sha256:4e1aacd4cea755a587b6fa8da4fae8651b13df175cae2b94f4afb0356519c9af",
         },
         "consumerParameters": [
             {
@@ -105,7 +105,7 @@ ALGO_url = "https://raw.githubusercontent.com/oceanprotocol/c2d-examples/main/im
     {"from": alice},
     image="oceanprotocol/algo_dockers",
     tag="image-processing",
-    checksum="sha256:7421d79ecd1a280d41aa72bbc9b7c1ec03e4e706551ad7b9caf9f2fbdada5ac4",
+    checksum="sha256:4e1aacd4cea755a587b6fa8da4fae8651b13df175cae2b94f4afb0356519c9af",
     metadata=ALGO_metadata,
     pricing_schema_args=DispenserArguments(to_wei(1), to_wei(1)),
     wait_for_aqua=True,
