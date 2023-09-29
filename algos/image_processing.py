@@ -34,7 +34,7 @@ if __name__ == "__main__":
     # Open and read the JSON file
     with open('/data/inputs/algoCustomData.json', 'r') as file:
         data = json.load(file)
-    
+    print (f"data for consumer parameters: {data}")
     filtered_img = apply_filters(data['did'], filter=data['image_filter'])
     filename = "/data/outputs/filtered_image.png"
     filtered_img.save(filename)
