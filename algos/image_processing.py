@@ -3,7 +3,7 @@ from PIL import Image, ImageFilter
 
 def apply_filters(did, filter):
     if not did:
-        print("Image URL is not provided.")
+        print("DID is not provided.")
         return
 
     if not filter:
