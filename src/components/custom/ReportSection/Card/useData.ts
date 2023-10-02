@@ -16,6 +16,8 @@ export type CardPropType = {
 	text: string;
 	price: string;
 	downloads: string;
+	datasetDid?: string;
+	algoDid?: string;
 };
 
 export default function useData() {
@@ -28,6 +30,8 @@ export default function useData() {
 				image: priceImg,
 				text: "This algorithm computes the average price of Dubai apartments by analysing curent pricing data, considering variables like number of rooms and sale listings.",
 				price: "15.98 OCEAN",
+				datasetDid: "dsadas",
+				algoDid: "dsadsa",
 				downloads: "500",
 			},
 			{

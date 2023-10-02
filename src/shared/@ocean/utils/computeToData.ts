@@ -228,7 +228,7 @@ export async function downloadJobResults(
 	jobId: string,
 	chainId: number,
 	signer: Signer
-): Promise<string> {
+) {
 	const config = new ConfigHelper().getConfig(chainId);
 	const jobResult = await ProviderInstance.getComputeResultUrl(
 		config.providerUri,

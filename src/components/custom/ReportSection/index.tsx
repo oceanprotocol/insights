@@ -8,7 +8,7 @@ import Card from './Card/index';
 import useData, { CardPropType } from './Card/useData';
 import useOptionsDropdown from './Dropdown/DropdownData';
 import { downloadJobResults, getJobStatus, startComputeJob } from '@/shared/@ocean/utils/computeToData';
-import { useNetwork } from 'wagmi';
+import { useNetwork, useSigner } from 'wagmi';
 
 export default function Report() {
   const { DubaiCardData, TwitterCardData } = useData();
@@ -40,6 +40,9 @@ export default function Report() {
             totalDownloads={card.downloads}
             optionsDropdownLeft={DropdownData}
             optionsDropdownRight={DropdownData}
+            computeReportResults={downloadReport}
+            datasetDid={card.datasetDid}
+            algorithmDid={card.algoDid}
           />
         ))}
       </div>
