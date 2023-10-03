@@ -23,6 +23,7 @@ type ApprovedBaseTokensType = {
 function useBalance(): BalanceProviderValue {
   const { address } = useAccount();
   const { data: balanceNativeToken } = useBalanceWagmi({ address });
+  console.log('balanceNativeToken ',balanceNativeToken)
   const web3provider = useProvider();
   const { chain } = useNetwork();
   const { approvedBaseTokens } = useMarketMetadata();

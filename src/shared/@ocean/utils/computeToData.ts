@@ -189,7 +189,8 @@ export async function handleComputeOrder(
 		const orderReusedTx = getEventFromTx(reusedTx, "OrderReused");
 		return orderReusedTx.transactionHash;
 	}
-	console.log("Ordering asset with DID: ", asset.id);
+	console.log("Ordering asset with DID: ", asset);
+	console.log("Ordering asset with providerFees: ", providerFees);
 	const txStartOrder = await orderAsset(
 		asset,
 		payerAccount,
