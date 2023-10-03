@@ -50,8 +50,8 @@ const Card = ({
           <Image src={imageSrc} alt={title} className={cx(styles.image)} />
           <div className={cx(styles.text, 'play10 text-justify')}>{text}</div>
           <div className="d-flex flex-row justify-content-center">
-            optionsDropdownLeft && <Dropdown placeholder="Location" options={optionsDropdownLeft} />
-            optionsDropdownRight && <Dropdown placeholder="Location" options={optionsDropdownRight} />
+            <Dropdown placeholder="Location" options={optionsDropdownLeft} />
+            <Dropdown placeholder="Location" options={optionsDropdownRight} />
           </div>
           <div className="d-flex flex-row justify-content-end align-items-center">
             <div className="playb15 me-2">{price}</div>

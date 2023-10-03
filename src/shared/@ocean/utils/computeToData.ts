@@ -81,7 +81,7 @@ export async function startComputeJob(
 		algo,
 		computeEnv.id,
 		computeValidUntil,
-		process.env.CUSTOM_PROVIDER_URL || this.providerUrl,
+		config.providerUri || "https://v4.provider.oceanprotocol.com/",
 		await signer.getAddress()
 	);
 	if (
@@ -100,18 +100,18 @@ export async function startComputeJob(
 	algo.transferTxId = await handleComputeOrder(
 		providerInitializeComputeJob.algorithm,
 		algoDdo,
-		this.signer,
+		signer,
 		computeEnv.consumerAddress,
 		0,
 		datatoken,
-		this.config,
+		config,
 		providerInitializeComputeJob?.algorithm?.providerFee,
-		process.env.CUSTOM_PROVIDER_URL || this.providerUrl
+		config.providerUri || "https://v4.provider.oceanprotocol.com/"
 	);
 	if (!algo.transferTxId) {
 		console.error(
 			"Error ordering compute for algorithm with DID: " +
-				args[2] +
+				algoDid +
 				".  Do you have enought tokens?"
 		);
 		return;
@@ -127,12 +127,12 @@ export async function startComputeJob(
 			datatoken,
 			config,
 			providerInitializeComputeJob?.datasets[i].providerFee,
-			process.env.CUSTOM_PROVIDER_URL || config.providerUri
+			config.providerUri || "https://v4.provider.oceanprotocol.com/"
 		);
 		if (!assets[i].transferTxId) {
 			console.error(
 				"Error ordering dataset with DID: " +
-					args[1] +
+					datasetDid +
 					".  Do you have enought tokens?"
 			);
 			return;

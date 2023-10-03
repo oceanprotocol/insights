@@ -30,8 +30,10 @@ export default function useData() {
 				image: priceImg,
 				text: "This algorithm computes the average price of Dubai apartments by analysing curent pricing data, considering variables like number of rooms and sale listings.",
 				price: "15.98 OCEAN",
-				datasetDid: "dsadas",
-				algoDid: "dsadsa",
+				datasetDid:
+					"did:op:6b3c472f8dc42213d4099829b44724e964ba523c60e73f4cc0a3607f98645819",
+				algoDid:
+					"did:op:e6dad856f8baeccda0acd6bdf3f410ba0ff0cf4840f52e450d819e342454ead5",
 				downloads: "500",
 			},
 			{
