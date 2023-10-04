@@ -1,5 +1,5 @@
 {
-  "name": "ocean-token-gating",
+  "name": "ocean-insight",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,6 +9,9 @@
     "lint": "next lint",
     "prepare": "husky install",
     "codegen:apollo": "apollo client:codegen --endpoint=https://v4.subgraph.goerli.oceanprotocol.com/subgraphs/name/oceanprotocol/ocean-subgraph --target typescript --tsFileExtension=d.ts --outputFlat src/shared/@ocean/@types/subgraph/"
+  },
+  "engines": {
+    "node": "16.20.0"
   },
   "dependencies": {
     "@chakra-ui/react": "^2.7.1",
