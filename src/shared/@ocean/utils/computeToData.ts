@@ -15,6 +15,7 @@ import {
 	downloadFileBrowser,
 	getEventFromTx,
 	orderAsset,
+	sleep,
 } from "@oceanprotocol/lib";
 import { Signer } from "ethers";
 
@@ -208,25 +209,29 @@ export async function handleComputeOrder(
 	return orderStartedTx.transactionHash;
 }
 
-export async function getJobStatus(
+export async function waitForJobToFinish(
 	datasetDid: string,
 	jobId: string,
 	chainId: number,
 	signer: Signer
-): Promise<string> {
+): Promise<ComputeJob> {
 	const config = new ConfigHelper().getConfig(chainId);
-	const jobStatus = (await ProviderInstance.computeStatus(
-		config.providerUri,
-		await signer.getAddress(),
-		datasetDid,
-		jobId
-	)) as ComputeJob;
-	return jobStatus.statusText;
+	let jobStatus;
+	do {
+		jobStatus = (await ProviderInstance.computeStatus(
+			config.providerUri,
+			await signer.getAddress(),
+			jobId,
+			datasetDid
+		)) as ComputeJob[];
+		await sleep(2000);
+	} while (jobStatus[0].status !== 70);
+	return jobStatus[0];
 }
 
 export async function downloadJobResults(
-	datasetDid: string,
 	jobId: string,
+	resultIndex: number,
 	chainId: number,
 	signer: Signer
 ) {
@@ -234,12 +239,12 @@ export async function downloadJobResults(
 	const jobResult = await ProviderInstance.getComputeResultUrl(
 		config.providerUri,
 		signer,
-		datasetDid,
-		parseInt(jobId)
+		jobId,
+		resultIndex
 	);
 	console.log("jobResult ", jobResult);
 	try {
-		await downloadFileBrowser(jobResult[0]);
+		await downloadFileBrowser(jobResult);
 	} catch (e) {
 		console.log(`Download url dataset failed: ${e}`);
 	}

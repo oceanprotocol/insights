@@ -7,8 +7,9 @@ import styles from './styles.module.scss';
 import Card from './Card/index';
 import useData, { CardPropType } from './Card/useData';
 import useOptionsDropdown from './Dropdown/DropdownData';
-import { downloadJobResults, getJobStatus, startComputeJob } from '@/shared/@ocean/utils/computeToData';
+import { downloadJobResults, getJobStatus, startComputeJob, waitForJobToFinish } from '@/shared/@ocean/utils/computeToData';
 import { useNetwork, useSigner } from 'wagmi';
+import { sleep } from '@oceanprotocol/lib';
 
 export default function Report() {
   const { DubaiCardData, TwitterCardData } = useData();
@@ -19,11 +20,15 @@ export default function Report() {
 
   async function downloadReport(datasetDid: string, algoDid: string) {
     const jobId = await startComputeJob(datasetDid, algoDid, chain?.id, signer)
-    let jobStatus
-    do{
-      jobStatus = await getJobStatus(datasetDid, jobId, chain?.id, signer)
-    }while(jobStatus !== 'Finished')
-    await downloadJobResults(datasetDid, jobId, chain?.id, signer)
+    console.log('Compute job started: ',jobId)
+    const jobFinished = await waitForJobToFinish(datasetDid, jobId, chain?.id, signer)
+    console.log('Job finished: ',jobFinished)
+    for (let index = 0; index < jobFinished.results.length; index++) {
+      const file = jobFinished.results[index];
+      if(file.type === 'output'){
+        await downloadJobResults(jobId, index, chain?.id, signer)
+      }
+    }
   }
 
   return (
