@@ -10,7 +10,6 @@ import {
 } from "wagmi/chains";
 import { ethers, Contract } from "ethers";
 import { formatEther } from "ethers/lib/utils";
-import { energyWeb, moonriver, Ethereum } from "./chains";
 import { getDefaultClient } from "connectkit";
 
 // Wagmi client
@@ -20,7 +19,7 @@ export const wagmiClient = createClient(
 		infuraId: process.env.NEXT_PUBLIC_INFURA_PROJECT_ID,
 		// TODO: mapping between appConfig.chainIdsSupported and wagmi chainId
 		chains: [mainnet, polygon, goerli, polygonMumbai, sepolia],
-		walletConnectProjectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID,
+		walletConnectProjectId: "9cd1211232ee69f08cccd32310a48fb9",
 	})
 );
 
@@ -57,6 +56,7 @@ export async function getTokenBalance(
 	try {
 		const token = new Contract(tokenAddress, erc20ABI, web3Provider);
 		const balance = await token.balanceOf(accountId);
+
 		const adjustedDecimalsBalance = `${balance}${"0".repeat(18 - decimals)}`;
 		return formatEther(adjustedDecimalsBalance);
 	} catch (e: any) {

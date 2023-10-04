@@ -18,7 +18,6 @@ export default function Details(): ReactElement {
   const { setOpen } = useModal();
   const { disconnect } = useDisconnect();
   const { balance } = useBalance();
-  console.log('balance', balance)
 
   return (
     <div className={styles.details}>
