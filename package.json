@@ -7,11 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prepare": "husky install",
-    "codegen:apollo": "apollo client:codegen --endpoint=https://v4.subgraph.goerli.oceanprotocol.com/subgraphs/name/oceanprotocol/ocean-subgraph --target typescript --tsFileExtension=d.ts --outputFlat src/shared/@ocean/@types/subgraph/"
-  },
-  "engines": {
-    "node": "18.18.0"
+    "prepare": "husky install"
   },
   "dependencies": {
     "@chakra-ui/react": "^2.7.1",
@@ -25,7 +21,6 @@
     "@types/react": "18.0.27",
     "@types/react-dom": "18.0.10",
     "@urql/exchange-refocus": "^1.0.0",
-    "apollo": "^2.34.0",
     "bignumber.js": "^9.1.1",
     "bootstrap": "^5.2.3",
     "classnames": "^2.3.2",
