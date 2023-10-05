@@ -11,7 +11,7 @@
     "codegen:apollo": "apollo client:codegen --endpoint=https://v4.subgraph.goerli.oceanprotocol.com/subgraphs/name/oceanprotocol/ocean-subgraph --target typescript --tsFileExtension=d.ts --outputFlat src/shared/@ocean/@types/subgraph/"
   },
   "engines": {
-    "node": "16.20.0"
+    "node": "18.18.0"
   },
   "dependencies": {
     "@chakra-ui/react": "^2.7.1",

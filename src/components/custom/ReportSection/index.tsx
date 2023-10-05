@@ -15,6 +15,7 @@ export default function Report() {
   const {chain} = useNetwork()
   const { data: signer } = useSigner()
   const [dubaiLoading, setDubaiLoading] = useState(false)
+  const [twitterLoading, setTwitterLoading] = useState(false)
   const { DropdownData } = useOptionsDropdown();
   const { t } = useTranslation(['common']);
 
@@ -81,7 +82,7 @@ export default function Report() {
             text={card.text}
             price={card.price}
             totalDownloads={card.downloads}
-            loading={dubaiLoading}
+            loading={twitterLoading}
             optionsDropdownLeft={DropdownData}
             optionsDropdownRight={DropdownData}
           />
