@@ -7,6 +7,7 @@ import styles from './styles.module.scss';
 
 import { DropdownData } from '../Dropdown/DropdownData';
 import Dropdown from '../Dropdown/index';
+import Loader from '../../Loader';
 
 type CardPropType = {
   id: number;
@@ -15,6 +16,7 @@ type CardPropType = {
   text: string;
   price: string;
   totalDownloads: string;
+  loading: boolean
   optionsDropdownLeft?: DropdownData[];
   optionsDropdownRight?: DropdownData[];
   computeReportResults?: (datasetDid: string, algoDid: string) => void;
@@ -29,6 +31,7 @@ const Card = ({
   text,
   price,
   totalDownloads,
+  loading,
   optionsDropdownLeft,
   optionsDropdownRight,
   computeReportResults,
@@ -39,6 +42,14 @@ const Card = ({
   const handleClick = () => {
     computeReportResults && computeReportResults(datasetDid, algorithmDid)
   };
+  
+  function LoaderArea() {
+    return (
+      <div className={styles.loaderWrap}>
+        <Loader />
+      </div>
+    )
+  }
 
   return (
     <div key={id}>
@@ -53,12 +64,16 @@ const Card = ({
             <Dropdown placeholder="Location" options={optionsDropdownLeft} />
             <Dropdown placeholder="Location" options={optionsDropdownRight} />
           </div>
+          { loading ? (
+              <LoaderArea />
+            ) : (
           <div className="d-flex flex-row justify-content-end align-items-center">
             <div className="playb15 me-2">{price}</div>
             <button className={cx(styles.button, 'play15')}  onClick={handleClick}>
               {t('buttonDownload')} 
             </button>
-          </div>
+          </div>)
+          }
           <div
             className={cx(styles.download, 'play12 d-flex justify-content-end')}
           >
@@ -68,6 +83,7 @@ const Card = ({
       </div>
     </div>
   );
+
 };
 
 export default Card;

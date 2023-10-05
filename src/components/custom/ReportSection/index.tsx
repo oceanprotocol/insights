@@ -1,34 +1,43 @@
-import react, { ReactNode } from 'react';
+import react, { ReactNode, useState } from 'react';
 import { useTranslation } from 'next-i18next';
 import cx from 'classnames';
-
 import styles from './styles.module.scss';
-
 import Card from './Card/index';
 import useData, { CardPropType } from './Card/useData';
 import useOptionsDropdown from './Dropdown/DropdownData';
-import { downloadJobResults, getJobStatus, startComputeJob, waitForJobToFinish } from '@/shared/@ocean/utils/computeToData';
+import { downloadJobResults,  startComputeJob, waitForJobToFinish } from '@/shared/@ocean/utils/computeToData';
 import { useNetwork, useSigner } from 'wagmi';
-import { sleep } from '@oceanprotocol/lib';
+import { LoggerInstance } from '@oceanprotocol/lib';
+import { toast } from 'react-toastify'
 
 export default function Report() {
   const { DubaiCardData, TwitterCardData } = useData();
   const {chain} = useNetwork()
   const { data: signer } = useSigner()
+  const [dubaiLoading, setDubaiLoading] = useState(false)
   const { DropdownData } = useOptionsDropdown();
   const { t } = useTranslation(['common']);
 
   async function downloadReport(datasetDid: string, algoDid: string) {
-    const jobId = await startComputeJob(datasetDid, algoDid, chain?.id, signer)
-    console.log('Compute job started: ',jobId)
-    const jobFinished = await waitForJobToFinish(datasetDid, jobId, chain?.id, signer)
-    console.log('Job finished: ',jobFinished)
-    for (let index = 0; index < jobFinished.results.length; index++) {
-      const file = jobFinished.results[index];
-      if(file.type === 'output'){
-        await downloadJobResults(jobId, index, chain?.id, signer)
+    setDubaiLoading(true)
+    try{
+      const jobId = await startComputeJob(datasetDid, algoDid, chain?.id, signer)
+      console.log('Compute job started: ',jobId)
+      const jobFinished = await waitForJobToFinish(datasetDid, jobId, chain?.id, signer)
+      console.log('Job finished: ',jobFinished)
+      for (let index = 0; index < jobFinished.results.length; index++) {
+        const file = jobFinished.results[index];
+        if(file.type === 'output'){
+          await downloadJobResults(jobId, index, chain?.id, signer)
+          setDubaiLoading(false)
+        }
       }
+    }catch(error){
+      LoggerInstance.error('[start compute job] ',error.message)
+      toast.error(`Download report error]: ${error.message}`)
+      setDubaiLoading(false)
     }
+
   }
 
   return (
@@ -43,6 +52,7 @@ export default function Report() {
             text={card.text}
             price={card.price}
             totalDownloads={card.downloads}
+            loading={dubaiLoading}
             optionsDropdownLeft={DropdownData}
             optionsDropdownRight={DropdownData}
             computeReportResults={downloadReport}
@@ -71,6 +81,7 @@ export default function Report() {
             text={card.text}
             price={card.price}
             totalDownloads={card.downloads}
+            loading={dubaiLoading}
             optionsDropdownLeft={DropdownData}
             optionsDropdownRight={DropdownData}
           />
