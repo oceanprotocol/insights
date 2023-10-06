@@ -29,6 +29,7 @@
     "eslint-config-next": "13.1.6",
     "ethers": "5.7.2",
     "framer-motion": "^10.12.18",
+    "graphql": "^16.8.1",
     "i18next": "^22.4.13",
     "magic-sdk": "17.1.4",
     "myetherwallet-blockies": "^0.1.1",
