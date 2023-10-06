@@ -2535,10 +2535,10 @@
     solidity-bytes-utils "^0.8.0"
     solidity-coverage "^0.7.17"
 
-"@oceanprotocol/lib@3.1.2":
-  version "3.1.2"
-  resolved "https://registry.yarnpkg.com/@oceanprotocol/lib/-/lib-3.1.2.tgz#b843dc4142426aa288bb9d01a01e9e074a5dfaa3"
-  integrity sha512-2sUwnSQZjoK46VNTfR9wMWVEk9NBIW6SBubfAFf2m/NBkR40pPesuGqo3rF+N54xIVgZCmoWEJYD/C8G9Pt1JA==
+"@oceanprotocol/lib@3.1.3-next.0":
+  version "3.1.3-next.0"
+  resolved "https://registry.yarnpkg.com/@oceanprotocol/lib/-/lib-3.1.3-next.0.tgz#c4831a23b50ddcbcf6c2e9f9538fb7527dae175b"
+  integrity sha512-dqxBbSOhnlXE7ZvZCPoNsc0DVTE67sUp+KTknAp5XxQW5LsxI4n3cbWoeb5+eEpZoyBpuNjx6BnjAbIN0WBvFw==
   dependencies:
     "@oceanprotocol/contracts" "^1.1.14"
     cross-fetch "^4.0.0"
