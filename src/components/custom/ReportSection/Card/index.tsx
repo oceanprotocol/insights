@@ -1,4 +1,4 @@
-import react, { ReactNode } from 'react';
+import react, { ReactNode, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import Image, { StaticImageData } from 'next/image';
 import cx from 'classnames';
@@ -16,12 +16,13 @@ type CardPropType = {
   text: string;
   price: string;
   totalDownloads: string;
-  loading: boolean
+  loading: boolean,
   optionsDropdownLeft?: DropdownData[];
   optionsDropdownRight?: DropdownData[];
-  computeReportResults?: (datasetDid: string, algoDid: string) => void;
+  computeReportResults?: (datasetDid: string, algoDid: string, cardId:number) => void;
   datasetDid?: string,
-  algorithmDid?: string
+  algorithmDid?: string,
+  outputMessage?:string
 };
 
 const Card = ({
@@ -36,17 +37,22 @@ const Card = ({
   optionsDropdownRight,
   computeReportResults,
   datasetDid,
-  algorithmDid
+  algorithmDid,
+  outputMessage
 }: CardPropType) => {
   const { t } = useTranslation(['common']);
   const handleClick = () => {
-    computeReportResults && computeReportResults(datasetDid, algorithmDid)
+    computeReportResults && computeReportResults(datasetDid, algorithmDid, id)
   };
-  
   function LoaderArea() {
     return (
       <div className={styles.loaderWrap}>
         <Loader />
+        <div
+          className={cx(styles.text, 'play12 d-flex justify-content-center')}
+        >
+            {outputMessage}
+        </div>
       </div>
     )
   }
@@ -61,11 +67,20 @@ const Card = ({
           <Image src={imageSrc} alt={title} className={cx(styles.image)} />
           <div className={cx(styles.text, 'play10 text-justify')}>{text}</div>
           <div className="d-flex flex-row justify-content-center">
+          {optionsDropdownLeft ? (
             <Dropdown placeholder="Location" options={optionsDropdownLeft} />
+            ):
+            (<p></p>)
+          }
+          {
+          optionsDropdownRight ? (
             <Dropdown placeholder="Location" options={optionsDropdownRight} />
+            ):
+            (<p></p>)
+          }
           </div>
-          { loading ? (
-              <LoaderArea />
+          {loading ? (
+              <LoaderArea  />
             ) : (
           <div className="d-flex flex-row justify-content-end align-items-center">
             <div className="playb15 me-2">{price}</div>

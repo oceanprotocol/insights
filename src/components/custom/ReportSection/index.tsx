@@ -14,29 +14,54 @@ export default function Report() {
   const { DubaiCardData, TwitterCardData } = useData();
   const {chain} = useNetwork()
   const { data: signer } = useSigner()
-  const [dubaiLoading, setDubaiLoading] = useState(false)
-  const [twitterLoading, setTwitterLoading] = useState(false)
   const { DropdownData } = useOptionsDropdown();
   const { t } = useTranslation(['common']);
+  const initialStatesLoading = {};
+  const initialStatesMessages = {};
+  DubaiCardData.forEach((dataItem) => {
+    initialStatesLoading['dubaiLoading'+dataItem.id] = false;
+    initialStatesMessages['dubaiMessage'+dataItem.id] = '';
 
-  async function downloadReport(datasetDid: string, algoDid: string) {
-    setDubaiLoading(true)
+  });
+  const [loadingStates, setLoadingStates] = useState(initialStatesLoading);
+  const [messagesStates, setMessagesStates] = useState(initialStatesMessages);
+
+  const toggleCardState = (id:number) => {
+    setLoadingStates((prevState) => ({
+      ...prevState,
+      ['dubaiLoading'+id]: !prevState['dubaiLoading'+id],
+    }));
+  };
+
+  const updateCardMessage = (id:number, message:string) => {
+    setMessagesStates((prevState) => ({
+      ...prevState,
+      ['dubaiMessage'+id]: message,
+    }));
+  };
+
+  async function downloadReport(datasetDid: string, algoDid: string, cardId: number) {
+    toggleCardState(cardId)
     try{
+      updateCardMessage(cardId, 'Ordering dataset & algorithm and starting compute job!')
       const jobId = await startComputeJob(datasetDid, algoDid, chain?.id, signer)
       console.log('Compute job started: ',jobId)
+      updateCardMessage(cardId, `Compute job started: ${jobId} , Running algorithm ...`)
       const jobFinished = await waitForJobToFinish(datasetDid, jobId, chain?.id, signer)
       console.log('Job finished: ',jobFinished)
+      updateCardMessage(cardId, `Compute job finished!`)
       for (let index = 0; index < jobFinished.results.length; index++) {
         const file = jobFinished.results[index];
         if(file.type === 'output'){
+          updateCardMessage(cardId, ` Downloading results ...`)
           await downloadJobResults(jobId, index, chain?.id, signer)
-          setDubaiLoading(false)
+          toggleCardState(cardId)
         }
       }
     }catch(error){
       LoggerInstance.error('[start compute job] ',error.message)
       toast.error(`Download report error]: ${error.message}`)
-      setDubaiLoading(false)
+      toggleCardState(cardId)
     }
 
   }
@@ -53,12 +78,13 @@ export default function Report() {
             text={card.text}
             price={card.price}
             totalDownloads={card.downloads}
-            loading={dubaiLoading}
-            optionsDropdownLeft={DropdownData}
-            optionsDropdownRight={DropdownData}
+            loading={loadingStates['dubaiLoading'+card.id]}
+            optionsDropdownLeft={null}
+            optionsDropdownRight={null}
             computeReportResults={downloadReport}
             datasetDid={card.datasetDid}
             algorithmDid={card.algoDid}
+            outputMessage={messagesStates['dubaiMessage'+card.id]}
           />
         ))}
       </div>
@@ -82,9 +108,10 @@ export default function Report() {
             text={card.text}
             price={card.price}
             totalDownloads={card.downloads}
-            loading={twitterLoading}
+            loading={false}
             optionsDropdownLeft={DropdownData}
             optionsDropdownRight={DropdownData}
+            outputMessage={'Preparing stuff'}
           />
         ))}
       </div>
