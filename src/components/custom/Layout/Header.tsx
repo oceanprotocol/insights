@@ -3,9 +3,7 @@ import { NextPage } from "next";
 import Image from "next/image";
 import { useTranslation } from "react-i18next";
 import cx from "classnames";
-
 import styles from "./styles.module.scss";
-
 import Button from "../Button";
 import profile from "../../../assets/profile.svg";
 import cart from "../../../assets/cartHeader.svg";
@@ -13,21 +11,19 @@ import logo from "../../../assets/logo.svg";
 import Wallet from "../Wallet";
 import Networks from "../Networks";
 import config from "../../../../config";
-import { useUser } from '../../../shared/@ocean/context/UserContext';
+
 import ConnectButton from '../ConnectButton';
-import WalletDetail from '../WalletDetail';
-import SignMessage from '../SignMessage';
 import DisconnectButton from '../DisconnectButton';
 import ShowUIButton from '../ShowUIButton';
 
 const Navigation = () => {
   const Profile = config.routes.profile;
-  const { user } = useUser();
 
   return (
     <div className="d-flex flex-column flex-md-row align-center">
       <div>
-        {!user ? (
+        {!true ? (
+          // update this logic with connect state
           <ConnectButton />
         ) : (
           <div className="d-flex flex-row align-center h-100">
