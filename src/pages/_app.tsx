@@ -14,7 +14,7 @@ import MarketMetadataProvider from '../shared/@ocean/context/MarketMetadata';
 
 export function App({ Component, pageProps }: AppProps) {
   return (
-        <WagmiConfig client={wagmiClient}>
+        <WagmiConfig config={wagmiClient}>
           <ConnectKitProvider theme="auto" mode="dark">
             <MarketMetadataProvider>
               <UrqlProvider>

@@ -1,27 +1,40 @@
 import { LoggerInstance } from "@oceanprotocol/lib";
-import { createClient, erc20ABI } from "wagmi";
-import {
-	mainnet,
-	polygon,
-	bsc,
-	goerli,
-	polygonMumbai,
-	sepolia,
-} from "wagmi/chains";
-import { ethers, Contract } from "ethers";
-import { formatEther } from "ethers/lib/utils";
-import { getDefaultClient } from "connectkit";
+import { PublicClient, configureChains, createConfig, erc20ABI } from "wagmi";
+import { mainnet, polygon, polygonMumbai, sepolia } from "wagmi/chains";
+import { publicProvider } from "wagmi/providers/public";
+import { ethers, Contract, formatEther } from "ethers";
 
-// Wagmi client
-export const wagmiClient = createClient(
-	getDefaultClient({
-		appName: "Ocean Insight",
-		infuraId: process.env.NEXT_PUBLIC_INFURA_PROJECT_ID,
-		// TODO: mapping between appConfig.chainIdsSupported and wagmi chainId
-		chains: [mainnet, polygon, goerli, polygonMumbai, sepolia],
-		walletConnectProjectId: "9cd1211232ee69f08cccd32310a48fb9",
-	})
+import { DedicatedWalletConnector } from "@magiclabs/wagmi-connector";
+
+const { chains, publicClient, webSocketPublicClient } = configureChains(
+	[mainnet, polygon, polygonMumbai, sepolia],
+	[publicProvider()]
 );
+
+export const wagmiClient = createConfig({
+	autoConnect: true,
+	publicClient,
+	webSocketPublicClient,
+	connectors: [
+		new DedicatedWalletConnector({
+			chains,
+			options: {
+				apiKey: "pk_live_D34413A845CE453E",
+				isDarkMode: true,
+				/* Make sure to enable OAuth options from magic dashboard */
+				oauthOptions: {
+					providers: ["google", "twitter", "github"],
+				},
+				magicSdkConfiguration: {
+					network: {
+						rpcUrl: "https://rpc.ankr.com/eth",
+						chainId: 1,
+					},
+				},
+			},
+		}),
+	],
+});
 
 // ConnectKit CSS overrides
 // https://docs.family.co/connectkit/theming#theme-variables
@@ -49,7 +62,7 @@ export async function getTokenBalance(
 	accountId: string,
 	decimals: number,
 	tokenAddress: string,
-	web3Provider: ethers.providers.Provider
+	web3Provider: ethers.Provider
 ): Promise<string | undefined> {
 	if (!web3Provider || !accountId || !tokenAddress) return;
 
@@ -58,6 +71,7 @@ export async function getTokenBalance(
 		const balance = await token.balanceOf(accountId);
 
 		const adjustedDecimalsBalance = `${balance}${"0".repeat(18 - decimals)}`;
+
 		return formatEther(adjustedDecimalsBalance);
 	} catch (e: any) {
 		LoggerInstance.error(`ERROR: Failed to get the balance: ${e.message}`);

@@ -6,14 +6,15 @@ import Card from './Card/index';
 import useData, { CardPropType } from './Card/useData';
 import useOptionsDropdown from './Dropdown/DropdownData';
 import { downloadJobResults,  startComputeJob, waitForJobToFinish } from '@/shared/@ocean/utils/computeToData';
-import { useNetwork, useSigner } from 'wagmi';
+import { useNetwork, useWalletClient } from 'wagmi';
 import { LoggerInstance } from '@oceanprotocol/lib';
 import { toast } from 'react-toastify'
+import { walletClientToSigner } from '@/shared/utilities/wallet/ethersSigner';
 
 export default function Report() {
   const { DubaiCardData, TwitterCardData } = useData();
   const {chain} = useNetwork()
-  const { data: signer } = useSigner()
+  const { data: walletClient } = useWalletClient()
   const { DropdownData } = useOptionsDropdown();
   const { t } = useTranslation(['common']);
   const initialStatesLoading = {};
@@ -23,6 +24,7 @@ export default function Report() {
     initialStatesMessages['dubaiMessage'+dataItem.id] = '';
 
   });
+  const signer = walletClientToSigner(walletClient)
   const [loadingStates, setLoadingStates] = useState(initialStatesLoading);
   const [messagesStates, setMessagesStates] = useState(initialStatesMessages);
 
