@@ -39,7 +39,7 @@ export function getDevelopmentConfig(): Config {
  */
 export async function getPaymentCollector(
 	dtAddress: string,
-	provider: ethers.Provider
+	provider: ethers.providers.Provider
 ): Promise<string> {
 	const dtContract = new ethers.Contract(dtAddress, abiDatatoken.abi, provider);
 	const paymentCollector = await dtContract.getPaymentCollector();

@@ -1,20 +1,17 @@
 import * as React from "react";
 import { type WalletClient, useWalletClient } from "wagmi";
-import { BrowserProvider, JsonRpcSigner } from "ethers";
+import { providers } from "ethers";
 
 export function walletClientToSigner(walletClient: WalletClient) {
-	if (walletClient) {
-		const { account, chain, transport } = walletClient;
-		const network = {
-			chainId: chain.id,
-			name: chain.name,
-			ensAddress: chain.contracts?.ensRegistry?.address,
-		};
-		const provider = new BrowserProvider(transport, network);
-		const signer = new JsonRpcSigner(provider, account.address);
-		return signer;
-	}
-	return null;
+	const { account, chain, transport } = walletClient;
+	const network = {
+		chainId: chain.id,
+		name: chain.name,
+		ensAddress: chain.contracts?.ensRegistry?.address,
+	};
+	const provider = new providers.Web3Provider(transport, network);
+	const signer = provider.getSigner(account.address);
+	return signer;
 }
 
 /** Hook to convert a viem Wallet Client to an ethers.js Signer. */

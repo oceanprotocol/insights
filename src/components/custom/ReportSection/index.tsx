@@ -9,7 +9,7 @@ import { downloadJobResults,  startComputeJob, waitForJobToFinish } from '@/shar
 import { useNetwork, useWalletClient } from 'wagmi';
 import { LoggerInstance } from '@oceanprotocol/lib';
 import { toast } from 'react-toastify'
-import { walletClientToSigner } from '@/shared/utilities/wallet/ethersSigner';
+import { useEthersSigner, walletClientToSigner } from '@/shared/utilities/wallet/ethersSigner';
 
 export default function Report() {
   const { DubaiCardData, TwitterCardData } = useData();
@@ -24,7 +24,7 @@ export default function Report() {
     initialStatesMessages['dubaiMessage'+dataItem.id] = '';
 
   });
-  const signer = walletClientToSigner(walletClient)
+  const signer = useEthersSigner()
   const [loadingStates, setLoadingStates] = useState(initialStatesLoading);
   const [messagesStates, setMessagesStates] = useState(initialStatesMessages);
 

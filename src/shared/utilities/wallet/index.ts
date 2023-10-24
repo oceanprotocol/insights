@@ -62,7 +62,7 @@ export async function getTokenBalance(
 	accountId: string,
 	decimals: number,
 	tokenAddress: string,
-	web3Provider: ethers.Provider
+	web3Provider: ethers.providers.Provider
 ): Promise<string | undefined> {
 	if (!web3Provider || !accountId || !tokenAddress) return;
 
