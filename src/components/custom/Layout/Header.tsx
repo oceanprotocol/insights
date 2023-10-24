@@ -15,15 +15,16 @@ import config from "../../../../config";
 import ConnectButton from '../ConnectButton';
 import DisconnectButton from '../DisconnectButton';
 import ShowUIButton from '../ShowUIButton';
+import { magic } from "@/shared/utilities/libs/magic";
+import { useIsMagicWalletConnected } from "@/shared/@ocean/hooks/magicHooks";
 
 const Navigation = () => {
   const Profile = config.routes.profile;
-
+  const isConnected = useIsMagicWalletConnected()
   return (
     <div className="d-flex flex-column flex-md-row align-center">
       <div>
-        {!true ? (
-          // update this logic with connect state
+        {!isConnected ? (
           <ConnectButton />
         ) : (
           <div className="d-flex flex-row align-center h-100">

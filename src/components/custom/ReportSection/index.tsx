@@ -9,7 +9,7 @@ import { downloadJobResults,  startComputeJob, waitForJobToFinish } from '@/shar
 import { useNetwork, useWalletClient } from 'wagmi';
 import { LoggerInstance } from '@oceanprotocol/lib';
 import { toast } from 'react-toastify'
-import { useEthersSigner, walletClientToSigner } from '@/shared/utilities/wallet/ethersSigner';
+import { useEthersSigner } from '@/shared/utilities/wallet/ethersSigner';
 
 export default function Report() {
   const { DubaiCardData, TwitterCardData } = useData();

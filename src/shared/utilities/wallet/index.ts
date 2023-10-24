@@ -2,7 +2,8 @@ import { LoggerInstance } from "@oceanprotocol/lib";
 import { PublicClient, configureChains, createConfig, erc20ABI } from "wagmi";
 import { mainnet, polygon, polygonMumbai, sepolia } from "wagmi/chains";
 import { publicProvider } from "wagmi/providers/public";
-import { ethers, Contract, formatEther } from "ethers";
+import { ethers, Contract } from "ethers";
+import { formatEther } from "ethers/lib/utils";
 
 import { DedicatedWalletConnector } from "@magiclabs/wagmi-connector";
 
