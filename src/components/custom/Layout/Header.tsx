@@ -13,28 +13,21 @@ import Networks from "../Networks";
 import config from "../../../../config";
 
 import ConnectButton from '../ConnectButton';
-import DisconnectButton from '../DisconnectButton';
-import ShowUIButton from '../ShowUIButton';
-import { magic } from "@/shared/utilities/libs/magic";
-import { useIsMagicWalletConnected } from "@/shared/@ocean/hooks/magicHooks";
+import { useAccount } from "wagmi";
 
 const Navigation = () => {
   const Profile = config.routes.profile;
-  const isConnected = useIsMagicWalletConnected()
+  const { isConnected } = useAccount();
   return (
     <div className="d-flex flex-column flex-md-row align-center">
       <div>
         {!isConnected ? (
           <ConnectButton />
         ) : (
-          <div className="d-flex flex-row align-center h-100">
-            <DisconnectButton />
-            <ShowUIButton />
-          </div>
+          <Wallet />
         )}
       </div>
       <Networks />
-      {/* <Wallet /> */}
       <div className="d-flex flex-row align-center order-0 order-md-1">
         <Button
           className="me-3 bg-transparent border-0 d-flex align-items-center"

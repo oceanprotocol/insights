@@ -72,7 +72,7 @@ export default function Details(): ReactElement {
               className={cs(styles.magentaText, 'clean-empty-button')}
               onClick={() => {
                 disconnect();
-                location.reload();
+                // location.reload();
               }}
             >
               Disconnect

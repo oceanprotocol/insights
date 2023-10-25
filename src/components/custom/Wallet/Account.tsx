@@ -31,7 +31,7 @@ export default function Account({ mobile }: AccountPropType): ReactElement {
     setOpen(true);
   }
 
-  return accountId ? (
+  return accountId && (
     <button
       className={styles.button}
       aria-label="Account"
@@ -57,12 +57,5 @@ export default function Account({ mobile }: AccountPropType): ReactElement {
         />
       )}
     </button>
-  ) : (
-    <button
-      className={`${styles.button} ${styles.initial} ${styles.connect} h-100`}
-      onClick={(e) => handleActivation(e)}
-    >
-      Connect <span className="ms-1">Wallet</span>
-    </button>
-  );
+  )
 }
