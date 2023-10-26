@@ -20,8 +20,8 @@ export default function Account({ mobile }: AccountPropType): ReactElement {
   const { address: accountId } = useAccount();
   const { data: accountEns } = useEnsName({ address: accountId, chainId: 1 });
   const { data: accountEnsAvatar } = useEnsAvatar({
-    address: accountId,
     chainId: 1,
+    name: accountId
   });
   const { setOpen } = useModal();
 
