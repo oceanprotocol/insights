@@ -4,7 +4,7 @@ import cx from 'classnames';
 import styles from './styles.module.scss';
 import Card from './Card/index';
 import useData, { CardPropType } from './Card/useData';
-import useOptionsDropdown from './Dropdown/DropdownData';
+import {useOptionsDropdown, useImageProcessing} from './Dropdown/DropdownData';
 import { downloadJobResults,  startComputeJob, waitForJobToFinish } from '@/shared/@ocean/utils/computeToData';
 import { useNetwork, useWalletClient } from 'wagmi';
 import { LoggerInstance } from '@oceanprotocol/lib';
@@ -16,6 +16,7 @@ export default function Report() {
   const {chain} = useNetwork()
   const { data: walletClient } = useWalletClient()
   const { DropdownData } = useOptionsDropdown();
+  const { ImageDataDropdown} = useImageProcessing();
   const { t } = useTranslation(['common']);
   const initialStatesLoading = {};
   const initialStatesMessages = {};
@@ -111,8 +112,8 @@ export default function Report() {
             price={card.price}
             totalDownloads={card.downloads}
             loading={false}
-            optionsDropdownLeft={DropdownData}
-            optionsDropdownRight={DropdownData}
+            optionsDropdownLeft={null}
+            optionsDropdownRight={ImageDataDropdown}
             outputMessage={'Preparing stuff'}
           />
         ))}

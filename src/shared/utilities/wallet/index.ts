@@ -1,5 +1,11 @@
 import { LoggerInstance } from "@oceanprotocol/lib";
-import { PublicClient, configureChains, createConfig, erc20ABI } from "wagmi";
+import {
+	Connector,
+	PublicClient,
+	configureChains,
+	createConfig,
+	erc20ABI,
+} from "wagmi";
 import { mainnet, polygon, polygonMumbai, sepolia } from "wagmi/chains";
 import { publicProvider } from "wagmi/providers/public";
 import { ethers, Contract } from "ethers";
@@ -24,7 +30,6 @@ export const wagmiClient = createConfig({
 			chains,
 			options: {
 				apiKey: "pk_live_D34413A845CE453E",
-				isDarkMode: true,
 				/* Make sure to enable OAuth options from magic dashboard */
 				networks: [
 					{
@@ -52,7 +57,7 @@ export const wagmiClient = createConfig({
 					extensions: true,
 				},
 			},
-		}),
+		}) as unknown as Connector,
 	],
 });
 

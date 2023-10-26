@@ -59,11 +59,11 @@ export default function useData() {
 		() => [
 			{
 				id: 1,
-				title: "Sentiment Analysis",
+				title: "Image proccessiong",
 				image: sentimentImg,
 				text: "This algorithm classifies tweets as positive, negative, or neutral based on their content and context. It is a simple yet effective algorithm that uses probabilities to make predictions.",
-				price: "15.98 OCEAN",
-				downloads: "500",
+				price: "0 OCEAN",
+				downloads: "10",
 			},
 			{
 				id: 2,
@@ -72,14 +72,6 @@ export default function useData() {
 				text: "This algorithm is a popular choice for sentiment analysis, as it can classify tweets as positive or negative with high accuracy. SVM is a supervised learning algorithm that uses a training dataset to create a decision boundary that separates the positive and negative tweets.",
 				price: "76.48 OCEAN",
 				downloads: "650",
-			},
-			{
-				id: 3,
-				title: "Convolutional Neural",
-				image: mediaImg,
-				text: "This algorithm is a deep learning model that can identify and extract complex features from text data. It has been shown to perform well in sentiment analysis tasks by learning patterns in the data and making accurate predictions.",
-				price: "98.25 OCEAN",
-				downloads: "125",
 			},
 		],
 		[]

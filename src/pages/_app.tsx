@@ -1,7 +1,6 @@
 import React from 'react';
 import type { AppProps } from 'next/app';
 import { appWithTranslation } from "next-i18next";
-import { ConnectKitProvider } from 'connectkit';
 import { WagmiConfig } from 'wagmi';
 
 import '../styles/globals.scss';
@@ -15,7 +14,6 @@ import MarketMetadataProvider from '../shared/@ocean/context/MarketMetadata';
 export function App({ Component, pageProps }: AppProps) {
   return (
         <WagmiConfig config={wagmiClient}>
-          <ConnectKitProvider theme="auto" mode="dark">
             <MarketMetadataProvider>
               <UrqlProvider>
                 <UserPreferencesProvider>
@@ -25,7 +23,6 @@ export function App({ Component, pageProps }: AppProps) {
                 </UserPreferencesProvider>
               </UrqlProvider>
             </MarketMetadataProvider>
-          </ConnectKitProvider>
         </WagmiConfig>
   );
 }

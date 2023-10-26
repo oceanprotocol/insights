@@ -1,7 +1,6 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useDisconnect, useAccount, useConnect } from 'wagmi';
-import { useModal } from 'connectkit';
 import cs from 'classnames';
 import styles from './Details.module.scss';
 import Button from '../Button';
@@ -15,7 +14,6 @@ import useBalance from '../../../shared/@ocean/hooks/useBalance';
 export default function Details(): ReactElement {
   const { connector: activeConnector } = useAccount();
   const { connect } = useConnect();
-  const { setOpen } = useModal();
   const { disconnect } = useDisconnect();
   const { balance } = useBalance();
 
@@ -63,7 +61,6 @@ export default function Details(): ReactElement {
               className={cs(styles.magentaText, 'clean-empty-button')}
               onClick={async () => {
                 connect();
-                setOpen(true);
               }}
             >
               Switch Wallet
