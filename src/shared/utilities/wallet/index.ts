@@ -5,7 +5,10 @@ import { publicProvider } from "wagmi/providers/public";
 import { ethers, Contract } from "ethers";
 import { formatEther } from "ethers/lib/utils";
 
-import { DedicatedWalletConnector } from "@magiclabs/wagmi-connector";
+import {
+	DedicatedWalletConnector,
+	UniversalWalletConnector,
+} from "@magiclabs/wagmi-connector";
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
 	[mainnet, polygon, polygonMumbai, sepolia],
@@ -17,20 +20,36 @@ export const wagmiClient = createConfig({
 	publicClient,
 	webSocketPublicClient,
 	connectors: [
-		new DedicatedWalletConnector({
+		new UniversalWalletConnector({
 			chains,
 			options: {
 				apiKey: "pk_live_D34413A845CE453E",
 				isDarkMode: true,
 				/* Make sure to enable OAuth options from magic dashboard */
-				oauthOptions: {
-					providers: ["google", "twitter", "github"],
-				},
-				magicSdkConfiguration: {
-					network: {
-						rpcUrl: "https://rpc.ankr.com/eth",
+				networks: [
+					{
+						rpcUrl: "https://mainnet.infura.io/v3",
 						chainId: 1,
 					},
+					{
+						rpcUrl: "https://polygon-rpc.com",
+						chainId: 137,
+					},
+					{
+						rpcUrl: "https://rpc-mumbai.maticvigil.com",
+						chainId: 80001,
+					},
+					{
+						rpcUrl: "https://sepolia.infura.io/v3",
+						chainId: 11155111,
+					},
+				],
+				magicSdkConfiguration: {
+					network: {
+						rpcUrl: "https://rpc-mumbai.maticvigil.com",
+						chainId: 80001,
+					},
+					extensions: true,
 				},
 			},
 		}),

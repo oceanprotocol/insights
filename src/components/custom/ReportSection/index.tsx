@@ -43,8 +43,6 @@ export default function Report() {
   };
 
   async function downloadReport(datasetDid: string, algoDid: string, cardId: number) {
-    console.log("signer ++ ",signer)
-    console.log("chain?.id ",chain?.id)
     toggleCardState(cardId)
     try{
       updateCardMessage(cardId, 'Ordering dataset & algorithm and starting compute job!')
