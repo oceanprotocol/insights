@@ -19,7 +19,7 @@ const Address: NextPage = () => {
   const { address } = useAccount();
 
   const { data: accountEnsAvatar } = useEnsAvatar({
-    address: address,
+    name: address,
     chainId: 1,
   });
 
