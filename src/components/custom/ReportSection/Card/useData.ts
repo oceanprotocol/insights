@@ -73,6 +73,14 @@ export default function useData() {
 				price: "76.48 OCEAN",
 				downloads: "650",
 			},
+			{
+				id: 3,
+				title: "Convolutional Neural",
+				image: mediaImg,
+				text: "This algorithm is a deep learning model that can identify and extract complex features from text data. It has been shown to perform well in sentiment analysis tasks by learning patterns in the data and making accurate predictions.",
+				price: "98.25 OCEAN",
+				downloads: "125",
+			},
 		],
 		[]
 	);

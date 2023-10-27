@@ -10,10 +10,11 @@ import CoinbaseLogo from '../../../assets/coinbase-wallet-logo.svg';
 import { formatNumber } from '../../../shared/utilities/format';
 import BigNumber from 'bignumber.js';
 import useBalance from '../../../shared/@ocean/hooks/useBalance';
+import { truncateWalletAddress } from '@/shared/utilities/truncateAddress';
 
 export default function Details(): ReactElement {
-  const { connector: activeConnector } = useAccount();
-  const { connect } = useConnect();
+  const { connect, connectors } = useConnect();
+  const { connector: activeConnector, address} = useAccount();
   const { disconnect } = useDisconnect();
   const { balance } = useBalance();
 
@@ -55,13 +56,16 @@ export default function Details(): ReactElement {
               )}
               {activeConnector?.name.replace('Legacy', '')}
             </span>
+            <span className={styles.address} onClick={()=>{navigator.clipboard.writeText(address);}}>
+                {truncateWalletAddress(address || '', (address)? 4: 0)}
+            </span> 
           </div>
           <p>
             <Button
               className={cs(styles.magentaText, 'clean-empty-button')}
               onClick={async () => {
-                connect();
-              }}
+                connect({ connector: connectors[0] })}
+              }
             >
               Switch Wallet
             </Button>

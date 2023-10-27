@@ -1,20 +1,11 @@
 import { LoggerInstance } from "@oceanprotocol/lib";
-import {
-	Connector,
-	PublicClient,
-	configureChains,
-	createConfig,
-	erc20ABI,
-} from "wagmi";
+import { Connector, configureChains, createConfig, erc20ABI } from "wagmi";
 import { mainnet, polygon, polygonMumbai, sepolia } from "wagmi/chains";
 import { publicProvider } from "wagmi/providers/public";
 import { ethers, Contract } from "ethers";
 import { formatEther } from "ethers/lib/utils";
 
-import {
-	DedicatedWalletConnector,
-	UniversalWalletConnector,
-} from "@magiclabs/wagmi-connector";
+import { UniversalWalletConnector } from "@magiclabs/wagmi-connector";
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
 	[mainnet, polygon, polygonMumbai, sepolia],
@@ -29,7 +20,7 @@ export const wagmiClient = createConfig({
 		new UniversalWalletConnector({
 			chains,
 			options: {
-				apiKey: "pk_live_D34413A845CE453E",
+				apiKey: "pk_live_0E5D589855DCF6D3",
 				/* Make sure to enable OAuth options from magic dashboard */
 				networks: [
 					{
