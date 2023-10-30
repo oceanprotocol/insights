@@ -1,4 +1,4 @@
-import react, { ReactNode } from 'react';
+import react, { ReactNode, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import Image, { StaticImageData } from 'next/image';
 import cx from 'classnames';
@@ -7,6 +7,7 @@ import styles from './styles.module.scss';
 
 import { DropdownData } from '../Dropdown/DropdownData';
 import Dropdown from '../Dropdown/index';
+import Loader from '../../Loader';
 
 type CardPropType = {
   id: number;
@@ -15,8 +16,13 @@ type CardPropType = {
   text: string;
   price: string;
   totalDownloads: string;
-  optionsDropdownLeft: DropdownData[];
-  optionsDropdownRight: DropdownData[];
+  loading: boolean,
+  optionsDropdownLeft?: DropdownData[];
+  optionsDropdownRight?: DropdownData[];
+  computeReportResults?: (datasetDid: string, algoDid: string, cardId:number) => void;
+  datasetDid?: string,
+  algorithmDid?: string,
+  outputMessage?:string
 };
 
 const Card = ({
@@ -26,10 +32,31 @@ const Card = ({
   text,
   price,
   totalDownloads,
+  loading,
   optionsDropdownLeft,
   optionsDropdownRight,
+  computeReportResults,
+  datasetDid,
+  algorithmDid,
+  outputMessage
 }: CardPropType) => {
   const { t } = useTranslation(['common']);
+  const handleClick = () => {
+    computeReportResults && computeReportResults(datasetDid, algorithmDid, id)
+  };
+  function LoaderArea() {
+    return (
+      <div className={styles.loaderWrap}>
+        <Loader />
+        <div
+          className={cx(styles.text, 'play12 d-flex justify-content-center')}
+        >
+            {outputMessage}
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div key={id}>
       <div className="play30 text-white mx-3 mb-3 mb-md-0 d-flex justify-content-center">
@@ -40,15 +67,28 @@ const Card = ({
           <Image src={imageSrc} alt={title} className={cx(styles.image)} />
           <div className={cx(styles.text, 'play10 text-justify')}>{text}</div>
           <div className="d-flex flex-row justify-content-center">
+          {optionsDropdownLeft ? (
             <Dropdown placeholder="Location" options={optionsDropdownLeft} />
+            ):
+            (<p></p>)
+          }
+          {
+          optionsDropdownRight ? (
             <Dropdown placeholder="Location" options={optionsDropdownRight} />
+            ):
+            (<p></p>)
+          }
           </div>
+          {loading ? (
+              <LoaderArea  />
+            ) : (
           <div className="d-flex flex-row justify-content-end align-items-center">
             <div className="playb15 me-2">{price}</div>
-            <button className={cx(styles.button, 'play15')}>
-              {t('buttonDownload')}
+            <button className={cx(styles.button, 'play15')}  onClick={handleClick}>
+              {t('buttonDownload')} 
             </button>
-          </div>
+          </div>)
+          }
           <div
             className={cx(styles.download, 'play12 d-flex justify-content-end')}
           >
@@ -58,6 +98,7 @@ const Card = ({
       </div>
     </div>
   );
+
 };
 
 export default Card;
