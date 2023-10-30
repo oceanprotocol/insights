@@ -3,10 +3,10 @@ import { useTranslation } from "react-i18next";
 
 import priceImg from "../../../../assets/priceImg.svg";
 import rateImg from "../../../../assets/rateImg.svg";
+import imageProcessingImg from "../../../../assets/imageProcessing.svg";
+import videoProcessingImg from "../../../../assets/videoProcessing.svg";
 import costumerImg from "../../../../assets/costumerImg.svg";
-import sentimentImg from "../../../../assets/sentimentImg.svg";
-import supportImg from "../../../../assets/supportImg.svg";
-import mediaImg from "../../../../assets/mediaImg.svg";
+import pdfImg from "../../../../assets/pdf.svg";
 import { StaticImageData } from "next/image";
 
 export type CardPropType = {
@@ -55,29 +55,29 @@ export default function useData() {
 		],
 		[]
 	);
-	const TwitterCardData: CardPropType[] = useMemo(
+	const AlgoProcessingCardData: CardPropType[] = useMemo(
 		() => [
 			{
 				id: 1,
-				title: "Sentiment Analysis",
-				image: sentimentImg,
-				text: "This algorithm classifies tweets as positive, negative, or neutral based on their content and context. It is a simple yet effective algorithm that uses probabilities to make predictions.",
+				title: "Image Processing",
+				image: imageProcessingImg,
+				text: "This algorithm applies filters on an image dataset, such as: blur, grayscale, unsharp mask.",
 				price: "15.98 OCEAN",
 				downloads: "500",
 			},
 			{
 				id: 2,
-				title: "Support Vector Machine",
-				image: supportImg,
-				text: "This algorithm is a popular choice for sentiment analysis, as it can classify tweets as positive or negative with high accuracy. SVM is a supervised learning algorithm that uses a training dataset to create a decision boundary that separates the positive and negative tweets.",
+				title: "Face Detection",
+				image: videoProcessingImg,
+				text: "This algorithm detects human faces from a video dataset.",
 				price: "76.48 OCEAN",
 				downloads: "650",
 			},
 			{
 				id: 3,
-				title: "Convolutional Neural",
-				image: mediaImg,
-				text: "This algorithm is a deep learning model that can identify and extract complex features from text data. It has been shown to perform well in sentiment analysis tasks by learning patterns in the data and making accurate predictions.",
+				title: "PDF Generator over Stock Data",
+				image: pdfImg,
+				text: "This algorithm generates a PDF report over stock market data from previous day.",
 				price: "98.25 OCEAN",
 				downloads: "125",
 			},
@@ -85,5 +85,5 @@ export default function useData() {
 		[]
 	);
 
-	return { DubaiCardData, TwitterCardData };
+	return { DubaiCardData, AlgoProcessingCardData };
 }

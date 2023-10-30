@@ -11,7 +11,7 @@ import { LoggerInstance } from '@oceanprotocol/lib';
 import { toast } from 'react-toastify'
 
 export default function Report() {
-  const { DubaiCardData, TwitterCardData } = useData();
+  const { DubaiCardData, AlgoProcessingCardData } = useData();
   const {chain} = useNetwork()
   const { data: signer } = useSigner()
   const { DropdownData } = useOptionsDropdown();
@@ -90,7 +90,7 @@ export default function Report() {
       </div>
       <div>
         <div className={cx(styles.margin, 'play40 text-white text-center')}>
-          {t('titleTwitter')}
+          {t('titleProcessingAlgos')}
         </div>
         <div
           className={cx(styles.marginSubtitle, 'play20 text-white text-center')}
@@ -99,7 +99,7 @@ export default function Report() {
         </div>
       </div>
       <div className="d-flex flex-column flex-md-row justify-content-center align-items-center">
-        {TwitterCardData.map((card: CardPropType) => (
+        {AlgoProcessingCardData.map((card: CardPropType) => (
           <Card
             key={card.id}
             id={card.id}
