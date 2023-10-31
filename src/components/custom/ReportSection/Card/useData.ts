@@ -59,11 +59,11 @@ export default function useData() {
 		() => [
 			{
 				id: 1,
-				title: "Sentiment Analysis",
+				title: "Image proccessiong",
 				image: sentimentImg,
 				text: "This algorithm classifies tweets as positive, negative, or neutral based on their content and context. It is a simple yet effective algorithm that uses probabilities to make predictions.",
-				price: "15.98 OCEAN",
-				downloads: "500",
+				price: "0 OCEAN",
+				downloads: "10",
 			},
 			{
 				id: 2,

@@ -1,4 +1,4 @@
-import react, { ReactNode, useEffect } from 'react';
+import react, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Image, { StaticImageData } from 'next/image';
 import cx from 'classnames';
@@ -8,6 +8,7 @@ import styles from './styles.module.scss';
 import { DropdownData } from '../Dropdown/DropdownData';
 import Dropdown from '../Dropdown/index';
 import Loader from '../../Loader';
+import { UserCustomParameters } from '@oceanprotocol/lib';
 
 type CardPropType = {
   id: number;
@@ -19,7 +20,7 @@ type CardPropType = {
   loading: boolean,
   optionsDropdownLeft?: DropdownData[];
   optionsDropdownRight?: DropdownData[];
-  computeReportResults?: (datasetDid: string, algoDid: string, cardId:number) => void;
+  computeReportResults?: (datasetDid: string, algoDid: string, cardId:number, customParameter?:UserCustomParameters) => void;
   datasetDid?: string,
   algorithmDid?: string,
   outputMessage?:string
@@ -41,8 +42,20 @@ const Card = ({
   outputMessage
 }: CardPropType) => {
   const { t } = useTranslation(['common']);
+
+  const [selectedValue, setSelectedValue] = useState<UserCustomParameters>();
+
+  const handleDropdownSelect = (value:string) => {
+    const customParamKey = optionsDropdownRight?.[0].placeholder
+    const customParam = {
+      customParamKey : value
+    }
+    setSelectedValue(customParam);
+  };
+
+
   const handleClick = () => {
-    computeReportResults && computeReportResults(datasetDid, algorithmDid, id)
+    computeReportResults && computeReportResults(datasetDid, algorithmDid, id, selectedValue)
   };
   function LoaderArea() {
     return (
@@ -68,13 +81,13 @@ const Card = ({
           <div className={cx(styles.text, 'play10 text-justify')}>{text}</div>
           <div className="d-flex flex-row justify-content-center">
           {optionsDropdownLeft ? (
-            <Dropdown placeholder="Location" options={optionsDropdownLeft} />
+            <Dropdown placeholder={optionsDropdownLeft?.[0].placeholder || "Option" } options={optionsDropdownLeft} onSelect={handleDropdownSelect} />
             ):
             (<p></p>)
           }
           {
           optionsDropdownRight ? (
-            <Dropdown placeholder="Location" options={optionsDropdownRight} />
+            <Dropdown placeholder={optionsDropdownRight?.[0].placeholder || "Option" } options={optionsDropdownRight} onSelect={handleDropdownSelect} />
             ):
             (<p></p>)
           }

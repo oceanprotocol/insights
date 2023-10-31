@@ -3,11 +3,11 @@ import { LoggerInstance } from '@oceanprotocol/lib';
 import {
   useNetwork,
   useAccount,
-  useProvider,
   useBalance as useBalanceWagmi,
 } from 'wagmi';
 import { useMarketMetadata } from '../context/MarketMetadata';
 import { getTokenBalance } from '../../utilities/wallet';
+import { useEthersProvider } from '@/shared/utilities/wallet/ethersProvider';
 
 interface BalanceProviderValue {
   balance: UserBalance;
@@ -23,7 +23,8 @@ type ApprovedBaseTokensType = {
 function useBalance(): BalanceProviderValue {
   const { address } = useAccount();
   const { data: balanceNativeToken } = useBalanceWagmi({ address });
-  const web3provider = useProvider();
+  const web3provider = useEthersProvider()
+  
   const { chain } = useNetwork();
   const { approvedBaseTokens } = useMarketMetadata();
 

@@ -1,7 +1,6 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useDisconnect, useAccount, useConnect } from 'wagmi';
-import { useModal } from 'connectkit';
 import cs from 'classnames';
 import styles from './Details.module.scss';
 import Button from '../Button';
@@ -11,11 +10,11 @@ import CoinbaseLogo from '../../../assets/coinbase-wallet-logo.svg';
 import { formatNumber } from '../../../shared/utilities/format';
 import BigNumber from 'bignumber.js';
 import useBalance from '../../../shared/@ocean/hooks/useBalance';
+import { truncateWalletAddress } from '@/shared/utilities/truncateAddress';
 
 export default function Details(): ReactElement {
-  const { connector: activeConnector } = useAccount();
-  const { connect } = useConnect();
-  const { setOpen } = useModal();
+  const { connect, connectors } = useConnect();
+  const { connector: activeConnector, address} = useAccount();
   const { disconnect } = useDisconnect();
   const { balance } = useBalance();
 
@@ -57,14 +56,16 @@ export default function Details(): ReactElement {
               )}
               {activeConnector?.name.replace('Legacy', '')}
             </span>
+            <span className={styles.address} onClick={()=>{navigator.clipboard.writeText(address);}}>
+                {truncateWalletAddress(address || '', (address)? 4: 0)}
+            </span> 
           </div>
           <p>
             <Button
               className={cs(styles.magentaText, 'clean-empty-button')}
               onClick={async () => {
-                connect();
-                setOpen(true);
-              }}
+                connect({ connector: connectors[0] })}
+              }
             >
               Switch Wallet
             </Button>
@@ -72,7 +73,7 @@ export default function Details(): ReactElement {
               className={cs(styles.magentaText, 'clean-empty-button')}
               onClick={() => {
                 disconnect();
-                location.reload();
+                // location.reload();
               }}
             >
               Disconnect
