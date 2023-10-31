@@ -16,6 +16,7 @@ import {
 	getEventFromTx,
 	orderAsset,
 	sleep,
+	UserCustomParameters,
 } from "@oceanprotocol/lib";
 import { Signer } from "ethers";
 
@@ -23,7 +24,8 @@ export async function startComputeJob(
 	datasetDid: string,
 	algoDid: string,
 	chainId: number,
-	signer: Signer
+	signer: Signer,
+	consumerParams?: UserCustomParameters
 ): Promise<string> {
 	const config = new ConfigHelper().getConfig(chainId);
 
@@ -68,6 +70,7 @@ export async function startComputeJob(
 		{
 			documentId: dataDdo.id,
 			serviceId: dataDdo.services[0].id,
+			userdata: consumerParams?.dataServiceParams,
 		},
 	];
 
@@ -75,6 +78,7 @@ export async function startComputeJob(
 	const algo: ComputeAlgorithm = {
 		documentId: algoDdo.id,
 		serviceId: algoDdo.services[0].id,
+		algocustomdata: consumerParams?.algoParams,
 	};
 
 	const providerInitializeComputeJob = await ProviderInstance.initializeCompute(
