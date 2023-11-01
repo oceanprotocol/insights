@@ -75,10 +75,12 @@ export default function useData() {
 			},
 			{
 				id: 3,
-				title: "PDF Generator over Stock Data",
+				title: "Stock Report",
 				image: pdfImg,
 				text: "This algorithm generates a PDF report over stock market data from previous day.",
 				price: "98.25 OCEAN",
+				datasetDid: "did:op:5694ee61c517e9509df7640cbcabf71e77e6dfbee4e027488ae79f93a57e5cee",
+				algoDid: "did:op:6ec0c0927e3599fb0b02b395210c18e1fa1e73087d33310beea7d6d578137cc2",
 				downloads: "125",
 			},
 		],

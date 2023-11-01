@@ -98,17 +98,17 @@ export function useImageProcessing() {
 	const ImageDataDropdown = [
 		{
 			id: 1,
-			placeholder: "Option",
+			placeholder: "Image Filter",
 			name: "Blur",
 		},
 		{
 			id: 2,
-			placeholder: "Option",
-			name: "Sharp",
+			placeholder: "Image Filter",
+			name: "Unsharp Mask",
 		},
 		{
 			id: 3,
-			placeholder: "Option",
+			placeholder: "Image Filter",
 			name: "Grayscale",
 		},
 	];

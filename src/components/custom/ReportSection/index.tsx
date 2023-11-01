@@ -20,12 +20,19 @@ export default function Report() {
   const initialStatesLoading = {};
   const initialStatesMessages = {};
   const initialStatesDropdownRealEstate = {};
+  const initialStatesImageProcessingDropdown = {};
   DubaiCardData.forEach((dataItem) => {
     initialStatesLoading['dubaiLoading'+dataItem.id] = false;
     initialStatesMessages['dubaiMessage'+dataItem.id] = '';
     initialStatesDropdownRealEstate['dropdown'+dataItem.id] = DropdownData;
   });
+  AlgoProcessingCardData.forEach((dataItem) => {
+    initialStatesLoading['algoProcessingLoading'+dataItem.id] = false;
+    initialStatesMessages['algoProcessingMessage'+dataItem.id] = '';
+    initialStatesImageProcessingDropdown['dropdown'+dataItem.id] = DropdownData;
+  });
   initialStatesDropdownRealEstate['dropdown1'] = NrOfRoomsDataDropdown
+  initialStatesImageProcessingDropdown['dropdown1'] = ImageDataDropdown
   const signer = useEthersSigner()
   const [loadingStates, setLoadingStates] = useState(initialStatesLoading);
   const [messagesStates, setMessagesStates] = useState(initialStatesMessages);
@@ -104,20 +111,37 @@ export default function Report() {
       </div>
       <div className="d-flex flex-column flex-md-row justify-content-center align-items-center">
         {AlgoProcessingCardData.map((card: CardPropType) => (
-          <Card
-            key={card.id}
-            id={card.id}
-            title={card.title}
-            imageSrc={card.image}
-            text={card.text}
-            price={card.price}
-            totalDownloads={card.downloads}
-            loading={false}
-            optionsDropdownLeft={null}
-            optionsDropdownRight={ImageDataDropdown}
-            outputMessage={'Preparing stuff'}
-          />
-        ))}
+        card.id === 1 ? (
+            <Card
+              key={card.id}
+              id={card.id}
+              title={card.title}
+              imageSrc={card.image}
+              text={card.text}
+              price={card.price}
+              totalDownloads={card.downloads}
+              loading={false}
+              optionsDropdownLeft={null}
+              optionsDropdownRight={initialStatesImageProcessingDropdown['dropdown'+card.id]}
+              computeReportResults={downloadReport}
+              outputMessage={messagesStates['algoProcessingMessage'+card.id]}
+            />
+          ) : (
+            <Card
+              key={card.id}
+              id={card.id}
+              title={card.title}
+              imageSrc={card.image}
+              text={card.text}
+              price={card.price}
+              totalDownloads={card.downloads}
+              loading={false}
+              optionsDropdownLeft={null}
+              optionsDropdownRight={null}
+              computeReportResults={downloadReport}
+              outputMessage={messagesStates['algoProcessingMessage'+card.id]}
+            />
+          )))}
       </div>
     </div>
   );
