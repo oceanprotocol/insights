@@ -4,25 +4,29 @@ import cx from 'classnames';
 import styles from './styles.module.scss';
 import Card from './Card/index';
 import useData, { CardPropType } from './Card/useData';
-import useOptionsDropdown from './Dropdown/DropdownData';
+import {useOptionsDropdown, useImageProcessing} from './Dropdown/DropdownData';
 import { downloadJobResults,  startComputeJob, waitForJobToFinish } from '@/shared/@ocean/utils/computeToData';
-import { useNetwork, useSigner } from 'wagmi';
-import { LoggerInstance } from '@oceanprotocol/lib';
+import { useNetwork, useWalletClient } from 'wagmi';
+import { LoggerInstance, UserCustomParameters } from '@oceanprotocol/lib';
 import { toast } from 'react-toastify'
+import { useEthersSigner } from '@/shared/utilities/wallet/ethersSigner';
 
 export default function Report() {
   const { DubaiCardData, AlgoProcessingCardData } = useData();
   const {chain} = useNetwork()
-  const { data: signer } = useSigner()
-  const { DropdownData } = useOptionsDropdown();
+  const { DropdownData, NrOfRoomsDataDropdown } = useOptionsDropdown();
+  const { ImageDataDropdown} = useImageProcessing();
   const { t } = useTranslation(['common']);
   const initialStatesLoading = {};
   const initialStatesMessages = {};
+  const initialStatesDropdownRealEstate = {};
   DubaiCardData.forEach((dataItem) => {
     initialStatesLoading['dubaiLoading'+dataItem.id] = false;
     initialStatesMessages['dubaiMessage'+dataItem.id] = '';
-
+    initialStatesDropdownRealEstate['dropdown'+dataItem.id] = DropdownData;
   });
+  initialStatesDropdownRealEstate['dropdown1'] = NrOfRoomsDataDropdown
+  const signer = useEthersSigner()
   const [loadingStates, setLoadingStates] = useState(initialStatesLoading);
   const [messagesStates, setMessagesStates] = useState(initialStatesMessages);
 
@@ -40,11 +44,11 @@ export default function Report() {
     }));
   };
 
-  async function downloadReport(datasetDid: string, algoDid: string, cardId: number) {
+  async function downloadReport(datasetDid: string, algoDid: string, cardId: number, consumerParameter:UserCustomParameters) {
     toggleCardState(cardId)
     try{
       updateCardMessage(cardId, 'Ordering dataset & algorithm and starting compute job!')
-      const jobId = await startComputeJob(datasetDid, algoDid, chain?.id, signer)
+      const jobId = await startComputeJob(datasetDid, algoDid, chain?.id, signer, consumerParameter)
       console.log('Compute job started: ',jobId)
       updateCardMessage(cardId, `Compute job started: ${jobId} , Running algorithm ...`)
       const jobFinished = await waitForJobToFinish(datasetDid, jobId, chain?.id, signer)
@@ -80,7 +84,7 @@ export default function Report() {
             totalDownloads={card.downloads}
             loading={loadingStates['dubaiLoading'+card.id]}
             optionsDropdownLeft={null}
-            optionsDropdownRight={null}
+            optionsDropdownRight={initialStatesDropdownRealEstate['dropdown'+card.id]}
             computeReportResults={downloadReport}
             datasetDid={card.datasetDid}
             algorithmDid={card.algoDid}
@@ -109,8 +113,8 @@ export default function Report() {
             price={card.price}
             totalDownloads={card.downloads}
             loading={false}
-            optionsDropdownLeft={DropdownData}
-            optionsDropdownRight={DropdownData}
+            optionsDropdownLeft={null}
+            optionsDropdownRight={ImageDataDropdown}
             outputMessage={'Preparing stuff'}
           />
         ))}

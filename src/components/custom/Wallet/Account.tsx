@@ -5,7 +5,6 @@ import CaretBlack from '../../../assets/caret_black.svg';
 import WalletIcon from '../../../assets/walletIcon.svg';
 import styles from './Account.module.scss';
 import { useAccount, useEnsName, useEnsAvatar } from 'wagmi';
-import { useModal } from 'connectkit';
 import Image from 'next/image';
 import Avatar from '../Avatar';
 import { truncateWalletAddress } from '../../../shared/utilities/truncateAddress';
@@ -20,18 +19,12 @@ export default function Account({ mobile }: AccountPropType): ReactElement {
   const { address: accountId } = useAccount();
   const { data: accountEns } = useEnsName({ address: accountId, chainId: 1 });
   const { data: accountEnsAvatar } = useEnsAvatar({
-    address: accountId,
     chainId: 1,
+    name: accountId
   });
-  const { setOpen } = useModal();
 
-  async function handleActivation(e: FormEvent<HTMLButtonElement>) {
-    e.preventDefault();
 
-    setOpen(true);
-  }
-
-  return accountId ? (
+  return accountId && (
     <button
       className={styles.button}
       aria-label="Account"
@@ -57,12 +50,5 @@ export default function Account({ mobile }: AccountPropType): ReactElement {
         />
       )}
     </button>
-  ) : (
-    <button
-      className={`${styles.button} ${styles.initial} ${styles.connect} h-100`}
-      onClick={(e) => handleActivation(e)}
-    >
-      Connect <span className="ms-1">Wallet</span>
-    </button>
-  );
+  )
 }

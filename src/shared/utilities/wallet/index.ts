@@ -1,27 +1,56 @@
 import { LoggerInstance } from "@oceanprotocol/lib";
-import { createClient, erc20ABI } from "wagmi";
-import {
-	mainnet,
-	polygon,
-	bsc,
-	goerli,
-	polygonMumbai,
-	sepolia,
-} from "wagmi/chains";
+import { Connector, configureChains, createConfig, erc20ABI } from "wagmi";
+import { mainnet, polygon, polygonMumbai, sepolia } from "wagmi/chains";
+import { publicProvider } from "wagmi/providers/public";
 import { ethers, Contract } from "ethers";
 import { formatEther } from "ethers/lib/utils";
-import { getDefaultClient } from "connectkit";
 
-// Wagmi client
-export const wagmiClient = createClient(
-	getDefaultClient({
-		appName: "Ocean Insight",
-		infuraId: process.env.NEXT_PUBLIC_INFURA_PROJECT_ID,
-		// TODO: mapping between appConfig.chainIdsSupported and wagmi chainId
-		chains: [mainnet, polygon, goerli, polygonMumbai, sepolia],
-		walletConnectProjectId: "9cd1211232ee69f08cccd32310a48fb9",
-	})
+import { UniversalWalletConnector } from "@magiclabs/wagmi-connector";
+
+const { chains, publicClient, webSocketPublicClient } = configureChains(
+	[mainnet, polygon, polygonMumbai, sepolia],
+	[publicProvider()]
 );
+
+export const wagmiClient = createConfig({
+	autoConnect: true,
+	publicClient,
+	webSocketPublicClient,
+	connectors: [
+		new UniversalWalletConnector({
+			chains,
+			options: {
+				apiKey: "pk_live_0E5D589855DCF6D3",
+				/* Make sure to enable OAuth options from magic dashboard */
+				networks: [
+					{
+						rpcUrl: "https://mainnet.infura.io/v3",
+						chainId: 1,
+					},
+					{
+						rpcUrl: "https://polygon-rpc.com",
+						chainId: 137,
+					},
+					{
+						rpcUrl: "https://rpc-mumbai.maticvigil.com",
+						chainId: 80001,
+					},
+					{
+						rpcUrl: "https://sepolia.infura.io/v3",
+						chainId: 11155111,
+					},
+				],
+				magicSdkConfiguration: {
+					network: {
+						rpcUrl: "https://rpc-mumbai.maticvigil.com",
+						chainId: 80001,
+					},
+					extensions: true,
+				},
+			},
+		}) as unknown as Connector,
+	],
+});
 
 // ConnectKit CSS overrides
 // https://docs.family.co/connectkit/theming#theme-variables
@@ -58,6 +87,7 @@ export async function getTokenBalance(
 		const balance = await token.balanceOf(accountId);
 
 		const adjustedDecimalsBalance = `${balance}${"0".repeat(18 - decimals)}`;
+
 		return formatEther(adjustedDecimalsBalance);
 	} catch (e: any) {
 		LoggerInstance.error(`ERROR: Failed to get the balance: ${e.message}`);

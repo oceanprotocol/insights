@@ -1,59 +1,117 @@
 export type DropdownData = {
-  id: number;
-  name: string;
+	id: number;
+	name: string;
+	placeholder: string;
 };
 
-export default function useOptionsDropdown() {
-  const DropdownData = [
-    {
-      id: 1,
-      name: 'Price per m2',
-    },
-    {
-      id: 2,
-      name: 'Location',
-    },
-    {
-      id: 3,
-      name: 'Time on market',
-    },
-    {
-      id: 4,
-      name: 'Occupancy rate',
-    },
-    {
-      id: 5,
-      name: 'Property size',
-    },
-    {
-      id: 6,
-      name: 'Property type',
-    },
-    {
-      id: 7,
-      name: 'Enter your tweet',
-    },
-    {
-      id: 8,
-      name: '# Category',
-    },
-    {
-      id: 9,
-      name: 'Enter your tweet',
-    },
-    {
-      id: 10,
-      name: 'Emotion',
-    },
-    {
-      id: 11,
-      name: 'Emotion',
-    },
-    {
-      id: 12,
-      name: 'Topic',
-    },
-  ];
+export function useOptionsDropdown() {
+	const DropdownData = [
+		{
+			id: 1,
+			placeholder: "Option",
+			name: "Price per m2",
+		},
+		{
+			id: 2,
+			placeholder: "Option",
+			name: "Location",
+		},
+		{
+			id: 3,
+			placeholder: "Option",
+			name: "Time on market",
+		},
+		{
+			id: 4,
+			placeholder: "Option",
+			name: "Occupancy rate",
+		},
+		{
+			id: 5,
+			placeholder: "Option",
+			name: "Property size",
+		},
+		{
+			id: 6,
+			placeholder: "Option",
+			name: "Property type",
+		},
+		{
+			id: 7,
+			placeholder: "Option",
+			name: "Enter your tweet",
+		},
+		{
+			id: 8,
+			placeholder: "Option",
+			name: "# Category",
+		},
+		{
+			id: 9,
+			placeholder: "Option",
+			name: "Enter your tweet",
+		},
+		{
+			id: 10,
+			placeholder: "Option",
+			name: "Emotion",
+		},
+		{
+			id: 11,
+			placeholder: "Option",
+			name: "Emotion",
+		},
+		{
+			id: 12,
+			placeholder: "Option",
+			name: "Topic",
+		},
+	];
 
-  return { DropdownData };
+	const NrOfRoomsDataDropdown = [
+		{
+			id: 1,
+			placeholder: "Nr of rooms",
+			name: "1",
+		},
+		{
+			id: 2,
+			placeholder: "Nr of rooms",
+			name: "2",
+		},
+		{
+			id: 3,
+			placeholder: "Nr of rooms",
+			name: "3",
+		},
+		{
+			id: 4,
+			placeholder: "Nr of rooms",
+			name: "4",
+		},
+	];
+
+	return { DropdownData, NrOfRoomsDataDropdown };
+}
+
+export function useImageProcessing() {
+	const ImageDataDropdown = [
+		{
+			id: 1,
+			placeholder: "Option",
+			name: "Blur",
+		},
+		{
+			id: 2,
+			placeholder: "Option",
+			name: "Sharp",
+		},
+		{
+			id: 3,
+			placeholder: "Option",
+			name: "Grayscale",
+		},
+	];
+
+	return { ImageDataDropdown };
 }
