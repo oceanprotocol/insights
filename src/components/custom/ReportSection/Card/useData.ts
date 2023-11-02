@@ -73,7 +73,7 @@ export default function useData() {
 				image: videoProcessingImg,
 				text: "This algorithm detects human faces from a video dataset.",
 				price: "76.48 OCEAN",
-				datasetDid: "did:op:e11adca325ecd4e1ec466772803f9c6aab06004bfabfb1fddf3616c83d11dab6",
+				datasetDid: "did:op:40544c466dce65180e409295c38f46565ca5625abf096b95f16e09dc2d2b4032",
 				algoDid: "did:op:76eb60fad9984291c071d8e8ecb9bc0c4c2b5d46418d67947be620731c17bdbb",
 				downloads: "650",
 			},
