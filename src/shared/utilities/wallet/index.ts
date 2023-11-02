@@ -42,8 +42,8 @@ export const wagmiClient = createConfig({
 				],
 				magicSdkConfiguration: {
 					network: {
-						rpcUrl: "https://rpc-mumbai.maticvigil.com",
-						chainId: 80001,
+						rpcUrl: "https://sepolia.infura.io/v3",
+						chainId: 11155111,
 					},
 					extensions: true,
 				},
