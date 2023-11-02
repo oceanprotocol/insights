@@ -58,17 +58,17 @@ export default function useData() {
 	const AlgoProcessingCardData: CardPropType[] = useMemo(
 		() => [
 			{
-				id: 1,
+				id: 4,
 				title: "Image Processing",
 				image: imageProcessingImg,
 				text: "This algorithm applies filters on an image dataset, such as: blur, grayscale, unsharp mask.",
 				price: "15.98 OCEAN",
-				datasetDid: "did:op:5694ee61c517e9509df7640cbcabf71e77e6dfbee4e027488ae79f93a57e5cee",
-				algoDid: "did:op:6ec0c0927e3599fb0b02b395210c18e1fa1e73087d33310beea7d6d578137cc2",
+				datasetDid: "did:op:bece3008f896d9aa471cd9a52602bfafc26d8b865d4aab69f7e22a790c6621bb",
+				algoDid: "did:op:469df1acf63b1cc8e4d85e8b8398d03a78d91e5960a0f096ccc804dd3ce1195d",
 				downloads: "500",
 			},
 			{
-				id: 2,
+				id: 5,
 				title: "Face Detection",
 				image: videoProcessingImg,
 				text: "This algorithm detects human faces from a video dataset.",
@@ -78,7 +78,7 @@ export default function useData() {
 				downloads: "650",
 			},
 			{
-				id: 3,
+				id: 6,
 				title: "Stock Report",
 				image: pdfImg,
 				text: "This algorithm generates a PDF report over stock market data from previous day.",

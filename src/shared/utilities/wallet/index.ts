@@ -36,13 +36,13 @@ export const wagmiClient = createConfig({
 						chainId: 80001,
 					},
 					{
-						rpcUrl: "https://rpc2.sepolia.org",
+						rpcUrl: `https://sepolia.infura.io/v3/${process.env.NEXT_PUBLIC_INFURA_KEY}`,
 						chainId: 11155111,
 					},
 				],
 				magicSdkConfiguration: {
 					network: {
-						rpcUrl: "https://rpc2.sepolia.org",
+						rpcUrl: `https://sepolia.infura.io/v3/${process.env.NEXT_PUBLIC_INFURA_KEY}`,
 						chainId: 11155111,
 					},
 					extensions: true,
