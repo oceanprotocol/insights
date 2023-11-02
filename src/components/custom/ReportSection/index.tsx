@@ -19,6 +19,8 @@ export default function Report() {
   const { t } = useTranslation(['common']);
   const initialStatesLoading = {};
   const initialStatesMessages = {};
+  const initialStatesLoadingAlgoProcessing = {};
+  const initialStatesMessagesAlgoProcessing = {};
   const initialStatesDropdownRealEstate = {};
   const initialStatesImageProcessingDropdown = {};
   DubaiCardData.forEach((dataItem) => {
@@ -27,8 +29,8 @@ export default function Report() {
     initialStatesDropdownRealEstate['dropdown'+dataItem.id] = DropdownData;
   });
   AlgoProcessingCardData.forEach((dataItem) => {
-    initialStatesLoading['algoProcessingLoading'+dataItem.id] = false;
-    initialStatesMessages['algoProcessingMessage'+dataItem.id] = '';
+    initialStatesLoadingAlgoProcessing['algoProcessingLoading'+dataItem.id] = false;
+    initialStatesMessagesAlgoProcessing['algoProcessingMessage'+dataItem.id] = '';
     initialStatesImageProcessingDropdown['dropdown'+dataItem.id] = DropdownData;
   });
   initialStatesDropdownRealEstate['dropdown1'] = NrOfRoomsDataDropdown
@@ -36,6 +38,9 @@ export default function Report() {
   const signer = useEthersSigner()
   const [loadingStates, setLoadingStates] = useState(initialStatesLoading);
   const [messagesStates, setMessagesStates] = useState(initialStatesMessages);
+  const [loadingStatesAlgoProcessing, setLoadingStatesAlgoProcessing] = useState(initialStatesLoadingAlgoProcessing);
+  const [messagesStatesAlgoProcessing, setMessagesStatesAlgoProcessing] = useState(initialStatesMessagesAlgoProcessing);
+  
 
   const toggleCardState = (id:number) => {
     setLoadingStates((prevState) => ({
@@ -48,6 +53,20 @@ export default function Report() {
     setMessagesStates((prevState) => ({
       ...prevState,
       ['dubaiMessage'+id]: message,
+    }));
+  };
+
+  const toggleCardStateAlgoProcessing = (id:number) => {
+    setLoadingStatesAlgoProcessing((prevState) => ({
+      ...prevState,
+      ['algoProcessingLoading'+id]: !prevState['algoProcessingLoading'+id],
+    }));
+  };
+
+  const updateCardMessageAlgoProcessing = (id:number, message:string) => {
+    setMessagesStatesAlgoProcessing((prevState) => ({
+      ...prevState,
+      ['algoProcessingMessage'+id]: message,
     }));
   };
 
@@ -120,11 +139,13 @@ export default function Report() {
               text={card.text}
               price={card.price}
               totalDownloads={card.downloads}
-              loading={false}
+              loading={loadingStatesAlgoProcessing['algoProcessingLoading'+card.id]}
               optionsDropdownLeft={null}
               optionsDropdownRight={initialStatesImageProcessingDropdown['dropdown'+card.id]}
               computeReportResults={downloadReport}
-              outputMessage={messagesStates['algoProcessingMessage'+card.id]}
+              datasetDid={card.datasetDid}
+              algorithmDid={card.algoDid}
+              outputMessage={messagesStatesAlgoProcessing['algoProcessingMessage'+card.id]}
             />
           ) : (
             <Card
@@ -135,11 +156,13 @@ export default function Report() {
               text={card.text}
               price={card.price}
               totalDownloads={card.downloads}
-              loading={false}
+              loading={loadingStatesAlgoProcessing['algoProcessingLoading'+card.id]}
               optionsDropdownLeft={null}
               optionsDropdownRight={null}
               computeReportResults={downloadReport}
-              outputMessage={messagesStates['algoProcessingMessage'+card.id]}
+              datasetDid={card.datasetDid}
+              algorithmDid={card.algoDid}
+              outputMessage={messagesStatesAlgoProcessing['algoProcessingMessage'+card.id]}
             />
           )))}
       </div>
