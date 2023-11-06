@@ -14,6 +14,6 @@ export function getOceanConfig(network: string | number): Config {
 			: process.env.NEXT_PUBLIC_INFURA_PROJECT_ID
 	) as Config;
 	config.gasFeeMultiplier =
-		config.chainId === 11155111 ? 1.6 : config.gasFeeMultiplier;
+		config.chainId === 11155111 ? 4 : config.gasFeeMultiplier;
 	return config as Config;
 }
