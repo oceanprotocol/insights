@@ -5,7 +5,6 @@ import {
 	ComputeAsset,
 	ComputeJob,
 	Config,
-	ConfigHelper,
 	ConsumeMarketFee,
 	Datatoken,
 	ProviderComputeInitialize,
@@ -19,6 +18,7 @@ import {
 	UserCustomParameters,
 } from "@oceanprotocol/lib";
 import { Signer } from "ethers";
+import { getOceanConfig } from "../utilities/ocean";
 
 export async function startComputeJob(
 	datasetDid: string,
@@ -27,7 +27,7 @@ export async function startComputeJob(
 	signer: Signer,
 	consumerParams?: UserCustomParameters
 ): Promise<string> {
-	const config = new ConfigHelper().getConfig(chainId);
+	const config = getOceanConfig(chainId);
 
 	const aquarius = new Aquarius(
 		config.metadataCacheUri || "https://v4.aquarius.oceanprotocol.com/"
@@ -219,7 +219,7 @@ export async function waitForJobToFinish(
 	chainId: number,
 	signer: Signer
 ): Promise<ComputeJob> {
-	const config = new ConfigHelper().getConfig(chainId);
+	const config = getOceanConfig(chainId);
 	let jobStatus;
 	do {
 		jobStatus = (await ProviderInstance.computeStatus(
@@ -239,7 +239,7 @@ export async function downloadJobResults(
 	chainId: number,
 	signer: Signer
 ) {
-	const config = new ConfigHelper().getConfig(chainId);
+	const config = getOceanConfig(chainId);
 	const jobResult = await ProviderInstance.getComputeResultUrl(
 		config.providerUri,
 		signer,
