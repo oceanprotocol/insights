@@ -3,10 +3,10 @@ import { useTranslation } from "react-i18next";
 
 import priceImg from "../../../../assets/priceImg.svg";
 import rateImg from "../../../../assets/rateImg.svg";
+import imageProcessingImg from "../../../../assets/imageProcessing.svg";
+import videoProcessingImg from "../../../../assets/videoProcessing.svg";
 import costumerImg from "../../../../assets/costumerImg.svg";
-import sentimentImg from "../../../../assets/sentimentImg.svg";
-import supportImg from "../../../../assets/supportImg.svg";
-import mediaImg from "../../../../assets/mediaImg.svg";
+import pdfImg from "../../../../assets/pdf.svg";
 import { StaticImageData } from "next/image";
 
 export type CardPropType = {
@@ -55,35 +55,41 @@ export default function useData() {
 		],
 		[]
 	);
-	const TwitterCardData: CardPropType[] = useMemo(
+	const AlgoProcessingCardData: CardPropType[] = useMemo(
 		() => [
 			{
-				id: 1,
-				title: "Image proccessiong",
-				image: sentimentImg,
-				text: "This algorithm classifies tweets as positive, negative, or neutral based on their content and context. It is a simple yet effective algorithm that uses probabilities to make predictions.",
-				price: "0 OCEAN",
-				downloads: "10",
+				id: 4,
+				title: "Image Processing",
+				image: imageProcessingImg,
+				text: "This algorithm applies filters on an image dataset, such as: blur, grayscale, unsharp mask.",
+				price: "15.98 OCEAN",
+				datasetDid: "did:op:bece3008f896d9aa471cd9a52602bfafc26d8b865d4aab69f7e22a790c6621bb",
+				algoDid: "did:op:469df1acf63b1cc8e4d85e8b8398d03a78d91e5960a0f096ccc804dd3ce1195d",
+				downloads: "500",
 			},
 			{
-				id: 2,
-				title: "Support Vector Machine",
-				image: supportImg,
-				text: "This algorithm is a popular choice for sentiment analysis, as it can classify tweets as positive or negative with high accuracy. SVM is a supervised learning algorithm that uses a training dataset to create a decision boundary that separates the positive and negative tweets.",
+				id: 5,
+				title: "Face Detection",
+				image: videoProcessingImg,
+				text: "This algorithm detects human faces from a video dataset.",
 				price: "76.48 OCEAN",
+				datasetDid: "did:op:40544c466dce65180e409295c38f46565ca5625abf096b95f16e09dc2d2b4032",
+				algoDid: "did:op:76eb60fad9984291c071d8e8ecb9bc0c4c2b5d46418d67947be620731c17bdbb",
 				downloads: "650",
 			},
 			{
-				id: 3,
-				title: "Convolutional Neural",
-				image: mediaImg,
-				text: "This algorithm is a deep learning model that can identify and extract complex features from text data. It has been shown to perform well in sentiment analysis tasks by learning patterns in the data and making accurate predictions.",
+				id: 6,
+				title: "Stock Report",
+				image: pdfImg,
+				text: "This algorithm generates a PDF report over stock market data from previous day.",
 				price: "98.25 OCEAN",
+				datasetDid: "did:op:5694ee61c517e9509df7640cbcabf71e77e6dfbee4e027488ae79f93a57e5cee",
+				algoDid: "did:op:6ec0c0927e3599fb0b02b395210c18e1fa1e73087d33310beea7d6d578137cc2",
 				downloads: "125",
 			},
 		],
 		[]
 	);
 
-	return { DubaiCardData, TwitterCardData };
+	return { DubaiCardData, AlgoProcessingCardData };
 }

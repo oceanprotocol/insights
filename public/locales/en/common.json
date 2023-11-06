@@ -14,8 +14,8 @@
   "secure": "Secure Access to Diverse Data Sets",
   "compute": "Compute-to-Data Technology",
   "textCard": "This algorithm predicts the price of Dubai apartments by analysing historical pricing data, considering variables like location, size, and amenities to provide customised predictions for both rental and sale listings.",
-  "titleTwitter": "Twitter Sentiment Analysis",
-  "titleUpdate": "Updated data set on hate speech in tweets",
+  "titleProcessingAlgos": "Image, Video, Stock Data Processing Algorithms",
+  "titleUpdate": "Updated data set on processing images, videos & stock information",
   "titleCard": {
     "price": "Price Prediction",
     "rate": "Occupancy Rate",

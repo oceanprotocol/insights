@@ -12,7 +12,7 @@ import { toast } from 'react-toastify'
 import { useEthersSigner } from '@/shared/utilities/wallet/ethersSigner';
 
 export default function Report() {
-  const { DubaiCardData, TwitterCardData } = useData();
+  const { DubaiCardData, AlgoProcessingCardData } = useData();
   const {chain} = useNetwork()
   const { DropdownData, NrOfRoomsDataDropdown } = useOptionsDropdown();
   const { ImageDataDropdown} = useImageProcessing();
@@ -20,28 +20,49 @@ export default function Report() {
   const initialStatesLoading = {};
   const initialStatesMessages = {};
   const initialStatesDropdownRealEstate = {};
+  const initialStatesImageProcessingDropdown = {};
   DubaiCardData.forEach((dataItem) => {
     initialStatesLoading['dubaiLoading'+dataItem.id] = false;
     initialStatesMessages['dubaiMessage'+dataItem.id] = '';
     initialStatesDropdownRealEstate['dropdown'+dataItem.id] = DropdownData;
   });
+  AlgoProcessingCardData.forEach((dataItem) => {
+    initialStatesLoading['algoProcessingLoading'+dataItem.id] = false;
+    initialStatesMessages['algoProcessingMessage'+dataItem.id] = '';
+    initialStatesImageProcessingDropdown['dropdown'+dataItem.id] = ImageDataDropdown;
+  });
   initialStatesDropdownRealEstate['dropdown1'] = NrOfRoomsDataDropdown
+  initialStatesImageProcessingDropdown['dropdown1'] = ImageDataDropdown
   const signer = useEthersSigner()
   const [loadingStates, setLoadingStates] = useState(initialStatesLoading);
   const [messagesStates, setMessagesStates] = useState(initialStatesMessages);
 
   const toggleCardState = (id:number) => {
-    setLoadingStates((prevState) => ({
-      ...prevState,
-      ['dubaiLoading'+id]: !prevState['dubaiLoading'+id],
-    }));
+    if (id < 4) {
+      setLoadingStates((prevState) => ({
+        ...prevState,
+        ['dubaiLoading'+id]: !prevState['dubaiLoading'+id],
+      }));
+    } else {
+      setLoadingStates((prevState) => ({
+        ...prevState,
+        ['algoProcessingLoading'+id]: !prevState['algoProcessingLoading'+id],
+      }));
+    }
   };
 
   const updateCardMessage = (id:number, message:string) => {
-    setMessagesStates((prevState) => ({
-      ...prevState,
-      ['dubaiMessage'+id]: message,
-    }));
+    if (id < 4) {
+      setMessagesStates((prevState) => ({
+        ...prevState,
+        ['dubaiMessage'+id]: message,
+      }));
+    } else {
+      setMessagesStates((prevState) => ({
+        ...prevState,
+        ['algoProcessingMessage'+id]: message,
+      }));
+    }
   };
 
   async function downloadReport(datasetDid: string, algoDid: string, cardId: number, consumerParameter:UserCustomParameters) {
@@ -94,7 +115,7 @@ export default function Report() {
       </div>
       <div>
         <div className={cx(styles.margin, 'play40 text-white text-center')}>
-          {t('titleTwitter')}
+          {t('titleProcessingAlgos')}
         </div>
         <div
           className={cx(styles.marginSubtitle, 'play20 text-white text-center')}
@@ -103,21 +124,42 @@ export default function Report() {
         </div>
       </div>
       <div className="d-flex flex-column flex-md-row justify-content-center align-items-center">
-        {TwitterCardData.map((card: CardPropType) => (
-          <Card
-            key={card.id}
-            id={card.id}
-            title={card.title}
-            imageSrc={card.image}
-            text={card.text}
-            price={card.price}
-            totalDownloads={card.downloads}
-            loading={false}
-            optionsDropdownLeft={null}
-            optionsDropdownRight={ImageDataDropdown}
-            outputMessage={'Preparing stuff'}
-          />
-        ))}
+        {AlgoProcessingCardData.map((card: CardPropType) => (
+        card.id === 4 ? (
+            <Card
+              key={card.id}
+              id={card.id}
+              title={card.title}
+              imageSrc={card.image}
+              text={card.text}
+              price={card.price}
+              totalDownloads={card.downloads}
+              loading={loadingStates['algoProcessingLoading'+card.id]}
+              optionsDropdownLeft={null}
+              optionsDropdownRight={initialStatesImageProcessingDropdown['dropdown'+card.id]}
+              computeReportResults={downloadReport}
+              datasetDid={card.datasetDid}
+              algorithmDid={card.algoDid}
+              outputMessage={messagesStates['algoProcessingMessage'+card.id]}
+            />
+          ) : (
+            <Card
+              key={card.id}
+              id={card.id}
+              title={card.title}
+              imageSrc={card.image}
+              text={card.text}
+              price={card.price}
+              totalDownloads={card.downloads}
+              loading={loadingStates['algoProcessingLoading'+card.id]}
+              optionsDropdownLeft={null}
+              optionsDropdownRight={null}
+              computeReportResults={downloadReport}
+              datasetDid={card.datasetDid}
+              algorithmDid={card.algoDid}
+              outputMessage={messagesStates['algoProcessingMessage'+card.id]}
+            />
+          )))}
       </div>
     </div>
   );

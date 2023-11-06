@@ -129,7 +129,7 @@ const config: ConfigType = {
 		chainIds: [1, 137],
 
 		// List of all supported chainIds. Used to populate the Chains user preferences list.
-		chainIdsSupported: [1, 137, 5, 80001],
+		chainIdsSupported: [1, 137, 5, 80001, 11155111],
 
 		infuraProjectId: process.env.NEXT_PUBLIC_INFURA_PROJECT_ID || "xxx",
 
