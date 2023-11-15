@@ -14,19 +14,20 @@ import config from "../../../../config";
 
 import ConnectButton from '../ConnectButton';
 import { useAccount } from "wagmi";
+import { useUser } from '../../../shared/@ocean/context/UserContext';
 
 const Navigation = () => {
   const Profile = config.routes.profile;
-  const { isConnected } = useAccount();
+  const { isConnected, address } = useAccount();
+  const { user } = useUser();
+  console.log('🚀 ~ file: Header.tsx:23 ~ Navigation ~ user:', user);
+  console.log(
+    '🚀 ~ file: Header.tsx:21 ~ Navigation ~ isConnected:',
+    isConnected
+  );
   return (
     <div className="d-flex flex-column flex-md-row align-center">
-      <div>
-        {!isConnected ? (
-          <ConnectButton />
-        ) : (
-          <Wallet />
-        )}
-      </div>
+      <div>{!user ? <ConnectButton /> : <Wallet />}</div>
       <Networks />
       <div className="d-flex flex-row align-center order-0 order-md-1">
         <Button
