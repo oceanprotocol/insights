@@ -19,7 +19,10 @@ type AccountPropType = {
 export default function Account({ mobile }: AccountPropType): ReactElement {
   const { address: accountId } = useAccount();
   const { user } = useUser();
-  const { data: accountEns } = useEnsName({ address: user, chainId: 1 });
+  const { data: accountEns } = useEnsName({
+    address: user as `0x${string}`,
+    chainId: 1,
+  });
   const { data: accountEnsAvatar } = useEnsAvatar({
     chainId: 1,
     name: user,
