@@ -15,8 +15,6 @@ type WalletPropType = {
 export default function Wallet({ mobile }: WalletPropType): ReactElement {
   const { address: accountId, isConnected } = useAccount();
   const { user } = useUser();
-  console.log('🚀 ~ file: index.tsx:15 ~ Wallet ~ accountId:', accountId);
-  console.log('🚀 ~ file: index.tsx:15 ~ Wallet ~ isConnected:', isConnected);
 
   return (
     <div

@@ -11,6 +11,7 @@ import { useEthersProvider } from '@/shared/utilities/wallet/ethersProvider';
 import { useUser } from '../context/UserContext';
 import config from '../../../../config';
 import { magic } from '../../utilities/libs/magic';
+import { useWeb3 } from '../context/WalletContext';
 
 interface BalanceProviderValue {
   balance: UserBalance;
@@ -24,21 +25,12 @@ type ApprovedBaseTokensType = {
 };
 
 function useBalance(): BalanceProviderValue {
-  // const { address } = useAccount();
   const { user } = useUser();
+  const { web3 } = useWeb3();
   const { data: balanceNativeToken } = useBalanceWagmi({
     address: user as `0x${string}`,
     chainId: 11155111,
   });
-  console.log(
-    '🚀 ~ file: useBalance.tsx:30 ~ useBalance ~ balanceNativeToken:',
-    balanceNativeToken
-  );
-  const web3provider = useEthersProvider();
-  console.log(
-    '🚀 ~ file: useBalance.tsx:37 ~ useBalance ~ web3provider:',
-    web3provider
-  );
 
   const { approvedBaseTokens } = useMarketMetadata();
 
@@ -50,7 +42,7 @@ function useBalance(): BalanceProviderValue {
   // Helper: Get user balance
   // -----------------------------------
   const getUserBalance = useCallback(async () => {
-    if (!balanceNativeToken?.formatted || !user || !web3provider) return;
+    if (!balanceNativeToken?.formatted || !user || !web3) return;
 
     try {
       const userBalance = balanceNativeToken?.formatted;
@@ -68,7 +60,7 @@ function useBalance(): BalanceProviderValue {
               user,
               decimals,
               tokenAddress,
-              web3provider
+              web3
             );
             if (!tokenBalance) {
               return;
@@ -83,7 +75,7 @@ function useBalance(): BalanceProviderValue {
     } catch (error: any) {
       LoggerInstance.error('[useBalance] Error: ', error.message);
     }
-  }, [user, approvedBaseTokens, web3provider, balanceNativeToken]);
+  }, [user, approvedBaseTokens, web3, balanceNativeToken]);
 
   useEffect(() => {
     getUserBalance();

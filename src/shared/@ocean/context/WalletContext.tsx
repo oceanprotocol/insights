@@ -1,6 +1,13 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import Web3 from 'web3';
 import { magic } from '../../utilities/libs/magic';
+import { WalletInfo } from 'magic-sdk';
 
 // Define the structure of the Web3 context state
 type Web3ContextType = {
@@ -9,6 +16,7 @@ type Web3ContextType = {
   handleConnect: () => Promise<void>;
   handleDisconnect: () => Promise<void>;
   handleShowUI: () => Promise<void>;
+  walletConnectionType: WalletInfo;
 };
 
 // Create the context with default values
@@ -21,18 +29,24 @@ export const useWeb3 = () => useContext(Web3Context);
 export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
   // State variable to hold an instance of Web3
   const [web3, setWeb3] = useState<Web3 | null>(null);
+  const [walletConnectionType, setWalletConnectionType] =
+    useState<WalletInfo>(undefined);
 
   // Initialize Web3
-  const initializeWeb3 = async () => {
+  const initializeWeb3 = useCallback(async () => {
     // Get the provider from the Magic instance
     const provider = await magic.wallet.getProvider();
-
     // Create a new instance of Web3 with the provider
     const web3 = new Web3(provider);
 
+    const isLoggedIn = await magic.user.isLoggedIn();
+    if (isLoggedIn) {
+      const walletInfo = await magic.wallet.getInfo();
+      setWalletConnectionType(walletInfo);
+    }
     // Save the instance to state
     setWeb3(web3);
-  };
+  }, []);
 
   const handleConnect = async () => {
     try {
@@ -73,6 +87,7 @@ export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
         handleConnect,
         handleDisconnect,
         handleShowUI,
+        walletConnectionType,
       }}
     >
       {children}

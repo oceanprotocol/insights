@@ -108,151 +108,145 @@ export type ConfigType = {
 };
 
 const config: ConfigType = {
-	language: "en",
-	translateLists: ["common"],
-	mobileMaxWidth: 767,
-	tabletMaxWidth: 1199,
-	ethMockPrice: 1646.13,
-	oceanApp: {
-		// URI of single metadata cache instance for all networks.
-		// While ocean.js includes this value for each network as part of its ConfigHelper,
-		// it is assumed to be the same for all networks.
-		// In components can be accessed with the useMarketMetadata hook:
-		// const { appConfig } = useMarketMetadata()
-		// return appConfig.metadataCacheUri
-		metadataCacheUri:
-			process.env.NEXT_PUBLIC_METADATACACHE_URI ||
-			"https://v4.aquarius.oceanprotocol.com",
+  language: 'en',
+  translateLists: ['common'],
+  mobileMaxWidth: 767,
+  tabletMaxWidth: 1199,
+  ethMockPrice: 1646.13,
+  oceanApp: {
+    // URI of single metadata cache instance for all networks.
+    // While ocean.js includes this value for each network as part of its ConfigHelper,
+    // it is assumed to be the same for all networks.
+    // In components can be accessed with the useMarketMetadata hook:
+    // const { appConfig } = useMarketMetadata()
+    // return appConfig.metadataCacheUri
+    metadataCacheUri:
+      process.env.NEXT_PUBLIC_METADATACACHE_URI ||
+      'https://v4.aquarius.oceanprotocol.com',
 
-		// List of chainIds which metadata cache queries will return by default.
-		// This preselects the Chains user preferences.
-		chainIds: [1, 137],
+    // List of chainIds which metadata cache queries will return by default.
+    // This preselects the Chains user preferences.
+    chainIds: [1, 137],
 
-		// List of all supported chainIds. Used to populate the Chains user preferences list.
-		chainIdsSupported: [1, 137, 5, 80001, 11155111],
+    // List of all supported chainIds. Used to populate the Chains user preferences list.
+    chainIdsSupported: [1, 137, 5, 80001, 11155111],
 
-		infuraProjectId: process.env.NEXT_PUBLIC_INFURA_PROJECT_ID || "xxx",
+    infuraProjectId: process.env.NEXT_PUBLIC_INFURA_PROJECT_ID || 'xxx',
 
-		defaultDatatokenTemplateIndex: 2,
-		// The ETH address the marketplace fee will be sent to.
-		marketFeeAddress:
-			process.env.NEXT_PUBLIC_MARKET_FEE_ADDRESS ||
-			"0x9984b2453eC7D99a73A5B3a46Da81f197B753C8d",
-		// publisher market fee that is taken upon ordering an asset, it is an absolute value, it is declared on erc20 creation
-		publisherMarketOrderFee:
-			process.env.NEXT_PUBLIC_PUBLISHER_MARKET_ORDER_FEE || "0",
-		// fee recieved by the publisher market when a dt is bought from a fixed rate exchange, percent
-		publisherMarketFixedSwapFee:
-			process.env.NEXT_PUBLIC_PUBLISHER_MARKET_FIXED_SWAP_FEE || "0",
+    defaultDatatokenTemplateIndex: 2,
+    // The ETH address the marketplace fee will be sent to.
+    marketFeeAddress:
+      process.env.NEXT_PUBLIC_MARKET_FEE_ADDRESS ||
+      '0x9984b2453eC7D99a73A5B3a46Da81f197B753C8d',
+    // publisher market fee that is taken upon ordering an asset, it is an absolute value, it is declared on erc20 creation
+    publisherMarketOrderFee:
+      process.env.NEXT_PUBLIC_PUBLISHER_MARKET_ORDER_FEE || '0',
+    // fee recieved by the publisher market when a dt is bought from a fixed rate exchange, percent
+    publisherMarketFixedSwapFee:
+      process.env.NEXT_PUBLIC_PUBLISHER_MARKET_FIXED_SWAP_FEE || '0',
 
-		// consume market fee that is taken upon ordering an asset, it is an absolute value, it is specified on order
-		consumeMarketOrderFee:
-			process.env.NEXT_PUBLIC_CONSUME_MARKET_ORDER_FEE || "0",
-		// fee recieved by the consume market when a dt is bought from a fixed rate exchange, percent
-		consumeMarketFixedSwapFee:
-			process.env.NEXT_PUBLIC_CONSUME_MARKET_FIXED_SWAP_FEE || "0",
+    // consume market fee that is taken upon ordering an asset, it is an absolute value, it is specified on order
+    consumeMarketOrderFee:
+      process.env.NEXT_PUBLIC_CONSUME_MARKET_ORDER_FEE || '0',
+    // fee recieved by the consume market when a dt is bought from a fixed rate exchange, percent
+    consumeMarketFixedSwapFee:
+      process.env.NEXT_PUBLIC_CONSUME_MARKET_FIXED_SWAP_FEE || '0',
 
-		approvedBaseTokens: [
-			{
-				address: "0x282d8efce846a88b159800bd4130ad77443fa1a1",
-				decimals: 18,
-				name: "Ocean Token (PoS)",
-				symbol: "mOCEAN",
-			},
-			{
-				address: "0xc5248aa0629c0b2d6a02834a5f172937ac83cbd3",
-				decimals: 18,
-				name: "H20data",
-				symbol: "H20",
-			},
-		],
+    approvedBaseTokens: [
+      {
+        address: '0x282d8efce846a88b159800bd4130ad77443fa1a1',
+        decimals: 18,
+        name: 'Ocean Token (PoS)',
+        symbol: 'mOCEAN',
+      },
+    ],
 
-		// Used for conversion display, can be whatever coingecko API supports
-		// see: https://api.coingecko.com/api/v3/simple/supported_vs_currencies
-		currencies: [
-			"EUR",
-			"USD",
-			"CAD",
-			"GBP",
-			"SGD",
-			"HKD",
-			"CNY",
-			"JPY",
-			"INR",
-			"RUB",
-			"ETH",
-			"BTC",
-			"LINK",
-		],
+    // Used for conversion display, can be whatever coingecko API supports
+    // see: https://api.coingecko.com/api/v3/simple/supported_vs_currencies
+    currencies: [
+      'EUR',
+      'USD',
+      'CAD',
+      'GBP',
+      'SGD',
+      'HKD',
+      'CNY',
+      'JPY',
+      'INR',
+      'RUB',
+      'ETH',
+      'BTC',
+      'LINK',
+    ],
 
-		// Tokens to fetch the spot prices from coingecko, against above currencies.
-		// Refers to Coingecko API tokenIds.
-		coingeckoTokenIds: ["ocean-protocol", "h2o", "ethereum", "matic-network"],
+    // Tokens to fetch the spot prices from coingecko, against above currencies.
+    // Refers to Coingecko API tokenIds.
+    coingeckoTokenIds: ['ocean-protocol', 'h2o', 'ethereum', 'matic-network'],
 
-		// Config for https://github.com/oceanprotocol/use-dark-mode
-		darkModeConfig: {
-			classNameDark: "dark",
-			classNameLight: "light",
-			storageKey: "oceanDarkMode",
-		},
+    // Config for https://github.com/oceanprotocol/use-dark-mode
+    darkModeConfig: {
+      classNameDark: 'dark',
+      classNameLight: 'light',
+      storageKey: 'oceanDarkMode',
+    },
 
-		// Used to show or hide the fixed or free price options
-		// tab to publishers during the price creation.
-		allowFixedPricing: process.env.NEXT_PUBLIC_ALLOW_FIXED_PRICING || "true",
-		allowFreePricing: process.env.NEXT_PUBLIC_ALLOW_FREE_PRICING || "true",
+    // Used to show or hide the fixed or free price options
+    // tab to publishers during the price creation.
+    allowFixedPricing: process.env.NEXT_PUBLIC_ALLOW_FIXED_PRICING || 'true',
+    allowFreePricing: process.env.NEXT_PUBLIC_ALLOW_FREE_PRICING || 'true',
 
-		// Set the default privacy policy to initially display
-		// this should be the slug of your default policy markdown file
-		defaultPrivacyPolicySlug: "/privacy/en",
+    // Set the default privacy policy to initially display
+    // this should be the slug of your default policy markdown file
+    defaultPrivacyPolicySlug: '/privacy/en',
 
-		// This enables / disables the use of a GDPR compliant
-		// privacy preference center to manage cookies on the market
-		// If set to true a gdpr.json file inside the content directory
-		// is used to create and show a privacy preference center / cookie banner
-		// To learn more about how to configure and use this, please refer to the readme
-		privacyPreferenceCenter:
-			process.env.NEXT_PUBLIC_PRIVACY_PREFERENCE_CENTER || "false",
-	},
-	routes: {
-		homepage: "/homepage",
-		chatgptPrompts: "/chatgpt-prompts",
-		midjourneyPrompts: "/midjourney-prompts",
-		challanges: "/challanges",
-		ecosystem: "/ecosystem",
-		profile: "/profile",
-		explorer: {
-			ethMainnet: "https://etherscan.io/address/",
-			ethGoerli: "https://goerli.etherscan.io/address/",
-			polygon: "https://polygonscan.com/address/",
-			mumbai: "https://mumbai.polygonscan.com/address/",
-			binance: "https://bscscan.com/address/",
-			moonriver: "https://moonriver.moonscan.io/address/",
-			energyWebChain: "https://explorer.energyweb.org/address/",
-		},
-	},
-	network: {
-		networkTokenDecimals: 18,
-		acceptedChainId:
-			parseInt(process.env.NEXT_PUBLIC_ACCEPTED_CHAIN_ID || "0", 10) || 80001,
-		chains: {
-			137: "Polygon Mainnet",
-			80001: "Mumbai Testnet",
-		},
-		rpcUrl: "https://rpc-mumbai.maticvigil.com",
-		pleaseSelectNetwork: {
-			137: "Please select Polygon Mainnet from wallet.",
-			80001: "Please select Mumbai Testnet from wallet.",
-		},
-	},
-	oceanNetwork: {
-		contract:
-			process.env.NEXT_PUBLIC_OCEAN_CONTRACT ||
-			"0xd8992Ed72C445c35Cb4A2be468568Ed1079357c8",
-		networkDecimals: 18,
-	},
-	did: "did:op:2497bdb5c4eed690bfb47f81d3d37d9cc6aaf2a05527a392d622396854372a92",
-	magicApiKey:
-		process.env.NEXT_PUBLIC_MAGIC_API_KEY || "pk_live_FFCFB9A970D9C147",
+    // This enables / disables the use of a GDPR compliant
+    // privacy preference center to manage cookies on the market
+    // If set to true a gdpr.json file inside the content directory
+    // is used to create and show a privacy preference center / cookie banner
+    // To learn more about how to configure and use this, please refer to the readme
+    privacyPreferenceCenter:
+      process.env.NEXT_PUBLIC_PRIVACY_PREFERENCE_CENTER || 'false',
+  },
+  routes: {
+    homepage: '/homepage',
+    chatgptPrompts: '/chatgpt-prompts',
+    midjourneyPrompts: '/midjourney-prompts',
+    challanges: '/challanges',
+    ecosystem: '/ecosystem',
+    profile: '/profile',
+    explorer: {
+      ethMainnet: 'https://etherscan.io/address/',
+      ethGoerli: 'https://goerli.etherscan.io/address/',
+      polygon: 'https://polygonscan.com/address/',
+      mumbai: 'https://mumbai.polygonscan.com/address/',
+      binance: 'https://bscscan.com/address/',
+      moonriver: 'https://moonriver.moonscan.io/address/',
+      energyWebChain: 'https://explorer.energyweb.org/address/',
+    },
+  },
+  network: {
+    networkTokenDecimals: 18,
+    acceptedChainId:
+      parseInt(process.env.NEXT_PUBLIC_ACCEPTED_CHAIN_ID || '0', 10) || 80001,
+    chains: {
+      137: 'Polygon Mainnet',
+      80001: 'Mumbai Testnet',
+    },
+    rpcUrl: 'https://rpc-mumbai.maticvigil.com',
+    pleaseSelectNetwork: {
+      137: 'Please select Polygon Mainnet from wallet.',
+      80001: 'Please select Mumbai Testnet from wallet.',
+    },
+  },
+  oceanNetwork: {
+    contract:
+      process.env.NEXT_PUBLIC_OCEAN_CONTRACT ||
+      '0xd8992Ed72C445c35Cb4A2be468568Ed1079357c8',
+    networkDecimals: 18,
+  },
+  did: 'did:op:2497bdb5c4eed690bfb47f81d3d37d9cc6aaf2a05527a392d622396854372a92',
+  magicApiKey:
+    process.env.NEXT_PUBLIC_MAGIC_API_KEY || 'pk_live_FFCFB9A970D9C147',
 };
 
 export default config;

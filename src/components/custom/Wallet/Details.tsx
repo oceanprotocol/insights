@@ -5,7 +5,7 @@ import cs from 'classnames';
 import styles from './Details.module.scss';
 import Button from '../Button';
 import MetamaskLogo from '../../../assets/MetaMask_Fox.svg';
-import WalletConnectLogo from '../../../assets/walletconnect-seeklogo.com.svg';
+import MagicLinkLogo from '../../../assets/magic_color.svg';
 import CoinbaseLogo from '../../../assets/coinbase-wallet-logo.svg';
 import { formatNumber } from '../../../shared/utilities/format';
 import BigNumber from 'bignumber.js';
@@ -18,36 +18,14 @@ import { useUser } from '../../../shared/@ocean/context/UserContext';
 export default function Details(): ReactElement {
   const { connect, connectors } = useConnect();
   const { connector: activeConnector, address } = useAccount();
-  const { disconnect } = useDisconnect();
-  const { balance: wagmiBalance } = useBalance();
-
-  const { handleDisconnect, web3 } = useWeb3();
+  const { handleDisconnect, web3, walletConnectionType } = useWeb3();
   const { user } = useUser();
-
-  const [balance, setBalance] = useState('...');
-
-  // Call the getBalance function when the user state variable changes
-  useEffect(() => {
-    const getBalance = async () => {
-      if (!user || !web3) return;
-      try {
-        // If account and web3 are available, get the balance
-        const balance = await web3.eth.getBalance(user);
-
-        // Convert the balance from Wei to Ether and set the state variable
-        setBalance(web3.utils.fromWei(balance).substring(0, 7));
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    getBalance();
-  }, [user]);
+  const { balance } = useBalance();
 
   return (
     <div className={styles.details}>
       <ul>
-        {Object.entries(wagmiBalance).map(([key, value]) => (
+        {Object.entries(balance).map(([key, value]) => (
           <li className={styles.balance} key={key}>
             <span className={styles.symbol}>{key.toUpperCase()}</span>
             <span className={styles.value}>
@@ -59,36 +37,35 @@ export default function Details(): ReactElement {
         <li className={styles.actions}>
           <div title="Connected provider" className={styles.walletInfo}>
             <span className={styles.walletLogoWrap}>
-              {activeConnector?.name === 'MetaMask' && (
+              {walletConnectionType?.walletType === 'metamask' && (
                 <Image
                   className={styles.walletLogo}
                   src={MetamaskLogo}
                   alt="metamask logog"
                 />
               )}
-              {activeConnector?.name === 'WalletConnectLegacy' && (
+              {walletConnectionType?.walletType === 'magic' && (
                 <Image
                   className={styles.walletLogo}
-                  src={WalletConnectLogo}
+                  src={MagicLinkLogo}
                   alt="metamask logog"
                 />
               )}
-              {activeConnector?.name === 'Coinbase Wallet' && (
+              {walletConnectionType?.walletType === 'coinbase_wallet' && (
                 <Image
                   className={styles.walletLogo}
                   src={CoinbaseLogo}
                   alt="metamask logog"
                 />
               )}
-              {activeConnector?.name.replace('Legacy', '')}
             </span>
             <span
               className={styles.address}
               onClick={() => {
-                navigator.clipboard.writeText(address);
+                navigator.clipboard.writeText(user);
               }}
             >
-              {truncateWalletAddress(address || '', address ? 4 : 0)}
+              {truncateWalletAddress(user || '', user ? 4 : 0)}
             </span>
           </div>
           <p>

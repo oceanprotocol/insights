@@ -20,11 +20,6 @@ const Navigation = () => {
   const Profile = config.routes.profile;
   const { isConnected, address } = useAccount();
   const { user } = useUser();
-  console.log('🚀 ~ file: Header.tsx:23 ~ Navigation ~ user:', user);
-  console.log(
-    '🚀 ~ file: Header.tsx:21 ~ Navigation ~ isConnected:',
-    isConnected
-  );
   return (
     <div className="d-flex flex-column flex-md-row align-center">
       <div>{!user ? <ConnectButton /> : <Wallet />}</div>
