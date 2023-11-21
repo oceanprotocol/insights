@@ -227,7 +227,8 @@ const config: ConfigType = {
   network: {
     networkTokenDecimals: 18,
     acceptedChainId:
-      parseInt(process.env.NEXT_PUBLIC_ACCEPTED_CHAIN_ID || '0', 10) || 80001,
+      parseInt(process.env.NEXT_PUBLIC_ACCEPTED_CHAIN_ID || '0', 10) ||
+      11155111,
     chains: {
       137: 'Polygon Mainnet',
       80001: 'Mumbai Testnet',
