@@ -10,7 +10,15 @@ import energyWebChainLogo from '../../../assets/Energy_web_chain.svg';
 export default function useProfile() {
   const {
     routes: {
-      explorer: { ethMainnet, ethGoerli, polygon, mumbai, binance, moonriver, energyWebChain },
+      explorer: {
+        ethMainnet,
+        ethSepolia,
+        polygon,
+        mumbai,
+        binance,
+        moonriver,
+        energyWebChain,
+      },
     },
   } = config;
 
@@ -43,8 +51,8 @@ export default function useProfile() {
       {
         id: 5,
         logo: ethLogo,
-        name: 'Görli',
-        href: ethGoerli,
+        name: 'Sepolia',
+        href: ethSepolia,
       },
       {
         id: 6,
@@ -59,7 +67,15 @@ export default function useProfile() {
         href: energyWebChain,
       },
     ],
-    [binance, energyWebChain, ethGoerli, ethMainnet, moonriver, mumbai, polygon],
+    [
+      binance,
+      energyWebChain,
+      ethSepolia,
+      ethMainnet,
+      moonriver,
+      mumbai,
+      polygon,
+    ]
   );
 
   return { ExplorerLinks };

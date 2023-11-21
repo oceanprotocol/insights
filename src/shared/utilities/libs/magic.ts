@@ -9,7 +9,7 @@ const createMagic = (key: string) => {
     new Magic(key, {
       network: {
         rpcUrl: `https://sepolia.infura.io/v3/${config.oceanApp.infuraProjectId}`,
-        chainId: 11155111,
+        chainId: config.network.acceptedChainId,
       },
     })
   );

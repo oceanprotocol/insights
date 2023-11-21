@@ -1,11 +1,9 @@
 import React, { ReactElement } from 'react';
 import Account from './Account';
 import styles from './index.module.scss';
-import { useAccount } from 'wagmi';
 import Tooltip from '../Tooltip';
 import Details from './Details';
 import Network from './Network';
-import { useWeb3 } from '../../../shared/@ocean/context/WalletContext';
 import { useUser } from '../../../shared/@ocean/context/UserContext';
 
 type WalletPropType = {
@@ -13,7 +11,6 @@ type WalletPropType = {
 };
 
 export default function Wallet({ mobile }: WalletPropType): ReactElement {
-  const { address: accountId, isConnected } = useAccount();
   const { user } = useUser();
 
   return (

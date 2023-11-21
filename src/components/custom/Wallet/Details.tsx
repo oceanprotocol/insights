@@ -1,6 +1,5 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement } from 'react';
 import Image from 'next/image';
-import { useDisconnect, useAccount, useConnect } from 'wagmi';
 import cs from 'classnames';
 import styles from './Details.module.scss';
 import Button from '../Button';
@@ -12,13 +11,11 @@ import BigNumber from 'bignumber.js';
 import useBalance from '../../../shared/@ocean/hooks/useBalance';
 import { truncateWalletAddress } from '@/shared/utilities/truncateAddress';
 import { useWeb3 } from '../../../shared/@ocean/context/WalletContext';
-import { magic } from '../../../shared/utilities/libs/magic';
 import { useUser } from '../../../shared/@ocean/context/UserContext';
+import CopyButton from '../../../assets/copy.png';
 
 export default function Details(): ReactElement {
-  const { connect, connectors } = useConnect();
-  const { connector: activeConnector, address } = useAccount();
-  const { handleDisconnect, web3, walletConnectionType } = useWeb3();
+  const { handleDisconnect, handleConnect, walletConnectionType } = useWeb3();
   const { user } = useUser();
   const { balance } = useBalance();
 
@@ -59,20 +56,27 @@ export default function Details(): ReactElement {
                 />
               )}
             </span>
-            <span
+            <div
               className={styles.address}
               onClick={() => {
                 navigator.clipboard.writeText(user);
               }}
             >
-              {truncateWalletAddress(user || '', user ? 4 : 0)}
-            </span>
+              {truncateWalletAddress(user || '', user ? 4 : 0)}{' '}
+              <Image
+                width={12}
+                height={12}
+                src={CopyButton}
+                alt="copy_button"
+              />
+            </div>
           </div>
           <p>
             <Button
               className={cs(styles.magentaText, 'clean-empty-button')}
               onClick={async () => {
-                connect({ connector: connectors[0] });
+                handleDisconnect();
+                handleConnect();
               }}
             >
               Switch Wallet

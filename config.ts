@@ -1,110 +1,110 @@
 export type ConfigType = {
-	language: string;
-	translateLists: string[];
-	mobileMaxWidth: number;
-	tabletMaxWidth: number;
-	ethMockPrice: number;
-	oceanApp: {
-		// URI of single metadata cache instance for all networks.
-		// While ocean.js includes this value for each network as part of its ConfigHelper,
-		// it is assumed to be the same for all networks.
-		// In components can be accessed with the useMarketMetadata hook:
-		// const { appConfig } = useMarketMetadata()
-		// return appConfig.metadataCacheUri
-		metadataCacheUri: string;
+  language: string;
+  translateLists: string[];
+  mobileMaxWidth: number;
+  tabletMaxWidth: number;
+  ethMockPrice: number;
+  oceanApp: {
+    // URI of single metadata cache instance for all networks.
+    // While ocean.js includes this value for each network as part of its ConfigHelper,
+    // it is assumed to be the same for all networks.
+    // In components can be accessed with the useMarketMetadata hook:
+    // const { appConfig } = useMarketMetadata()
+    // return appConfig.metadataCacheUri
+    metadataCacheUri: string;
 
-		// List of chainIds which metadata cache queries will return by default.
-		// This preselects the Chains user preferences.
-		chainIds: number[];
+    // List of chainIds which metadata cache queries will return by default.
+    // This preselects the Chains user preferences.
+    chainIds: number[];
 
-		// List of all supported chainIds. Used to populate the Chains user preferences list.
-		chainIdsSupported: number[];
+    // List of all supported chainIds. Used to populate the Chains user preferences list.
+    chainIdsSupported: number[];
 
-		infuraProjectId: string;
+    infuraProjectId: string;
 
-		defaultDatatokenTemplateIndex: number;
-		// The ETH address the marketplace fee will be sent to.
-		marketFeeAddress: string;
-		// publisher market fee that is taken upon ordering an asset, it is an absolute value, it is declared on erc20 creation
-		publisherMarketOrderFee: string;
-		// fee recieved by the publisher market when a dt is bought from a fixed rate exchange, percent
-		publisherMarketFixedSwapFee: string;
+    defaultDatatokenTemplateIndex: number;
+    // The ETH address the marketplace fee will be sent to.
+    marketFeeAddress: string;
+    // publisher market fee that is taken upon ordering an asset, it is an absolute value, it is declared on erc20 creation
+    publisherMarketOrderFee: string;
+    // fee recieved by the publisher market when a dt is bought from a fixed rate exchange, percent
+    publisherMarketFixedSwapFee: string;
 
-		// consume market fee that is taken upon ordering an asset, it is an absolute value, it is specified on order
-		consumeMarketOrderFee: string;
-		// fee recieved by the consume market when a dt is bought from a fixed rate exchange, percent
-		consumeMarketFixedSwapFee: string;
+    // consume market fee that is taken upon ordering an asset, it is an absolute value, it is specified on order
+    consumeMarketOrderFee: string;
+    // fee recieved by the consume market when a dt is bought from a fixed rate exchange, percent
+    consumeMarketFixedSwapFee: string;
 
-		approvedBaseTokens: {
-			address: string;
-			decimals: number;
-			name: string;
-			symbol: string;
-		}[];
+    approvedBaseTokens: {
+      address: string;
+      decimals: number;
+      name: string;
+      symbol: string;
+    }[];
 
-		// Used for conversion display, can be whatever coingecko API supports
-		// see: https://api.coingecko.com/api/v3/simple/supported_vs_currencies
-		currencies: string[];
+    // Used for conversion display, can be whatever coingecko API supports
+    // see: https://api.coingecko.com/api/v3/simple/supported_vs_currencies
+    currencies: string[];
 
-		// Tokens to fetch the spot prices from coingecko, against above currencies.
-		// Refers to Coingecko API tokenIds.
-		coingeckoTokenIds: string[];
+    // Tokens to fetch the spot prices from coingecko, against above currencies.
+    // Refers to Coingecko API tokenIds.
+    coingeckoTokenIds: string[];
 
-		// Config for https://github.com/oceanprotocol/use-dark-mode
-		darkModeConfig: {
-			classNameDark: string;
-			classNameLight: string;
-			storageKey: string;
-		};
+    // Config for https://github.com/oceanprotocol/use-dark-mode
+    darkModeConfig: {
+      classNameDark: string;
+      classNameLight: string;
+      storageKey: string;
+    };
 
-		// Used to show or hide the fixed or free price options
-		// tab to publishers during the price creation.
-		allowFixedPricing: string;
-		allowFreePricing: string;
+    // Used to show or hide the fixed or free price options
+    // tab to publishers during the price creation.
+    allowFixedPricing: string;
+    allowFreePricing: string;
 
-		// Set the default privacy policy to initially display
-		// this should be the slug of your default policy markdown file
-		defaultPrivacyPolicySlug: string;
+    // Set the default privacy policy to initially display
+    // this should be the slug of your default policy markdown file
+    defaultPrivacyPolicySlug: string;
 
-		// This enables / disables the use of a GDPR compliant
-		// privacy preference center to manage cookies on the market
-		// If set to true a gdpr.json file inside the content directory
-		// is used to create and show a privacy preference center / cookie banner
-		// To learn more about how to configure and use this, please refer to the readme
-		privacyPreferenceCenter: string;
-	};
-	routes: {
-		homepage: string;
-		chatgptPrompts: string;
-		midjourneyPrompts: string;
-		challanges: string;
-		ecosystem: string;
-		profile: string;
-		explorer: {
-			ethMainnet: string;
-			ethGoerli: string;
-			polygon: string;
-			mumbai: string;
-			binance: string;
-			moonriver: string;
-			energyWebChain: string;
-		};
-	};
-	network: {
-		networkTokenDecimals: number;
-		acceptedChainId: number;
-		chains: {
-			[key: number]: string;
-		};
-		rpcUrl: string;
-		pleaseSelectNetwork: { [key: number]: string };
-	};
-	oceanNetwork: {
-		contract: string;
-		networkDecimals: number;
-	};
-	did: string;
-	magicApiKey: string;
+    // This enables / disables the use of a GDPR compliant
+    // privacy preference center to manage cookies on the market
+    // If set to true a gdpr.json file inside the content directory
+    // is used to create and show a privacy preference center / cookie banner
+    // To learn more about how to configure and use this, please refer to the readme
+    privacyPreferenceCenter: string;
+  };
+  routes: {
+    homepage: string;
+    chatgptPrompts: string;
+    midjourneyPrompts: string;
+    challanges: string;
+    ecosystem: string;
+    profile: string;
+    explorer: {
+      ethMainnet: string;
+      ethSepolia: string;
+      polygon: string;
+      mumbai: string;
+      binance: string;
+      moonriver: string;
+      energyWebChain: string;
+    };
+  };
+  network: {
+    networkTokenDecimals: number;
+    acceptedChainId: number;
+    chains: {
+      [key: number]: string;
+    };
+    rpcUrl: string;
+    pleaseSelectNetwork: { [key: number]: string };
+  };
+  oceanNetwork: {
+    contract: string;
+    networkDecimals: number;
+  };
+  did: string;
+  magicApiKey: string;
 };
 
 const config: ConfigType = {
@@ -216,7 +216,7 @@ const config: ConfigType = {
     profile: '/profile',
     explorer: {
       ethMainnet: 'https://etherscan.io/address/',
-      ethGoerli: 'https://goerli.etherscan.io/address/',
+      ethSepolia: 'https://sepolia.etherscan.io/address/',
       polygon: 'https://polygonscan.com/address/',
       mumbai: 'https://mumbai.polygonscan.com/address/',
       binance: 'https://bscscan.com/address/',

@@ -1,10 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { LoggerInstance } from '@oceanprotocol/lib';
-import {
-  useNetwork,
-  useAccount,
-  useBalance as useBalanceWagmi,
-} from 'wagmi';
+import { useBalance as useBalanceWagmi } from 'wagmi';
 import { useMarketMetadata } from '../context/MarketMetadata';
 import { getTokenBalance } from '../../utilities/wallet';
 import { useEthersProvider } from '@/shared/utilities/wallet/ethersProvider';
@@ -29,7 +25,7 @@ function useBalance(): BalanceProviderValue {
   const { web3 } = useWeb3();
   const { data: balanceNativeToken } = useBalanceWagmi({
     address: user as `0x${string}`,
-    chainId: 11155111,
+    chainId: config.network.acceptedChainId,
   });
 
   const { approvedBaseTokens } = useMarketMetadata();
