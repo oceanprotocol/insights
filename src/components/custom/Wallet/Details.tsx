@@ -73,16 +73,11 @@ export default function Details(): ReactElement {
           </div>
           <p>
             <Button
-              className={cs(styles.magentaText, 'clean-empty-button')}
-              onClick={async () => {
-                handleDisconnect();
-                handleConnect();
-              }}
-            >
-              Switch Wallet
-            </Button>
-            <Button
-              className={cs(styles.magentaText, 'clean-empty-button')}
+              className={cs(
+                styles.magentaText,
+                styles.mb_3,
+                'clean-empty-button'
+              )}
               onClick={() => {
                 handleDisconnect();
               }}
