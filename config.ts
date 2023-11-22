@@ -78,7 +78,7 @@ export type ConfigType = {
     profile: string;
     explorer: {
       ethMainnet: string;
-      ethGoerli: string;
+      ethSepolia: string;
       polygon: string;
       mumbai: string;
       binance: string;
@@ -154,12 +154,6 @@ const config: ConfigType = {
         name: 'Ocean Token (PoS)',
         symbol: 'mOCEAN',
       },
-      {
-        address: '0xc5248aa0629c0b2d6a02834a5f172937ac83cbd3',
-        decimals: 18,
-        name: 'H20data',
-        symbol: 'H20',
-      },
     ],
 
     // Used for conversion display, can be whatever coingecko API supports
@@ -213,7 +207,7 @@ const config: ConfigType = {
     profile: '/profile',
     explorer: {
       ethMainnet: 'https://etherscan.io/address/',
-      ethGoerli: 'https://goerli.etherscan.io/address/',
+      ethSepolia: 'https://sepolia.etherscan.io/address/',
       polygon: 'https://polygonscan.com/address/',
       mumbai: 'https://mumbai.polygonscan.com/address/',
       binance: 'https://bscscan.com/address/',

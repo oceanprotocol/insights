@@ -1,21 +1,22 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement } from 'react';
 import Image from 'next/image';
-import { useDisconnect, useAccount, useConnect } from 'wagmi';
 import cs from 'classnames';
 import styles from './Details.module.scss';
 import Button from '../Button';
 import MetamaskLogo from '../../../assets/MetaMask_Fox.svg';
-import WalletConnectLogo from '../../../assets/walletconnect-seeklogo.com.svg';
+import MagicLinkLogo from '../../../assets/magic_color.svg';
 import CoinbaseLogo from '../../../assets/coinbase-wallet-logo.svg';
 import { formatNumber } from '../../../shared/utilities/format';
 import BigNumber from 'bignumber.js';
 import useBalance from '../../../shared/@ocean/hooks/useBalance';
 import { truncateWalletAddress } from '@/shared/utilities/truncateAddress';
+import { useWeb3 } from '../../../shared/@ocean/context/WalletContext';
+import { useUser } from '../../../shared/@ocean/context/UserContext';
+import CopyButton from '../../../assets/copy.png';
 
 export default function Details(): ReactElement {
-  const { connect, connectors } = useConnect();
-  const { connector: activeConnector, address} = useAccount();
-  const { disconnect } = useDisconnect();
+  const { handleDisconnect, handleConnect, walletConnectionType } = useWeb3();
+  const { user } = useUser();
   const { balance } = useBalance();
 
   return (
@@ -33,47 +34,52 @@ export default function Details(): ReactElement {
         <li className={styles.actions}>
           <div title="Connected provider" className={styles.walletInfo}>
             <span className={styles.walletLogoWrap}>
-              {activeConnector?.name === 'MetaMask' && (
+              {walletConnectionType?.walletType === 'metamask' && (
                 <Image
                   className={styles.walletLogo}
                   src={MetamaskLogo}
                   alt="metamask logog"
                 />
               )}
-              {activeConnector?.name === 'WalletConnectLegacy' && (
+              {walletConnectionType?.walletType === 'magic' && (
                 <Image
                   className={styles.walletLogo}
-                  src={WalletConnectLogo}
+                  src={MagicLinkLogo}
                   alt="metamask logog"
                 />
               )}
-              {activeConnector?.name === 'Coinbase Wallet' && (
+              {walletConnectionType?.walletType === 'coinbase_wallet' && (
                 <Image
                   className={styles.walletLogo}
                   src={CoinbaseLogo}
                   alt="metamask logog"
                 />
               )}
-              {activeConnector?.name.replace('Legacy', '')}
             </span>
-            <span className={styles.address} onClick={()=>{navigator.clipboard.writeText(address);}}>
-                {truncateWalletAddress(address || '', (address)? 4: 0)}
-            </span> 
+            <div
+              className={styles.address}
+              onClick={() => {
+                navigator.clipboard.writeText(user);
+              }}
+            >
+              {truncateWalletAddress(user || '', user ? 4 : 0)}{' '}
+              <Image
+                width={12}
+                height={12}
+                src={CopyButton}
+                alt="copy_button"
+              />
+            </div>
           </div>
           <p>
             <Button
-              className={cs(styles.magentaText, 'clean-empty-button')}
-              onClick={async () => {
-                connect({ connector: connectors[0] })}
-              }
-            >
-              Switch Wallet
-            </Button>
-            <Button
-              className={cs(styles.magentaText, 'clean-empty-button')}
+              className={cs(
+                styles.magentaText,
+                styles.mb_3,
+                'clean-empty-button'
+              )}
               onClick={() => {
-                disconnect();
-                // location.reload();
+                handleDisconnect();
               }}
             >
               Disconnect

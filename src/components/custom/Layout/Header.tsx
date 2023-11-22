@@ -5,30 +5,27 @@ import { useTranslation } from "react-i18next";
 import cx from "classnames";
 import styles from "./styles.module.scss";
 import Button from "../Button";
-import profile from "../../../assets/profile.svg";
-import cart from "../../../assets/cartHeader.svg";
+import profile from '../../../assets/profile.svg';
 import logo from "../../../assets/logo.svg";
 import Wallet from '../Wallet';
 import config from '../../../../config';
 
 import ConnectButton from '../ConnectButton';
-import { useAccount } from 'wagmi';
+import { useUser } from '../../../shared/@ocean/context/UserContext';
 
 const Navigation = () => {
   const Profile = config.routes.profile;
-  const { isConnected } = useAccount();
+  const { user } = useUser();
   return (
     <div className="d-flex flex-column flex-md-row align-center">
-      <div>{!isConnected ? <ConnectButton /> : <Wallet />}</div>
+      <div>{!user ? <ConnectButton /> : <Wallet />}</div>
+      <Networks />
       <div className="d-flex flex-row align-center order-0 order-md-1">
         <Button
           className="me-3 bg-transparent border-0 d-flex align-items-center"
           path={Profile}
         >
           <Image src={profile} width={20} height={20} alt="profile" />
-        </Button>
-        <Button className="me-3 bg-transparent border-0">
-          <Image src={cart} width={23} height={22} alt="cart" />
         </Button>
       </div>
     </div>

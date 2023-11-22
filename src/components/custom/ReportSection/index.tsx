@@ -5,90 +5,123 @@ import styles from './styles.module.scss';
 import Card from './Card/index';
 import useData, { CardPropType } from './Card/useData';
 import {useOptionsDropdown, useImageProcessing} from './Dropdown/DropdownData';
-import { downloadJobResults,  startComputeJob, waitForJobToFinish } from '@/shared/@ocean/utils/computeToData';
-import { useNetwork, useWalletClient } from 'wagmi';
+import {
+  downloadJobResults,
+  startComputeJob,
+  waitForJobToFinish,
+} from '@/shared/@ocean/utils/computeToData';
 import { LoggerInstance, UserCustomParameters } from '@oceanprotocol/lib';
 import { toast } from 'react-toastify'
 import { useEthersSigner } from '@/shared/utilities/wallet/ethersSigner';
+import config from '../../../../config';
+import { useWeb3 } from '../../../shared/@ocean/context/WalletContext';
 
 export default function Report() {
+  const { web3Signer } = useWeb3();
   const { DubaiCardData, AlgoProcessingCardData } = useData();
-  const {chain} = useNetwork()
   const { DropdownData, NrOfRoomsDataDropdown } = useOptionsDropdown();
-  const { ImageDataDropdown} = useImageProcessing();
+  const { ImageDataDropdown } = useImageProcessing();
   const { t } = useTranslation(['common']);
   const initialStatesLoading = {};
   const initialStatesMessages = {};
   const initialStatesDropdownRealEstate = {};
   const initialStatesImageProcessingDropdown = {};
   DubaiCardData.forEach((dataItem) => {
-    initialStatesLoading['dubaiLoading'+dataItem.id] = false;
-    initialStatesMessages['dubaiMessage'+dataItem.id] = '';
-    initialStatesDropdownRealEstate['dropdown'+dataItem.id] = DropdownData;
+    initialStatesLoading['dubaiLoading' + dataItem.id] = false;
+    initialStatesMessages['dubaiMessage' + dataItem.id] = '';
+    initialStatesDropdownRealEstate['dropdown' + dataItem.id] = DropdownData;
   });
   AlgoProcessingCardData.forEach((dataItem) => {
-    initialStatesLoading['algoProcessingLoading'+dataItem.id] = false;
-    initialStatesMessages['algoProcessingMessage'+dataItem.id] = '';
-    initialStatesImageProcessingDropdown['dropdown'+dataItem.id] = ImageDataDropdown;
+    initialStatesLoading['algoProcessingLoading' + dataItem.id] = false;
+    initialStatesMessages['algoProcessingMessage' + dataItem.id] = '';
+    initialStatesImageProcessingDropdown['dropdown' + dataItem.id] =
+      ImageDataDropdown;
   });
-  initialStatesDropdownRealEstate['dropdown1'] = NrOfRoomsDataDropdown
-  initialStatesImageProcessingDropdown['dropdown1'] = ImageDataDropdown
-  const signer = useEthersSigner()
+  initialStatesDropdownRealEstate['dropdown1'] = NrOfRoomsDataDropdown;
+  initialStatesImageProcessingDropdown['dropdown1'] = ImageDataDropdown;
+  // const signer = useEthersSigner();
   const [loadingStates, setLoadingStates] = useState(initialStatesLoading);
   const [messagesStates, setMessagesStates] = useState(initialStatesMessages);
 
-  const toggleCardState = (id:number) => {
+  const toggleCardState = (id: number) => {
     if (id < 4) {
       setLoadingStates((prevState) => ({
         ...prevState,
-        ['dubaiLoading'+id]: !prevState['dubaiLoading'+id],
+        ['dubaiLoading' + id]: !prevState['dubaiLoading' + id],
       }));
     } else {
       setLoadingStates((prevState) => ({
         ...prevState,
-        ['algoProcessingLoading'+id]: !prevState['algoProcessingLoading'+id],
+        ['algoProcessingLoading' + id]:
+          !prevState['algoProcessingLoading' + id],
       }));
     }
   };
 
-  const updateCardMessage = (id:number, message:string) => {
+  const updateCardMessage = (id: number, message: string) => {
     if (id < 4) {
       setMessagesStates((prevState) => ({
         ...prevState,
-        ['dubaiMessage'+id]: message,
+        ['dubaiMessage' + id]: message,
       }));
     } else {
       setMessagesStates((prevState) => ({
         ...prevState,
-        ['algoProcessingMessage'+id]: message,
+        ['algoProcessingMessage' + id]: message,
       }));
     }
   };
 
-  async function downloadReport(datasetDid: string, algoDid: string, cardId: number, consumerParameter:UserCustomParameters) {
-    toggleCardState(cardId)
-    try{
-      updateCardMessage(cardId, 'Ordering dataset & algorithm and starting compute job!')
-      const jobId = await startComputeJob(datasetDid, algoDid, chain?.id, signer, consumerParameter)
-      console.log('Compute job started: ',jobId)
-      updateCardMessage(cardId, `Compute job started: ${jobId} , Running algorithm ...`)
-      const jobFinished = await waitForJobToFinish(datasetDid, jobId, chain?.id, signer)
-      console.log('Job finished: ',jobFinished)
-      updateCardMessage(cardId, `Compute job finished!`)
+  async function downloadReport(
+    datasetDid: string,
+    algoDid: string,
+    cardId: number,
+    consumerParameter: UserCustomParameters
+  ) {
+    toggleCardState(cardId);
+    try {
+      updateCardMessage(
+        cardId,
+        'Ordering dataset & algorithm and starting compute job!'
+      );
+      const jobId = await startComputeJob(
+        datasetDid,
+        algoDid,
+        config.network.acceptedChainId,
+        web3Signer,
+        consumerParameter
+      );
+      console.log('Compute job started: ', jobId);
+      updateCardMessage(
+        cardId,
+        `Compute job started: ${jobId} , Running algorithm ...`
+      );
+      const jobFinished = await waitForJobToFinish(
+        datasetDid,
+        jobId,
+        config.network.acceptedChainId,
+        web3Signer
+      );
+      console.log('Job finished: ', jobFinished);
+      updateCardMessage(cardId, `Compute job finished!`);
       for (let index = 0; index < jobFinished.results.length; index++) {
         const file = jobFinished.results[index];
-        if(file.type === 'output'){
-          updateCardMessage(cardId, ` Downloading results ...`)
-          await downloadJobResults(jobId, index, chain?.id, signer)
-          toggleCardState(cardId)
+        if (file.type === 'output') {
+          updateCardMessage(cardId, ` Downloading results ...`);
+          await downloadJobResults(
+            jobId,
+            index,
+            config.network.acceptedChainId,
+            web3Signer
+          );
+          toggleCardState(cardId);
         }
       }
-    }catch(error){
-      LoggerInstance.error('[start compute job] ',error.message)
-      toast.error(`Download report error]: ${error.message}`)
-      toggleCardState(cardId)
+    } catch (error) {
+      LoggerInstance.error('[start compute job] ', error.message);
+      toast.error(`Download report error]: ${error.message}`);
+      toggleCardState(cardId);
     }
-
   }
 
   return (
@@ -103,13 +136,15 @@ export default function Report() {
             text={card.text}
             price={card.price}
             totalDownloads={card.downloads}
-            loading={loadingStates['dubaiLoading'+card.id]}
+            loading={loadingStates['dubaiLoading' + card.id]}
             optionsDropdownLeft={null}
-            optionsDropdownRight={initialStatesDropdownRealEstate['dropdown'+card.id]}
+            optionsDropdownRight={
+              initialStatesDropdownRealEstate['dropdown' + card.id]
+            }
             computeReportResults={downloadReport}
             datasetDid={card.datasetDid}
             algorithmDid={card.algoDid}
-            outputMessage={messagesStates['dubaiMessage'+card.id]}
+            outputMessage={messagesStates['dubaiMessage' + card.id]}
           />
         ))}
       </div>
@@ -124,8 +159,8 @@ export default function Report() {
         </div>
       </div>
       <div className="d-flex flex-column flex-md-row justify-content-center align-items-center">
-        {AlgoProcessingCardData.map((card: CardPropType) => (
-        card.id === 4 ? (
+        {AlgoProcessingCardData.map((card: CardPropType) =>
+          card.id === 4 ? (
             <Card
               key={card.id}
               id={card.id}
@@ -134,13 +169,15 @@ export default function Report() {
               text={card.text}
               price={card.price}
               totalDownloads={card.downloads}
-              loading={loadingStates['algoProcessingLoading'+card.id]}
+              loading={loadingStates['algoProcessingLoading' + card.id]}
               optionsDropdownLeft={null}
-              optionsDropdownRight={initialStatesImageProcessingDropdown['dropdown'+card.id]}
+              optionsDropdownRight={
+                initialStatesImageProcessingDropdown['dropdown' + card.id]
+              }
               computeReportResults={downloadReport}
               datasetDid={card.datasetDid}
               algorithmDid={card.algoDid}
-              outputMessage={messagesStates['algoProcessingMessage'+card.id]}
+              outputMessage={messagesStates['algoProcessingMessage' + card.id]}
             />
           ) : (
             <Card
@@ -151,15 +188,16 @@ export default function Report() {
               text={card.text}
               price={card.price}
               totalDownloads={card.downloads}
-              loading={loadingStates['algoProcessingLoading'+card.id]}
+              loading={loadingStates['algoProcessingLoading' + card.id]}
               optionsDropdownLeft={null}
               optionsDropdownRight={null}
               computeReportResults={downloadReport}
               datasetDid={card.datasetDid}
               algorithmDid={card.algoDid}
-              outputMessage={messagesStates['algoProcessingMessage'+card.id]}
+              outputMessage={messagesStates['algoProcessingMessage' + card.id]}
             />
-          )))}
+          )
+        )}
       </div>
     </div>
   );
