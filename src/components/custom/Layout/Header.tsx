@@ -19,7 +19,6 @@ const Navigation = () => {
   return (
     <div className="d-flex flex-column flex-md-row align-center">
       <div>{!user ? <ConnectButton /> : <Wallet />}</div>
-      <Networks />
       <div className="d-flex flex-row align-center order-0 order-md-1">
         <Button
           className="me-3 bg-transparent border-0 d-flex align-items-center"
