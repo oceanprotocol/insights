@@ -1,17 +1,17 @@
 import React, { ReactElement } from 'react';
 import Account from './Account';
 import styles from './index.module.scss';
-import { useAccount } from 'wagmi';
 import Tooltip from '../Tooltip';
 import Details from './Details';
 import Network from './Network';
+import { useUser } from '../../../shared/@ocean/context/UserContext';
 
 type WalletPropType = {
   mobile?: boolean;
 };
 
 export default function Wallet({ mobile }: WalletPropType): ReactElement {
-  const { address: accountId } = useAccount();
+  const { user } = useUser();
 
   return (
     <div
@@ -24,7 +24,7 @@ export default function Wallet({ mobile }: WalletPropType): ReactElement {
       <Tooltip
         content={<Details />}
         trigger="click focus"
-        disabled={!accountId}
+        disabled={!user}
         className="h-100"
       >
         <Account mobile={mobile} />
