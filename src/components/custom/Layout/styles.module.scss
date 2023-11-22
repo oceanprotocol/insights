@@ -30,6 +30,18 @@
   margin-top: 266px;
 }
 
+.gap20 {
+  gap: calc(var(--spacer) * 2);
+}
+
+.link {
+  color: rgba(162,169,185,1.00);
+}
+
+.link:hover {
+  color: rgba(221,32,114,1.00);
+}
+
 @media only screen and (max-width: 500px) {
   .mobileHeaderContainer {
     height: 100vh;
@@ -45,5 +57,9 @@
     padding: 5px;
     border-top: 1px solid rgba(217, 217, 217, 0.44);
     margin-top: 20px;
+  }
+
+  .gap20 {
+    gap: 0px
   }
 }
