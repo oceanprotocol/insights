@@ -1,21 +1,17 @@
 import React from "react";
 import { NextPage } from "next";
-import Image from "next/image";
-import cs from "classnames";
+import Image from 'next/image';
 
-import style from "./style.module.scss";
+import style from './style.module.scss';
 
 import WalletPortrait from '../../../assets/profile_logo.svg';
-import externalLink from '../../../assets/right-up.svg';
 import { truncateWalletAddress } from '../../../shared/utilities/truncateAddress';
-import useProfile from './useProfile';
 import { useEnsAvatar } from 'wagmi';
 import Copy from '../../../components/custom/Copy';
 import Avatar from '../../custom/Avatar';
 import { useUser } from '../../../shared/@ocean/context/UserContext';
 
 const Address: NextPage = () => {
-  const { ExplorerLinks } = useProfile();
   const { user } = useUser();
 
   const { data: accountEnsAvatar } = useEnsAvatar({
@@ -32,7 +28,12 @@ const Address: NextPage = () => {
           className={style.profileAvatar}
         />
       ) : (
-        <Image src={WalletPortrait} alt="Wallet Portrait" />
+        <Image
+          src={WalletPortrait}
+          width={96}
+          height={96}
+          alt="Wallet Portrait"
+        />
       )}
       <div className="d-flex flex-column align-items-center align-items-md-start mt-4 mt-md-0 ms-0 ms-md-3 text-white">
         {user ? (
@@ -41,29 +42,9 @@ const Address: NextPage = () => {
             <Copy text={user} />
           </div>
         ) : (
-          ''
+          'Please connect your wallet.'
         )}
         <div className="play15 mt-2">{user || ''}</div>
-        <div
-          className={cs(
-            style.linkBox,
-            'd-flex flex-row justify-content-center justify-content-md-start flex-wrap'
-          )}
-        >
-          {ExplorerLinks.map((link) => (
-            <a
-              key={link.id}
-              href={`${link.href}${user}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="d-flex flex-row align-items-center text-white clean-empty-hyperlink ms-2 ms-md-0 me-2 me-md-3 mt-3"
-            >
-              <Image src={link.logo} alt="ethereum logo" />
-              <div className="poppins14 ms-1">{link.name}</div>
-              <Image src={externalLink} alt="external up" />
-            </a>
-          ))}
-        </div>
       </div>
     </div>
   );

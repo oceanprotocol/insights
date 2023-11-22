@@ -9,14 +9,14 @@ export default function ComputeHistory() {
   const [activeButton, setActiveButton] = useState("Published");
 
   const contentMap: { [key: string]: JSX.Element } = {
-    Published: <Filter />,
+    Published: <></>,
     Download: <TableDownload />,
-    "Compute Jobs": <div>No results found</div>,
+    'Compute Jobs': <div>No results found</div>,
   };
 
   const handleButtonClick = (buttonLabel: string) => {
     if (activeButton === buttonLabel) {
-      setActiveButton("");
+      setActiveButton('');
     } else {
       setActiveButton(buttonLabel);
     }
@@ -25,34 +25,6 @@ export default function ComputeHistory() {
   return (
     <div className="mt-5">
       <div className="d-flex justify-content-center">
-        <button
-          className={cs(styles.button, 'btnH', 'btn-primary', 'play20', {
-            active: activeButton === 'Published',
-          })}
-          style={{
-            border: activeButton === 'Published' ? '5px solid #212529' : '',
-            background: activeButton === 'Published' ? '#212529' : '',
-            color: activeButton === 'Published' ? 'white' : '',
-            padding: activeButton === 'Published' ? '2px' : '',
-          }}
-          onClick={() => handleButtonClick('Published')}
-        >
-          PUBLISHED
-        </button>
-        <button
-          className={cs(styles.button, 'btnH', 'btn-primary', 'play20', {
-            active: activeButton === 'Download',
-          })}
-          style={{
-            border: activeButton === 'Download' ? '5px solid #212529' : '',
-            background: activeButton === 'Download' ? '#212529' : '',
-            color: activeButton === 'Download' ? 'white' : '',
-            padding: activeButton === 'Download' ? '2px' : '',
-          }}
-          onClick={() => handleButtonClick('Download')}
-        >
-          DOWNLOAD
-        </button>
         <button
           className={cs(styles.button, 'btnH', 'btn-primary', 'play20', {
             active: activeButton === 'Compute Jobs',
@@ -66,6 +38,20 @@ export default function ComputeHistory() {
           onClick={() => handleButtonClick('Compute Jobs')}
         >
           COMPUTE JOBS
+        </button>
+        <button
+          className={cs(styles.button, 'btnH', 'btn-primary', 'play20', {
+            active: activeButton === 'Published',
+          })}
+          style={{
+            border: activeButton === 'Published' ? '5px solid #212529' : '',
+            background: activeButton === 'Published' ? '#212529' : '',
+            color: activeButton === 'Published' ? 'white' : '',
+            padding: activeButton === 'Published' ? '2px' : '',
+          }}
+          onClick={() => handleButtonClick('Published')}
+        >
+          PUBLISHED
         </button>
       </div>
       <div className={`text-white ${activeButton ? 'show' : ''}`}>
