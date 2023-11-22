@@ -75,10 +75,6 @@ export type ConfigType = {
   };
   routes: {
     homepage: string;
-    chatgptPrompts: string;
-    midjourneyPrompts: string;
-    challanges: string;
-    ecosystem: string;
     profile: string;
     explorer: {
       ethMainnet: string;
@@ -103,7 +99,6 @@ export type ConfigType = {
     contract: string;
     networkDecimals: number;
   };
-  did: string;
   magicApiKey: string;
 };
 
@@ -126,10 +121,10 @@ const config: ConfigType = {
 
     // List of chainIds which metadata cache queries will return by default.
     // This preselects the Chains user preferences.
-    chainIds: [1, 137],
+    chainIds: [1, 11155111],
 
     // List of all supported chainIds. Used to populate the Chains user preferences list.
-    chainIdsSupported: [1, 137, 5, 80001, 11155111],
+    chainIdsSupported: [1, 11155111],
 
     infuraProjectId: process.env.NEXT_PUBLIC_INFURA_PROJECT_ID || 'xxx',
 
@@ -209,10 +204,6 @@ const config: ConfigType = {
   },
   routes: {
     homepage: '/homepage',
-    chatgptPrompts: '/chatgpt-prompts',
-    midjourneyPrompts: '/midjourney-prompts',
-    challanges: '/challanges',
-    ecosystem: '/ecosystem',
     profile: '/profile',
     explorer: {
       ethMainnet: 'https://etherscan.io/address/',
@@ -230,22 +221,21 @@ const config: ConfigType = {
       parseInt(process.env.NEXT_PUBLIC_ACCEPTED_CHAIN_ID || '0', 10) ||
       11155111,
     chains: {
-      137: 'Polygon Mainnet',
-      80001: 'Mumbai Testnet',
+      1: 'Ethereum',
+      11155111: 'Sepolia Testnet',
     },
     rpcUrl: 'https://rpc-mumbai.maticvigil.com',
     pleaseSelectNetwork: {
-      137: 'Please select Polygon Mainnet from wallet.',
-      80001: 'Please select Mumbai Testnet from wallet.',
+      1: 'Please select Ethereum Mainnet from wallet.',
+      11155111: 'Please select Sepolia Testnet from wallet.',
     },
   },
   oceanNetwork: {
     contract:
       process.env.NEXT_PUBLIC_OCEAN_CONTRACT ||
-      '0xd8992Ed72C445c35Cb4A2be468568Ed1079357c8',
+      '0x1B083D8584dd3e6Ff37d04a6e7e82b5F622f3985',
     networkDecimals: 18,
   },
-  did: 'did:op:2497bdb5c4eed690bfb47f81d3d37d9cc6aaf2a05527a392d622396854372a92',
   magicApiKey:
     process.env.NEXT_PUBLIC_MAGIC_API_KEY || 'pk_live_FFCFB9A970D9C147',
 };

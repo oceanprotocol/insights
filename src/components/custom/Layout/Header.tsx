@@ -7,9 +7,8 @@ import styles from "./styles.module.scss";
 import Button from "../Button";
 import profile from '../../../assets/profile.svg';
 import logo from "../../../assets/logo.svg";
-import Wallet from "../Wallet";
-import Networks from "../Networks";
-import config from "../../../../config";
+import Wallet from '../Wallet';
+import config from '../../../../config';
 
 import ConnectButton from '../ConnectButton';
 import { useUser } from '../../../shared/@ocean/context/UserContext';
@@ -20,7 +19,6 @@ const Navigation = () => {
   return (
     <div className="d-flex flex-column flex-md-row align-center">
       <div>{!user ? <ConnectButton /> : <Wallet />}</div>
-      <Networks />
       <div className="d-flex flex-row align-center order-0 order-md-1">
         <Button
           className="me-3 bg-transparent border-0 d-flex align-items-center"
@@ -62,7 +60,7 @@ const Mobile = () => {
           data-toggle="collapse"
           data-target="#navbarNav"
           aria-controls="navbarNav"
-          aria-expanded={isMenuOpen ? "true" : "false"}
+          aria-expanded={isMenuOpen ? 'true' : 'false'}
           aria-label="Toggle navigation"
           onClick={() => handleMenuToggle(isMenuOpen)}
         >
@@ -72,7 +70,7 @@ const Mobile = () => {
         </button>
 
         <div
-          className={cx(styles.heightNav, "collapse navbar-collapse", {
+          className={cx(styles.heightNav, 'collapse navbar-collapse', {
             show: isMenuOpen,
           })}
           id="navbarNav"
@@ -81,7 +79,7 @@ const Mobile = () => {
             <li className="nav-item">
               <a className="nav-link scroll-link" href="#top-content">
                 <Button
-                  className={cx(styles.profileCard, "d-flex flex-row")}
+                  className={cx(styles.profileCard, 'd-flex flex-row')}
                   path={Profile}
                   onClick={() => handleMenuToggle(isMenuOpen)}
                 >
@@ -91,7 +89,6 @@ const Mobile = () => {
               </a>
             </li>
             <div className="nav-item d-flex flex-row justify-content-between">
-              <Networks />
               <Wallet />
             </div>
           </ul>
