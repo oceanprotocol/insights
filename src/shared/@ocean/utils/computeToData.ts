@@ -174,7 +174,7 @@ export async function handleComputeOrder(
        - no validOrder -> we need to call startOrder, to pay 1 DT & providerFees
     */
 	if (order.providerFee && order.providerFee.providerFeeAmount) {
-		await approveWei(
+		const approve = await approveWei(
 			payerAccount,
 			config,
 			await payerAccount.getAddress(),
@@ -182,6 +182,9 @@ export async function handleComputeOrder(
 			asset.services[0].datatokenAddress,
 			order.providerFee.providerFeeAmount
 		);
+    if (!approve) {
+      return;
+    }
 	}
 	if (order.validOrder) {
 		if (!order.providerFee) return order.validOrder;
