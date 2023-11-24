@@ -1,11 +1,12 @@
 import react, { useState } from 'react';
+import cs from 'classnames';
 import Dropdown from 'react-bootstrap/Dropdown';
+import styles from './styles.module.scss';
 
 type OptionsType = {
   id: number;
   name: string;
 };
-
 
 type DropdownPropType = {
   placeholder: string;
@@ -16,7 +17,7 @@ type DropdownPropType = {
 export default function PriceDropdown({
   placeholder,
   options,
-  onSelect
+  onSelect,
 }: DropdownPropType) {
   const [dropdownValue, setDropdownValue] = useState('');
 
@@ -31,9 +32,14 @@ export default function PriceDropdown({
         <Dropdown.Toggle
           variant="success"
           id="dropdown-basic"
-          className="d-flex justify-content-center align-items-center my-0"
+          className={cs(
+            styles.dropdown,
+            'd-flex justify-content-center align-items-center my-0'
+          )}
         >
-          {placeholder + ':' + dropdownValue}
+          {dropdownValue && dropdownValue.length > 0
+            ? dropdownValue
+            : placeholder}
         </Dropdown.Toggle>
         <Dropdown.Menu>
           {options.map((option) => {

@@ -4,14 +4,14 @@ import styles from './index.module.scss';
 import Tooltip from '../Tooltip';
 import Details from './Details';
 import Network from './Network';
-import { useUser } from '../../../shared/@ocean/context/UserContext';
+import { useWeb3 } from '../../../shared/@ocean/context/WalletContext';
 
 type WalletPropType = {
   mobile?: boolean;
 };
 
 export default function Wallet({ mobile }: WalletPropType): ReactElement {
-  const { user } = useUser();
+  const { user } = useWeb3();
 
   return (
     <div

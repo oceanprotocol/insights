@@ -6,67 +6,37 @@ export type DropdownData = {
 
 export function useOptionsDropdown() {
 	const DropdownData = [
-		{
-			id: 1,
-			placeholder: "Option",
-			name: "Price per m2",
-		},
-		{
-			id: 2,
-			placeholder: "Option",
-			name: "Location",
-		},
-		{
-			id: 3,
-			placeholder: "Option",
-			name: "Time on market",
-		},
-		{
-			id: 4,
-			placeholder: "Option",
-			name: "Occupancy rate",
-		},
-		{
-			id: 5,
-			placeholder: "Option",
-			name: "Property size",
-		},
-		{
-			id: 6,
-			placeholder: "Option",
-			name: "Property type",
-		},
-		{
-			id: 7,
-			placeholder: "Option",
-			name: "Enter your tweet",
-		},
-		{
-			id: 8,
-			placeholder: "Option",
-			name: "# Category",
-		},
-		{
-			id: 9,
-			placeholder: "Option",
-			name: "Enter your tweet",
-		},
-		{
-			id: 10,
-			placeholder: "Option",
-			name: "Emotion",
-		},
-		{
-			id: 11,
-			placeholder: "Option",
-			name: "Emotion",
-		},
-		{
-			id: 12,
-			placeholder: "Option",
-			name: "Topic",
-		},
-	];
+    {
+      id: 1,
+      placeholder: 'Option',
+      name: 'Price per m2',
+    },
+    {
+      id: 2,
+      placeholder: 'Option',
+      name: 'Location',
+    },
+    {
+      id: 3,
+      placeholder: 'Option',
+      name: 'Time on market',
+    },
+    {
+      id: 4,
+      placeholder: 'Option',
+      name: 'Occupancy rate',
+    },
+    {
+      id: 5,
+      placeholder: 'Option',
+      name: 'Property size',
+    },
+    {
+      id: 6,
+      placeholder: 'Option',
+      name: 'Property type',
+    },
+  ];
 
 	const NrOfRoomsDataDropdown = [
 		{

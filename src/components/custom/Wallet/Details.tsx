@@ -11,12 +11,10 @@ import BigNumber from 'bignumber.js';
 import useBalance from '../../../shared/@ocean/hooks/useBalance';
 import { truncateWalletAddress } from '@/shared/utilities/truncateAddress';
 import { useWeb3 } from '../../../shared/@ocean/context/WalletContext';
-import { useUser } from '../../../shared/@ocean/context/UserContext';
 import CopyButton from '../../../assets/copy.png';
 
 export default function Details(): ReactElement {
-  const { handleDisconnect, handleConnect, walletConnectionType } = useWeb3();
-  const { user } = useUser();
+  const { handleDisconnect, walletConnectionType, user } = useWeb3();
   const { balance } = useBalance();
 
   return (

@@ -4,7 +4,6 @@ import { useBalance as useBalanceWagmi } from 'wagmi';
 import { useMarketMetadata } from '../context/MarketMetadata';
 import { getTokenBalance } from '../../utilities/wallet';
 import { useEthersProvider } from '@/shared/utilities/wallet/ethersProvider';
-import { useUser } from '../context/UserContext';
 import config from '../../../../config';
 import { magic } from '../../utilities/libs/magic';
 import { useWeb3 } from '../context/WalletContext';
@@ -21,8 +20,7 @@ type ApprovedBaseTokensType = {
 };
 
 function useBalance(): BalanceProviderValue {
-  const { user } = useUser();
-  const { web3 } = useWeb3();
+  const { web3, user } = useWeb3();
   const { data: balanceNativeToken } = useBalanceWagmi({
     address: user as `0x${string}`,
     chainId: config.network.acceptedChainId,
