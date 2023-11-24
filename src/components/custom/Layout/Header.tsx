@@ -11,11 +11,11 @@ import Wallet from '../Wallet';
 import config from '../../../../config';
 
 import ConnectButton from '../ConnectButton';
-import { useWeb3 } from '../../../shared/@ocean/context/WalletContext';
+import { useEthers } from '../../../shared/@ocean/context/WalletContext';
 
 const Navigation = () => {
   const Profile = config.routes.profile;
-  const { user } = useWeb3();
+  const { user } = useEthers();
   return (
     <div className="d-flex flex-column flex-md-row align-center">
       <div>{!user ? <ConnectButton /> : <Wallet />}</div>

@@ -14,10 +14,10 @@ import { LoggerInstance, UserCustomParameters } from '@oceanprotocol/lib';
 import { toast } from 'react-toastify'
 import { useEthersSigner } from '@/shared/utilities/wallet/ethersSigner';
 import config from '../../../../config';
-import { useWeb3 } from '../../../shared/@ocean/context/WalletContext';
+import { useEthers } from '../../../shared/@ocean/context/WalletContext';
 
 export default function Report() {
-  const { web3Signer } = useWeb3();
+  const { web3Signer } = useEthers();
   const { DubaiCardData, AlgoProcessingCardData } = useData();
   const { DropdownData, NrOfRoomsDataDropdown } = useOptionsDropdown();
   const { ImageDataDropdown } = useImageProcessing();

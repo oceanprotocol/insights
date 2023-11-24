@@ -1,24 +1,19 @@
-import { AbiItem, LoggerInstance } from '@oceanprotocol/lib';
+import { LoggerInstance } from '@oceanprotocol/lib';
 import {
   Connector,
   configureChains,
   createConfig,
-  erc20ABI,
-  Chain,
   ConnectorData,
 } from 'wagmi';
 import { mainnet, polygon, polygonMumbai, sepolia } from 'wagmi/chains';
 import { publicProvider } from 'wagmi/providers/public';
-import { ethers, Contract } from 'ethers';
+import { ethers } from 'ethers';
 import { formatEther } from 'ethers/lib/utils';
 import oceanAbi from '../../@ocean/abi/oceanAbi.json';
 
 import {
   UniversalWalletConnector,
-  UniversalWalletOptions,
 } from '@magiclabs/wagmi-connector';
-import { error } from 'console';
-import Web3 from 'web3';
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
   [mainnet, polygon, polygonMumbai, sepolia],
@@ -229,16 +224,17 @@ export async function getTokenBalance(
   accountId: string,
   decimals: number,
   tokenAddress: string,
-  web3Provider: Web3
+  ethersProvider: ethers.providers.Web3Provider
 ): Promise<string | undefined> {
-  if (!web3Provider || !accountId || !tokenAddress) return;
+  if (!ethersProvider || !accountId || !tokenAddress) return;
 
   try {
-    const token = new web3Provider.eth.Contract(
-      oceanAbi as AbiItem[],
-      tokenAddress
+    const token = new ethers.Contract(
+      tokenAddress,
+      oceanAbi,
+      ethersProvider
     );
-    const balance = await token.methods.balanceOf(accountId).call();
+    const balance = await token.balanceOf(accountId);
     const adjustedDecimalsBalance = `${balance}${'0'.repeat(18 - decimals)}`;
 
     return formatEther(adjustedDecimalsBalance);
