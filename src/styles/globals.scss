@@ -14,12 +14,11 @@
 
 .btn {
   border: 1px solid #000000;
-  border-radius: 10px;
+  border-radius: 4px;
   background-color: transparent;
-  width: 140px;
-  height: 30px;
+  width: fit-content;
   color: #000000;
-  margin: 15px 0 26px 0;
+  font-size: 10px;
 }
 
 .card {

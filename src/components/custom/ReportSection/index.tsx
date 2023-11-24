@@ -126,27 +126,27 @@ export default function Report() {
 
   return (
     <div className={cx(styles.background)}>
-      <div className="d-flex flex-column flex-md-row justify-content-center align-items-center">
-        {DubaiCardData.map((card: CardPropType) => (
-          <Card
-            key={card.id}
-            id={card.id}
-            title={card.title}
-            imageSrc={card.image}
-            text={card.text}
-            price={card.price}
-            totalDownloads={card.downloads}
-            loading={loadingStates['dubaiLoading' + card.id]}
-            optionsDropdownLeft={null}
-            optionsDropdownRight={
-              initialStatesDropdownRealEstate['dropdown' + card.id]
-            }
-            computeReportResults={downloadReport}
-            datasetDid={card.datasetDid}
-            algorithmDid={card.algoDid}
-            outputMessage={messagesStates['dubaiMessage' + card.id]}
-          />
-        ))}
+      <div className="d-flex flex-column flex-md-row justify-content-center align-items-center gap28">
+        {DubaiCardData.map((card: CardPropType) => {
+          return (
+            <Card
+              key={card.id}
+              id={card.id}
+              title={card.title}
+              imageSrc={card.image}
+              text={card.text}
+              price={card.price}
+              loading={loadingStates['dubaiLoading' + card.id]}
+              optionsDropdown={
+                initialStatesDropdownRealEstate['dropdown' + card.id]
+              }
+              computeReportResults={downloadReport}
+              datasetDid={card.datasetDid}
+              algorithmDid={card.algoDid}
+              outputMessage={messagesStates['dubaiMessage' + card.id]}
+            />
+          );
+        })}
       </div>
       <div>
         <div className={cx(styles.margin, 'play40 text-white text-center')}>
@@ -158,7 +158,7 @@ export default function Report() {
           {t('titleUpdate')}
         </div>
       </div>
-      <div className="d-flex flex-column flex-md-row justify-content-center align-items-center">
+      <div className="d-flex flex-column flex-md-row justify-content-center align-items-center gap28">
         {AlgoProcessingCardData.map((card: CardPropType) =>
           card.id === 4 ? (
             <Card
@@ -168,10 +168,8 @@ export default function Report() {
               imageSrc={card.image}
               text={card.text}
               price={card.price}
-              totalDownloads={card.downloads}
               loading={loadingStates['algoProcessingLoading' + card.id]}
-              optionsDropdownLeft={null}
-              optionsDropdownRight={
+              optionsDropdown={
                 initialStatesImageProcessingDropdown['dropdown' + card.id]
               }
               computeReportResults={downloadReport}
@@ -187,10 +185,8 @@ export default function Report() {
               imageSrc={card.image}
               text={card.text}
               price={card.price}
-              totalDownloads={card.downloads}
               loading={loadingStates['algoProcessingLoading' + card.id]}
-              optionsDropdownLeft={null}
-              optionsDropdownRight={null}
+              optionsDropdown={null}
               computeReportResults={downloadReport}
               datasetDid={card.datasetDid}
               algorithmDid={card.algoDid}

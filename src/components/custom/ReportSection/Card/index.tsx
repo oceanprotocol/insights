@@ -1,4 +1,4 @@
-import react, { useState } from 'react';
+import react, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Image, { StaticImageData } from 'next/image';
 import cx from 'classnames';
@@ -8,7 +8,11 @@ import styles from './styles.module.scss';
 import { DropdownData } from '../Dropdown/DropdownData';
 import Dropdown from '../Dropdown/index';
 import Loader from '../../Loader';
-import { UserCustomParameters } from '@oceanprotocol/lib';
+import { Aquarius, UserCustomParameters } from '@oceanprotocol/lib';
+import Button from '../../Button';
+import CartSVG from '../../../../assets/cart.svg';
+import { getOceanConfig } from '../../../../shared/@ocean/utilities/ocean';
+import config from '../../../../../config';
 
 type CardPropType = {
   id: number;
@@ -16,14 +20,17 @@ type CardPropType = {
   imageSrc: string | StaticImageData;
   text: string;
   price: string;
-  totalDownloads: string;
-  loading: boolean,
-  optionsDropdownLeft?: DropdownData[];
-  optionsDropdownRight?: DropdownData[];
-  computeReportResults?: (datasetDid: string, algoDid: string, cardId:number, customParameter?:UserCustomParameters) => void;
-  datasetDid?: string,
-  algorithmDid?: string,
-  outputMessage?:string
+  loading: boolean;
+  optionsDropdown?: DropdownData[];
+  computeReportResults?: (
+    datasetDid: string,
+    algoDid: string,
+    cardId: number,
+    customParameter?: UserCustomParameters
+  ) => void;
+  datasetDid?: string;
+  algorithmDid?: string;
+  outputMessage?: string;
 };
 
 const Card = ({
@@ -32,30 +39,28 @@ const Card = ({
   imageSrc,
   text,
   price,
-  totalDownloads,
   loading,
-  optionsDropdownLeft,
-  optionsDropdownRight,
+  optionsDropdown,
   computeReportResults,
   datasetDid,
   algorithmDid,
-  outputMessage
+  outputMessage,
 }: CardPropType) => {
   const { t } = useTranslation(['common']);
 
   const [selectedValue, setSelectedValue] = useState<UserCustomParameters>();
+  const [datasetPrice, setDatasetPrice] = useState<string>();
 
-  const handleDropdownSelect = (value:string) => {
-    const customParamKey = optionsDropdownRight?.[0].placeholder
+  const handleDropdownSelect = (value: string) => {
     const customParam = {
-      customParamKey : value
-    }
+      customParamKey: value,
+    };
     setSelectedValue(customParam);
   };
 
-
   const handleClick = () => {
-    computeReportResults && computeReportResults(datasetDid, algorithmDid, id, selectedValue)
+    computeReportResults &&
+      computeReportResults(datasetDid, algorithmDid, id, selectedValue);
   };
   function LoaderArea() {
     return (
@@ -64,54 +69,77 @@ const Card = ({
         <div
           className={cx(styles.text, 'play12 d-flex justify-content-center')}
         >
-            {outputMessage}
+          {outputMessage}
         </div>
       </div>
-    )
+    );
   }
 
+  const oceanConfig = getOceanConfig(config.network.acceptedChainId);
+
+  const getDatasetPrice = useCallback(async () => {
+    if (!datasetDid || datasetDid.length < 1) {
+      return;
+    }
+
+    const aquarius = new Aquarius(
+      oceanConfig.metadataCacheUri || 'https://v4.aquarius.oceanprotocol.com/'
+    );
+    const dataDdo: AssetExtended = await aquarius.waitForAqua(datasetDid);
+    if (!dataDdo) {
+      return;
+    }
+
+    setDatasetPrice(dataDdo?.accessDetails?.price);
+  }, [datasetDid, oceanConfig.metadataCacheUri]);
+
+  useEffect(() => {
+    getDatasetPrice();
+  }, []);
+
   return (
-    <div key={id}>
-      <div className="play30 text-white mx-3 mb-3 mb-md-0 d-flex justify-content-center">
-        {title}
+    <div className={cx(styles.root, 'd-flex flex-column flex-md-row')}>
+      <div className={styles.imageBox}>
+        <Image
+          src={imageSrc}
+          alt={title}
+          className={styles.image}
+          quality={100}
+          priority
+          fill
+        />
       </div>
-      <div className="mx-3">
-        <div className={cx(styles.card)}>
-          <Image src={imageSrc} alt={title} className={cx(styles.image)} />
-          <div className={cx(styles.text, 'play10 text-justify')}>{text}</div>
-          <div className="d-flex flex-row justify-content-center">
-          {optionsDropdownLeft ? (
-            <Dropdown placeholder={optionsDropdownLeft?.[0].placeholder || "Option" } options={optionsDropdownLeft} onSelect={handleDropdownSelect} />
-            ):
-            (<p></p>)
-          }
-          {
-          optionsDropdownRight ? (
-            <Dropdown placeholder={optionsDropdownRight?.[0].placeholder || "Option" } options={optionsDropdownRight} onSelect={handleDropdownSelect} />
-            ):
-            (<p></p>)
-          }
-          </div>
-          {loading ? (
-              <LoaderArea  />
-            ) : (
-          <div className="d-flex flex-row justify-content-end align-items-center">
-            <div className="playb15 me-2">{price}</div>
-            <button className={cx(styles.button, 'play15')}  onClick={handleClick}>
-              {t('buttonDownload')} 
-            </button>
-          </div>)
-          }
-          <div
-            className={cx(styles.download, 'play12 d-flex justify-content-end')}
-          >
-            Downloaded by {totalDownloads} users
-          </div>
+      <div className={styles.details}>
+        <div className={styles.descriptionBox}>
+          <h4 className={styles.title}>{title}</h4>
+          <p className={styles.description}>{text}</p>
         </div>
+        {loading ? (
+          <LoaderArea />
+        ) : (
+          <div className={styles.actions}>
+            <div className={cx(styles.dropdown, 'col-6')}>
+              {optionsDropdown ? (
+                <Dropdown
+                  placeholder={optionsDropdown?.[0].placeholder || 'Option'}
+                  options={optionsDropdown}
+                  onSelect={handleDropdownSelect}
+                />
+              ) : (
+                <></>
+              )}
+            </div>
+            <Button className={styles.buyBtn} onClick={handleClick}>
+              <Image src={CartSVG} alt="cart" />
+              <div className={styles.price}>
+                {datasetPrice ? `${datasetPrice} OCEAN` : price}
+              </div>
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   );
-
 };
 
 export default Card;

@@ -27,17 +27,21 @@ export default function PriceDropdown({
 
   return (
     <div className="mx-2">
-      <Dropdown  onSelect={handleSelect}>
+      <Dropdown onSelect={handleSelect}>
         <Dropdown.Toggle
           variant="success"
           id="dropdown-basic"
-          className="d-flex justify-content-center align-items-center"
+          className="d-flex justify-content-center align-items-center my-0"
         >
-          {placeholder+":"+dropdownValue} 
+          {placeholder + ':' + dropdownValue}
         </Dropdown.Toggle>
         <Dropdown.Menu>
           {options.map((option) => {
-            return <Dropdown.Item key={option.id} eventKey={option.name}>{option.name}</Dropdown.Item>;
+            return (
+              <Dropdown.Item key={option.id} eventKey={option.name}>
+                {option.name}
+              </Dropdown.Item>
+            );
           })}
         </Dropdown.Menu>
       </Dropdown>
