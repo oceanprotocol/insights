@@ -7,6 +7,7 @@ type ButtonPropsType = {
   children: ReactNode;
   className?: string;
   transparent?: boolean;
+  disabled?: boolean;
   onClick?: (e: FormEvent) => void;
 };
 
@@ -16,6 +17,7 @@ export default function Button({
   path,
   children,
   className,
+  disabled,
   transparent,
 }: ButtonPropsType) {
   return path ? (
@@ -32,7 +34,12 @@ export default function Button({
       {children}
     </a>
   ) : (
-    <button type="button" onClick={onClick} className={className}>
+    <button
+      type="button"
+      onClick={onClick}
+      className={className}
+      disabled={disabled}
+    >
       {children}
     </button>
   );

@@ -74,6 +74,11 @@
   gap: 10px;
 }
 
+.buyBtn:disabled {
+  background: #666;
+  cursor:auto;
+}
+
 .price {
   color: #FFF;
   text-align: center;

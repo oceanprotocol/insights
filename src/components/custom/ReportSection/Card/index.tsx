@@ -1,4 +1,4 @@
-import react, { useCallback, useEffect, useState } from 'react';
+import react, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Image, { StaticImageData } from 'next/image';
 import cx from 'classnames';
@@ -47,6 +47,7 @@ const Card = ({
   outputMessage,
 }: CardPropType) => {
   const { t } = useTranslation(['common']);
+  const oceanConfig = getOceanConfig(config.network.acceptedChainId);
 
   const [selectedValue, setSelectedValue] = useState<UserCustomParameters>();
   const [datasetPrice, setDatasetPrice] = useState<string>();
@@ -75,7 +76,12 @@ const Card = ({
     );
   }
 
-  const oceanConfig = getOceanConfig(config.network.acceptedChainId);
+  const hasDataset = useMemo(() => {
+    if (!datasetDid) {
+      return false;
+    }
+    return true;
+  }, [datasetDid]);
 
   const getDatasetPrice = useCallback(async () => {
     if (!datasetDid || datasetDid.length < 1) {
@@ -119,17 +125,19 @@ const Card = ({
         ) : (
           <div className={styles.actions}>
             <div className={cx(styles.dropdown, 'col-6')}>
-              {optionsDropdown ? (
+              {optionsDropdown && (
                 <Dropdown
                   placeholder={optionsDropdown?.[0].placeholder || 'Option'}
                   options={optionsDropdown}
                   onSelect={handleDropdownSelect}
                 />
-              ) : (
-                <></>
               )}
             </div>
-            <Button className={styles.buyBtn} onClick={handleClick}>
+            <Button
+              className={styles.buyBtn}
+              onClick={handleClick}
+              disabled={!hasDataset}
+            >
               <Image src={CartSVG} alt="cart" />
               <div className={styles.price}>
                 {datasetPrice ? `${datasetPrice} OCEAN` : price}
