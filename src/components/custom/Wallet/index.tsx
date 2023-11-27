@@ -4,14 +4,14 @@ import styles from './index.module.scss';
 import Tooltip from '../Tooltip';
 import Details from './Details';
 import Network from './Network';
-import { useEthers } from '../../../shared/@ocean/context/WalletContext';
+import { useWalletContext } from '../../../shared/@ocean/context/WalletContext';
 
 type WalletPropType = {
   mobile?: boolean;
 };
 
 export default function Wallet({ mobile }: WalletPropType): ReactElement {
-  const { user } = useEthers();
+  const { user } = useWalletContext();
 
   return (
     <div

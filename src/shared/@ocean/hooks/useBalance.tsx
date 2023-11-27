@@ -4,24 +4,19 @@ import { useBalance as useBalanceWagmi } from 'wagmi';
 import { useMarketMetadata } from '../context/MarketMetadata';
 import { getTokenBalance } from '../../utilities/wallet';
 import config from '../../../../config';
-import { useEthers } from '../context/WalletContext';
+import { useWalletContext } from '../context/WalletContext';
 
 interface BalanceProviderValue {
   balance: UserBalance;
+  getUserBalance: () => Promise<void>;
 }
 
-type ApprovedBaseTokensType = {
-  address: string;
-  decimals: number;
-  name: string;
-  symbol: string;
-};
-
 function useBalance(): BalanceProviderValue {
-  const { ethersProvider, user } = useEthers();
+  const { ethersProvider, user } = useWalletContext();
   const { data: balanceNativeToken } = useBalanceWagmi({
     address: user as `0x${string}`,
     chainId: config.network.acceptedChainId,
+    watch: true,
   });
 
   const { approvedBaseTokens } = useMarketMetadata();
@@ -73,7 +68,7 @@ function useBalance(): BalanceProviderValue {
     getUserBalance();
   }, [getUserBalance]);
 
-  return { balance };
+  return { balance, getUserBalance };
 }
 
 export default useBalance;

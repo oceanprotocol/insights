@@ -1,23 +1,25 @@
-import react, { ReactNode, useState } from 'react';
+import react, { ReactNode, useEffect, useState } from 'react';
 import { useTranslation } from 'next-i18next';
 import cx from 'classnames';
 import styles from './styles.module.scss';
 import Card from './Card/index';
 import useData, { CardPropType } from './Card/useData';
-import {useOptionsDropdown, useImageProcessing} from './Dropdown/DropdownData';
+import {
+  useOptionsDropdown,
+  useImageProcessing,
+} from './Dropdown/DropdownData';
 import {
   downloadJobResults,
   startComputeJob,
   waitForJobToFinish,
 } from '@/shared/@ocean/utils/computeToData';
 import { LoggerInstance, UserCustomParameters } from '@oceanprotocol/lib';
-import { toast } from 'react-toastify'
-import { useEthersSigner } from '@/shared/utilities/wallet/ethersSigner';
+import { toast } from 'react-toastify';
 import config from '../../../../config';
-import { useEthers } from '../../../shared/@ocean/context/WalletContext';
+import { useWalletContext } from '../../../shared/@ocean/context/WalletContext';
 
 export default function Report() {
-  const { web3Signer } = useEthers();
+  const { web3Signer } = useWalletContext();
   const { DubaiCardData, AlgoProcessingCardData } = useData();
   const { DropdownData, NrOfRoomsDataDropdown } = useOptionsDropdown();
   const { ImageDataDropdown } = useImageProcessing();
@@ -39,7 +41,6 @@ export default function Report() {
   });
   initialStatesDropdownRealEstate['dropdown1'] = NrOfRoomsDataDropdown;
   initialStatesImageProcessingDropdown['dropdown1'] = ImageDataDropdown;
-  // const signer = useEthersSigner();
   const [loadingStates, setLoadingStates] = useState(initialStatesLoading);
   const [messagesStates, setMessagesStates] = useState(initialStatesMessages);
 

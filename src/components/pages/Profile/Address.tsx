@@ -9,10 +9,10 @@ import { truncateWalletAddress } from '../../../shared/utilities/truncateAddress
 import { useEnsAvatar } from 'wagmi';
 import Copy from '../../../components/custom/Copy';
 import Avatar from '../../custom/Avatar';
-import { useEthers } from '../../../shared/@ocean/context/WalletContext';
+import { useWalletContext } from '../../../shared/@ocean/context/WalletContext';
 
 const Address: NextPage = () => {
-  const { user } = useEthers();
+  const { user } = useWalletContext();
 
   const { data: accountEnsAvatar } = useEnsAvatar({
     name: user,

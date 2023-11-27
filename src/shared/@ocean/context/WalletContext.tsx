@@ -8,6 +8,11 @@ import React, {
 import { magic } from '../../utilities/libs/magic';
 import { WalletInfo } from 'magic-sdk';
 import { Signer, ethers } from 'ethers';
+import { LoggerInstance } from '@oceanprotocol/lib';
+import { useBalance as useBalanceWagmi } from 'wagmi';
+import config from '../../../../config';
+import { useMarketMetadata } from './MarketMetadata';
+import { getTokenBalance } from '../../utilities/wallet';
 
 type EthersContextType = {
   ethersProvider: ethers.providers.Web3Provider | null;
@@ -24,10 +29,11 @@ type EthersContextType = {
 
 const EthersContext = createContext<EthersContextType>({} as EthersContextType);
 
-export const useEthers = () => useContext(EthersContext);
+export const useWalletContext = () => useContext(EthersContext);
 
 export const EthersProvider = ({ children }: { children: React.ReactNode }) => {
-  const [ethersProvider, setEthersProvider] = useState<ethers.providers.Web3Provider | null>(null);
+  const [ethersProvider, setEthersProvider] =
+    useState<ethers.providers.Web3Provider | null>(null);
   const [chainId, setChainId] = useState<number>(null);
   const [isWalletConnecting, setIsWalletConnecting] = useState(false);
   const [user, setUser] = useState<string | null>(null);
@@ -42,7 +48,7 @@ export const EthersProvider = ({ children }: { children: React.ReactNode }) => {
 
     const isLoggedIn = await magic.user.isLoggedIn();
     if (isLoggedIn) {
-      const { chainId } = await ethersMagicProvider.getNetwork()
+      const { chainId } = await ethersMagicProvider.getNetwork();
       setChainId(chainId);
       const walletInfo = await magic.wallet.getInfo();
       setWalletConnectionType(walletInfo);

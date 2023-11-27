@@ -2,10 +2,10 @@
 import Button from './Button';
 
 import styles from './Wallet/Account.module.scss';
-import { useEthers } from '../../shared/@ocean/context/WalletContext';
+import { useWalletContext } from '../../shared/@ocean/context/WalletContext';
 
 const ConnectButton = () => {
-  const { handleConnect, isWalletConnecting } = useEthers();
+  const { handleConnect, isWalletConnecting } = useWalletContext();
 
   return (
     <Button

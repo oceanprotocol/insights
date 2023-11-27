@@ -10,11 +10,11 @@ import { formatNumber } from '../../../shared/utilities/format';
 import BigNumber from 'bignumber.js';
 import useBalance from '../../../shared/@ocean/hooks/useBalance';
 import { truncateWalletAddress } from '@/shared/utilities/truncateAddress';
-import { useEthers } from '../../../shared/@ocean/context/WalletContext';
+import { useWalletContext } from '../../../shared/@ocean/context/WalletContext';
 import CopyButton from '../../../assets/copy.png';
 
 export default function Details(): ReactElement {
-  const { handleDisconnect, walletConnectionType, user } = useEthers();
+  const { handleDisconnect, walletConnectionType, user } = useWalletContext();
   const { balance } = useBalance();
 
   return (
