@@ -41,12 +41,10 @@ declare global {
   type Filters = FilterByTypeOptions | FilterByAccessOptions
 
   interface SearchQuery {
-    from?: number
-    size?: number
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    query: any
-    sort?: { [jsonPath: string]: SortDirectionOptions }
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    aggs?: any
+    from?: number;
+    size?: number;
+    query: any;
+    sort?: { [jsonPath: string]: SortDirectionOptions };
+    aggs?: any;
   }
 }

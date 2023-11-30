@@ -4,13 +4,12 @@ interface EsPaginationOptions {
 }
 
 interface BaseQueryParams {
-  chainIds: number[]
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  nestedQuery?: any
-  esPaginationOptions?: EsPaginationOptions
-  sortOptions?: SortOptions
-  aggs?: any
-  filters?: FilterTerm[]
-  ignorePurgatory?: boolean
-  ignoreState?: boolean
+  chainIds: number[];
+  nestedQuery?: any;
+  esPaginationOptions?: EsPaginationOptions;
+  sortOptions?: SortOptions;
+  aggs?: any;
+  filters?: FilterTerm[];
+  ignorePurgatory?: boolean;
+  ignoreState?: boolean;
 }
