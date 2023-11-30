@@ -5,7 +5,7 @@ import Clipboard from 'react-clipboard.js';
 
 import styles from './index.module.scss';
 
-import IconCopy from '../../../assets/icons8-copy-30.png';
+import IconCopy from '../../../assets/copy.svg';
 
 type CopyPropsType = {
   text: string;
@@ -34,7 +34,7 @@ export default function Copy({ text }: CopyPropsType): ReactElement {
     >
       <div className={styles.action}>
         <Image src={IconCopy} alt="icont-copy" className={styles.icon} />
-        {isCopied && <div className={styles.feedback}>{t('Copied')}</div>}
+        {isCopied && <div className={styles.feedback}>{t('Copied!')}</div>}
       </div>
     </Clipboard>
   );

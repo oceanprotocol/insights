@@ -9,7 +9,7 @@ const ConnectButton = () => {
 
   return (
     <Button
-      className={`${styles.button} ${styles.initial} ${styles.connect} h-100`}
+      className={`${styles.button} ${styles.initial} ${styles.connect} me-md-3 h-100`}
       onClick={() => handleConnect()}
     >
       {isWalletConnecting ? 'Loading...' : 'Connect'}
