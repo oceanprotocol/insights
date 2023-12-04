@@ -2,7 +2,6 @@ import { LoggerInstance } from '@oceanprotocol/lib';
 import React, { ReactElement, useEffect, useState, useCallback } from 'react';
 import AssetList from '../../../custom/AssetList';
 import { getPublishedAssets } from '../../../../shared/@ocean/utils/aquarius';
-import styles from './PublishedList.module.css';
 // import Filters from '../../Search/Filters';
 import { CancelToken } from 'axios';
 import config from '../../../../../config';
@@ -90,7 +89,6 @@ export default function PublishedList({
         onPageChange={(newPage) => {
           setPage(newPage);
         }}
-        className={styles.assets}
         noPublisher
       />
     </>
