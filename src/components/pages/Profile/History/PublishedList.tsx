@@ -95,6 +95,6 @@ export default function PublishedList({
       />
     </>
   ) : (
-    <div>Please connect your wallet.</div>
+    <div className="no-wallet">Please connect your wallet.</div>
   );
 }

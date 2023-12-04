@@ -85,6 +85,6 @@ export default function ComputeJobs({
       />
     </>
   ) : (
-    <div className="text-white">Please connect your wallet.</div>
+    <div className="no-wallet">Please connect your wallet.</div>
   );
 }
