@@ -31,7 +31,11 @@ export default function AssetTeaser({
 
   return (
     <article className={`${styles.teaser} ${styles[type]}`}>
-      <Link href={`/asset/${asset.id}`} className={styles.link}>
+      <Link
+        href={`https://market.oceanprotocol.com/asset/${asset.id}`}
+        className={styles.link}
+        target="_blank"
+      >
         <aside className={styles.detailLine}>
           <AssetType
             className={styles.typeLabel}

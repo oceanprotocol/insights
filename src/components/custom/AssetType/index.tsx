@@ -1,4 +1,5 @@
 import React, { ReactElement } from 'react';
+import Image from 'next/image';
 import styles from './index.module.css';
 import Compute from '../../../assets/compute.svg';
 import Download from '../../../assets/download.svg';
@@ -16,11 +17,29 @@ export default function AssetType({
   return (
     <div className={className || null}>
       {accessType === 'access' ? (
-        <Download role="img" aria-label="Download" className={styles.icon} />
+        <Image
+          src={Download}
+          alt="download"
+          role="img"
+          aria-label="Download"
+          className={styles.icon}
+        />
       ) : accessType === 'compute' && type === 'algorithm' ? (
-        <Lock role="img" aria-label="Private" className={styles.icon} />
+        <Image
+          src={Lock}
+          alt="lock"
+          role="img"
+          aria-label="Private"
+          className={styles.icon}
+        />
       ) : (
-        <Compute role="img" aria-label="Compute" className={styles.icon} />
+        <Image
+          src={Compute}
+          alt="compute"
+          role="img"
+          aria-label="Compute"
+          className={styles.icon}
+        />
       )}
 
       <div className={styles.typeLabel}>
