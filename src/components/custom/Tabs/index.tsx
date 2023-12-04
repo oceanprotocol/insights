@@ -62,7 +62,6 @@ export default function Tabs({
       </div>
       <div className={styles.tabContent}>
         {items.map((item, index) => {
-          console.log('item', item, 'index', index);
           return <TabPanel key={index}>{item.content}</TabPanel>;
         })}
       </div>

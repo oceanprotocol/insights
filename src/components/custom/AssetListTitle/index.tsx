@@ -41,7 +41,12 @@ export default function AssetListTitle({
 
   return (
     <h3 className={styles.title}>
-      <Link href={`/asset/${did || asset?.id}`}>{assetTitle}</Link>
+      <Link
+        href={`https://market.oceanprotocol.com/asset/${did || asset?.id}`}
+        target="_blank"
+      >
+        {assetTitle}
+      </Link>
     </h3>
   );
 }

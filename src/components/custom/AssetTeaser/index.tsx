@@ -1,15 +1,10 @@
 import React, { ReactElement } from 'react';
 import Link from 'next/link';
 import Dotdotdot from 'react-dotdotdot';
-// import Price from '@shared/Price'
-// import Publisher from '@shared/Publisher';
 import AssetType from '../AssetType';
-// import NetworkName from '@shared/NetworkName';
 import styles from './index.module.css';
 import { getServiceByName } from '../../../shared/utilities/ddo';
-// import { useUserPreferences } from '@context/UserPreferences';
-import { formatNumber } from '../../../shared/utilities/format';
-import { AssetPrice } from '@oceanprotocol/lib';
+import NetworkName from '../NetworkName';
 
 export declare type AssetTeaserProps = {
   asset: AssetExtended;
@@ -33,7 +28,6 @@ export default function AssetTeaser({
     !asset.services.length ||
     price.value === undefined ||
     asset?.accessDetails?.type === 'NOT_SUPPORTED';
-  // const { locale } = useUserPreferences();
 
   return (
     <article className={`${styles.teaser} ${styles[type]}`}>
@@ -47,13 +41,12 @@ export default function AssetTeaser({
           <span className={styles.typeLabel}>
             {datatokens[0]?.symbol.substring(0, 9)}
           </span>
-          {/* <NetworkName networkId={asset.chainId} className={styles.typeLabel} /> */}
+          <NetworkName networkId={asset.chainId} className={styles.typeLabel} />
         </aside>
         <header className={styles.header}>
           <Dotdotdot tagName="h1" clamp={3} className={styles.title}>
             {name.slice(0, 200)}
           </Dotdotdot>
-          {/* {!noPublisher && <Publisher account={owner} minimal />} */}
           {!noPublisher && <div>{owner}</div>}
         </header>
         {!noDescription && (
@@ -67,7 +60,6 @@ export default function AssetTeaser({
           {isUnsupportedPricing ? (
             <strong>No pricing schema available</strong>
           ) : (
-            // <Price price={price} assetId={asset.id} size="small" />
             <div>
               {price.value} {price.tokenSymbol}
             </div>
@@ -80,7 +72,6 @@ export default function AssetTeaser({
                 ''
               ) : (
                 <>
-                  {/* <strong>{formatNumber(allocated, 'EN', '0')}</strong> veOCEAN */}
                   <strong>{allocated}</strong> veOCEAN
                 </>
               )}
