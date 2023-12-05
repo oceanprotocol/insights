@@ -237,7 +237,7 @@ const config: ConfigType = {
     networkDecimals: 18,
   },
   magicApiKey:
-    process.env.NEXT_PUBLIC_MAGIC_API_KEY || 'pk_live_FFCFB9A970D9C147',
+    process.env.NEXT_PUBLIC_MAGIC_API_KEY || 'pk_live_D184E64BFC294E38',
 };
 
 export default config;

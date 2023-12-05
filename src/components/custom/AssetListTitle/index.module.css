@@ -1,0 +1,15 @@
+.title {
+  line-height: 0;
+  margin: 0;
+  display: inline;
+}
+
+.title a {
+  font-size: var(--font-size-small);
+  color: var(--font-color-heading);
+}
+
+.title a:hover,
+.title a:focus {
+  color: var(--color-primary);
+}

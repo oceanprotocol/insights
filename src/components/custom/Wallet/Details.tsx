@@ -76,6 +76,7 @@ export default function Details(): ReactElement {
                 styles.mb_3,
                 'clean-empty-button'
               )}
+              style="text"
               onClick={() => {
                 handleDisconnect();
               }}

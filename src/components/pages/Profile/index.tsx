@@ -5,21 +5,21 @@ import cs from 'classnames';
 import style from './style.module.scss';
 
 import Address from './Address';
-import AssetsDetails from './AssetsDetails';
-import ComputeHistory from './History'
+import HistoryPage from './History/index';
+import { useWalletContext } from '../../../shared/@ocean/context/WalletContext';
 
 const Profile: NextPage = () => {
+  const { user } = useWalletContext();
 
   return (
     <div
       className={cs(
         style.container,
-        'd-flex flex-column justify-content-center justify-content-md-start align-items-center'
+        'd-flex flex-column justify-content-between justify-content-md-start align-items-center'
       )}
     >
       <Address />
-      <AssetsDetails totalSales={0} sales={0} />
-      <ComputeHistory />
+      <HistoryPage accountIdentifier={user} />
     </div>
   );
 };

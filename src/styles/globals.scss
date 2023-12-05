@@ -43,6 +43,7 @@ body {
   overflow-x: hidden;
   background: black;
   height: 100vh;
+  font-family: var(--font-family-base);
 }
 
 a {
@@ -84,6 +85,18 @@ ul {
 
 ul li {
   display: block;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: var(--font-family-heading);
+  color: var(--font-color-heading);
+  line-height: 1.2;
+  font-weight: var(--font-weight-bold);
+  margin-top: 0;
 }
 
 @media only screen and (max-width: 500px) {

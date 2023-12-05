@@ -3,15 +3,15 @@ import { NextPage } from "next";
 import Image from "next/image";
 import { useTranslation } from "react-i18next";
 import cx from "classnames";
-import styles from "./styles.module.scss";
-import Button from "../Button";
+import styles from './styles.module.scss';
 import profile from '../../../assets/profile.svg';
-import logo from "../../../assets/logo.svg";
+import logo from '../../../assets/logo.svg';
 import Wallet from '../Wallet';
 import config from '../../../../config';
 
 import ConnectButton from '../ConnectButton';
 import { useWalletContext } from '../../../shared/@ocean/context/WalletContext';
+import Link from 'next/link';
 
 const Navigation = () => {
   const Profile = config.routes.profile;
@@ -20,12 +20,13 @@ const Navigation = () => {
     <div className="d-flex flex-column flex-md-row align-center">
       <div>{!user ? <ConnectButton /> : <Wallet />}</div>
       <div className="d-flex flex-row align-center order-0 order-md-1">
-        <Button
+        <Link
           className="me-3 bg-transparent border-0 d-flex align-items-center"
-          path={Profile}
+          href={Profile}
+          prefetch
         >
           <Image src={profile} width={20} height={20} alt="profile" />
-        </Button>
+        </Link>
       </div>
     </div>
   );
@@ -33,11 +34,9 @@ const Navigation = () => {
 
 const Logo = () => {
   return (
-    <Button path="/">
-      <div className="d-flex">
-        <Image src={logo} alt="logo" />
-      </div>
-    </Button>
+    <Link href="/">
+      <Image src={logo} alt="logo" />
+    </Link>
   );
 };
 
@@ -78,14 +77,13 @@ const Mobile = () => {
           <ul className="navbar-nav ml-auto">
             <li className="nav-item">
               <a className="nav-link scroll-link" href="#top-content">
-                <Button
+                <Link
                   className={cx(styles.profileCard, 'd-flex flex-row')}
-                  path={Profile}
-                  onClick={() => handleMenuToggle(isMenuOpen)}
+                  href={Profile}
                 >
                   <Image src={profile} width={20} height={20} alt="profile" />
                   <div className="ms-3">Profile</div>
-                </Button>
+                </Link>
               </a>
             </li>
             <div className="nav-item d-flex flex-row justify-content-between">
