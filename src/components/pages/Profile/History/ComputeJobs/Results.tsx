@@ -7,7 +7,7 @@ import {
 } from '@oceanprotocol/lib';
 import React, { ReactElement, useEffect, useState } from 'react';
 import { ListItem } from '../../../../custom/Lists';
-import Button from '../../../../custom/Button2';
+import Button from '../../../../custom/Button';
 import styles from './Results.module.css';
 import FormHelp from '../../../../custom/Help';
 import { getAsset } from '../../../../../shared/@ocean/utils/aquarius';

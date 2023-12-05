@@ -1,6 +1,6 @@
 import React, { ReactElement, useState } from 'react';
 import Table, { TableOceanColumn } from '../../../../custom/Table';
-import Button from '../../../../custom/Button2';
+import Button from '../../../../custom/Button';
 import Details from './Details';
 import Refresh from '../../../../../assets/refresh.svg';
 import NetworkName from '../../../../custom/NetworkName';

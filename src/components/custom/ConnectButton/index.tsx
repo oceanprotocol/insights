@@ -1,15 +1,22 @@
 // import { Button } from '@chakra-ui/react';
-import Button from './Button';
+import cs from 'classnames';
 
-import styles from './Wallet/Account.module.scss';
-import { useWalletContext } from '../../shared/@ocean/context/WalletContext';
+import styles from './style.module.scss';
+
+import Button from '../Button';
+import { useWalletContext } from '../../../shared/@ocean/context/WalletContext';
 
 const ConnectButton = () => {
   const { handleConnect, isWalletConnecting } = useWalletContext();
 
   return (
     <Button
-      className={`${styles.button} ${styles.initial} ${styles.connect} me-md-3 h-100`}
+      className={cs(
+        styles.button,
+        styles.initial,
+        styles.connect,
+        'me-md-3 h-100'
+      )}
       onClick={() => handleConnect()}
     >
       {isWalletConnecting ? 'Loading...' : 'Connect'}

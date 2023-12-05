@@ -83,7 +83,6 @@ function ProfileProvider({
   //
   const [assets, setAssets] = useState<Asset[]>();
   const [assetsTotal, setAssetsTotal] = useState(0);
-  // const [assetsWithPrices, setAssetsWithPrices] = useState<AssetListPrices[]>()
 
   useEffect(() => {
     if (!accountId || !isEthAddress) return;
@@ -104,12 +103,6 @@ function ProfileProvider({
           `[profile] Fetched ${result.totalResults} assets.`,
           result.results
         );
-
-        // Hint: this would only make sense if we "search" in all subcomponents
-        // against this provider's state, meaning filtering via js rather then sending
-        // more queries to Aquarius.
-        // const assetsWithPrices = await getAssetsBestPrices(result.results)
-        // setAssetsWithPrices(assetsWithPrices)
       } catch (error) {
         LoggerInstance.error(error.message);
       }

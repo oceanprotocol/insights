@@ -1,46 +1,56 @@
-import react, { FormEvent, ReactNode } from 'react';
-import Link from 'next/link';
+import React, { ReactNode, FormEvent, ReactElement } from 'react'
+import Link from 'next/link'
+import classNames from 'classnames/bind'
+import styles from './index.module.css'
 
-type ButtonPropsType = {
-  href?: string;
-  path?: string;
-  children: ReactNode;
-  className?: string;
-  transparent?: boolean;
-  disabled?: boolean;
-  onClick?: (e: FormEvent) => void;
-};
+const cx = classNames.bind(styles)
+
+export interface ButtonProps {
+  children: ReactNode
+  className?: string
+  href?: string
+  onClick?: (e: FormEvent) => void
+  disabled?: boolean
+  to?: string
+  name?: string
+  size?: 'small'
+  style?: 'primary' | 'ghost' | 'text'
+  type?: 'submit'
+  download?: boolean
+  target?: string
+  rel?: string
+  title?: string
+}
 
 export default function Button({
-  onClick,
   href,
-  path,
   children,
   className,
-  disabled,
-  transparent,
-}: ButtonPropsType) {
-  return path ? (
-    <Link href={path} className={className} onClick={onClick}>
+  to,
+  size,
+  style,
+  ...props
+}: ButtonProps): ReactElement {
+  const styleClasses = cx({
+    [className]: className,
+    button: true,
+    primary: style === 'primary',
+    ghost: style === 'ghost',
+    text: style === 'text',
+    small: size === 'small',
+  });
+
+  return to ? (
+    <Link href={to} className={styleClasses} {...props}>
       {children}
     </Link>
   ) : href ? (
-    <a
-      href={href}
-      className={className}
-      rel="noopener noreferrer"
-      target="_blank"
-    >
+    <a href={href} className={styleClasses} {...props}>
       {children}
     </a>
   ) : (
-    <button
-      type="button"
-      onClick={onClick}
-      className={className}
-      disabled={disabled}
-    >
+    <button className={styleClasses} {...props}>
       {children}
     </button>
-  );
+  )
 }

@@ -2,7 +2,6 @@ import { LoggerInstance } from '@oceanprotocol/lib';
 import React, { ReactElement, useEffect, useState, useCallback } from 'react';
 import AssetList from '../../../custom/AssetList';
 import { getPublishedAssets } from '../../../../shared/@ocean/utils/aquarius';
-// import Filters from '../../Search/Filters';
 import { CancelToken } from 'axios';
 import config from '../../../../../config';
 import { useCancelToken } from '../../../../shared/@ocean/hooks/useCancelToken';
@@ -73,13 +72,6 @@ export default function PublishedList({
 
   return accountId ? (
     <>
-      {/* <Filters
-        serviceType={service}
-        setServiceType={setServiceType}
-        accessType={access}
-        setAccessType={setAccessType}
-        className={styles.filters}
-      /> */}
       <AssetList
         assets={queryResult?.results}
         isLoading={isLoading}

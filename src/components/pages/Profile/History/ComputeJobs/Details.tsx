@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 import Time from '../../../../custom/Time';
-import Button from '../../../../custom/Button2';
+import Button from '../../../../custom/Button';
 import Modal from '../../../../custom/Modal';
 import External from '../../../../../assets/external.svg';
 import Results from './Results';

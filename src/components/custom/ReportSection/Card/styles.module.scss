@@ -74,6 +74,18 @@
   gap: 10px;
 }
 
+.buyBtn:hover {
+  display: flex;
+  padding: 6px 8px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+  align-self: stretch;
+  border-radius: 4px;
+  background: #000;
+  gap: 10px;
+}
+
 .buyBtn:disabled {
   background: #666;
   cursor:auto;

@@ -14,6 +14,27 @@ body .button {
   height: 100%;
   display: flex;
   align-items: center;
+  min-width: auto;
+}
+
+body .button:hover,
+body .button:focus {
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-small);
+  text-transform: uppercase;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: calc(var(--spacer) / 4) calc(var(--spacer) / 3);
+  white-space: nowrap;
+  background: var(--background-content);
+  margin: 0;
+  transition: border 0.2s ease-out;
+  cursor: pointer;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  transform: none;
 }
 
 body .button,
@@ -22,6 +43,10 @@ body .button,
 }
 
 body .connect {
+  color: var(--brand-pink);
+}
+
+body .connect:hover {
   color: var(--brand-pink);
 }
 
@@ -48,8 +73,8 @@ body .status {
   top: 1px;
 }
 
-.caret,
-svg.caret {
+body .caret,
+svg .caret {
   display: none;
   width: var(--font-size-small);
   height: var(--font-size-small);
@@ -59,7 +84,7 @@ svg.caret {
   margin-left: calc(var(--spacer) / 4);
 }
 
-[aria-expanded='true'] .caret {
+body [aria-expanded='true'] .caret {
   transform: rotate(180deg);
 }
 
@@ -79,12 +104,12 @@ body .caret {
 }
 
 @media only screen and (max-width: 500px) {
-  .button.initial span {
+ body .button.initial span {
     display: inline;
     margin-left: 0.2rem;
   }
 
-  .button {
+ body .button {
     width: 225px;
     margin-right: 0;
     padding: 10px 30px;
@@ -94,7 +119,7 @@ body .caret {
     border-radius: 5px;
   }
 
-  .address {
+ body .address {
     color: #212529;
     font-family: "Urbanist-Regular";
     font-weight: 400;
@@ -102,13 +127,13 @@ body .caret {
     line-height: 19px;
   }
 
-  .caret {
+ body .caret {
     width: 20px;
     height: 20px;
     display: block;
   }
 
-  .transparent{
+ body .transparent{
     border: 0;
     outline: 0;
     padding: 0;
