@@ -1,6 +1,12 @@
 import { Config, ConfigHelper } from "@oceanprotocol/lib";
 import config from '../../../../config';
 
+enum NetworkChain {
+  Polygon = 137,
+  Mumbai = 80001,
+  Sepolia = 11155111
+}
+
 export function getOceanConfig(network: string | number): Config {
 	const oceanConfig: Config = new ConfigHelper().getConfig(
     network,
