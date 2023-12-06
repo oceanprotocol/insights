@@ -1,7 +1,10 @@
 .container {
-  padding: 111px 0;
-  margin: 0 auto;
-  min-height: 710px;
+    max-width: var(--break-point--large);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: calc(var(--spacer) / 3);
+    padding-right: calc(var(--spacer) / 3);
+    width: 100%;
 }
 
 .addressContainer {
@@ -31,6 +34,11 @@
 
 .separator {
   border-right: 1px solid var(--gainsboro);
+}
+
+.profileAvatar {
+  width: 96px;
+  height: 96px;
 }
 
 @media only screen and (max-width: 500px) {

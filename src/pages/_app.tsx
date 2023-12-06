@@ -8,22 +8,22 @@ import '../styles/globals.scss';
 import Layout from '../components/custom/Layout';
 import UrqlProvider from '../shared/@ocean/context/UrqlProvider';
 import { wagmiClient } from '../shared/utilities/wallet';
-import { UserPreferencesProvider } from '../shared/@ocean/context/UserPreferences';
 import MarketMetadataProvider from '../shared/@ocean/context/MarketMetadata';
+import { EthersProvider } from '../shared/@ocean/context/WalletContext';
 
 export function App({ Component, pageProps }: AppProps) {
   return (
-        <WagmiConfig config={wagmiClient}>
-            <MarketMetadataProvider>
-              <UrqlProvider>
-                <UserPreferencesProvider>
-                  <Layout>
-                    <Component {...pageProps} />
-                  </Layout>
-                </UserPreferencesProvider>
-              </UrqlProvider>
-            </MarketMetadataProvider>
-        </WagmiConfig>
+    <WagmiConfig config={wagmiClient}>
+      <EthersProvider>
+        <MarketMetadataProvider>
+          <UrqlProvider>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </UrqlProvider>
+        </MarketMetadataProvider>
+      </EthersProvider>
+    </WagmiConfig>
   );
 }
 

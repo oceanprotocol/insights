@@ -14,12 +14,11 @@
 
 .btn {
   border: 1px solid #000000;
-  border-radius: 10px;
+  border-radius: 4px;
   background-color: transparent;
-  width: 140px;
-  height: 30px;
+  width: fit-content;
   color: #000000;
-  margin: 15px 0 26px 0;
+  font-size: 10px;
 }
 
 .card {
@@ -44,6 +43,7 @@ body {
   overflow-x: hidden;
   background: black;
   height: 100vh;
+  font-family: var(--font-family-base);
 }
 
 a {
@@ -85,6 +85,18 @@ ul {
 
 ul li {
   display: block;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: var(--font-family-heading);
+  color: var(--font-color-heading);
+  line-height: 1.2;
+  font-weight: var(--font-weight-bold);
+  margin-top: 0;
 }
 
 @media only screen and (max-width: 500px) {

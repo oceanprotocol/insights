@@ -1,12 +1,12 @@
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
-import priceImg from "../../../../assets/priceImg.svg";
-import rateImg from "../../../../assets/rateImg.svg";
-import imageProcessingImg from "../../../../assets/imageProcessing.svg";
-import videoProcessingImg from "../../../../assets/videoProcessing.svg";
-import costumerImg from "../../../../assets/costumerImg.svg";
-import pdfImg from "../../../../assets/pdf.svg";
+import priceImg from '../../../../assets/average_price.png';
+import rateImg from '../../../../assets/occupancy_rate.png';
+import imageProcessingImg from '../../../../assets/image_processing.png';
+import videoProcessingImg from '../../../../assets/face_detection.png';
+import costumerImg from '../../../../assets/customer_segmentation.png';
+import pdfImg from '../../../../assets/stock_report.png';
 import { StaticImageData } from "next/image";
 
 export type CardPropType = {

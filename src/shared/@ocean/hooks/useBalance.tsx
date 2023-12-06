@@ -1,31 +1,24 @@
 import { useState, useEffect, useCallback } from 'react';
 import { LoggerInstance } from '@oceanprotocol/lib';
-import {
-  useNetwork,
-  useAccount,
-  useBalance as useBalanceWagmi,
-} from 'wagmi';
+import { useBalance as useBalanceWagmi } from 'wagmi';
 import { useMarketMetadata } from '../context/MarketMetadata';
 import { getTokenBalance } from '../../utilities/wallet';
-import { useEthersProvider } from '@/shared/utilities/wallet/ethersProvider';
+import config from '../../../../config';
+import { useWalletContext } from '../context/WalletContext';
 
 interface BalanceProviderValue {
   balance: UserBalance;
+  getUserBalance: () => Promise<void>;
 }
 
-type ApprovedBaseTokensType = {
-  address: string;
-  decimals: number;
-  name: string;
-  symbol: string;
-};
-
 function useBalance(): BalanceProviderValue {
-  const { address } = useAccount();
-  const { data: balanceNativeToken } = useBalanceWagmi({ address });
-  const web3provider = useEthersProvider()
-  
-  const { chain } = useNetwork();
+  const { ethersProvider, user } = useWalletContext();
+  const { data: balanceNativeToken } = useBalanceWagmi({
+    address: user as `0x${string}`,
+    chainId: config.network.acceptedChainId,
+    watch: true,
+  });
+
   const { approvedBaseTokens } = useMarketMetadata();
 
   const [balance, setBalance] = useState<UserBalance>({
@@ -36,13 +29,7 @@ function useBalance(): BalanceProviderValue {
   // Helper: Get user balance
   // -----------------------------------
   const getUserBalance = useCallback(async () => {
-    if (
-      !balanceNativeToken?.formatted ||
-      !address ||
-      !chain?.id ||
-      !web3provider
-    )
-      return;
+    if (!balanceNativeToken?.formatted || !user || !ethersProvider) return;
 
     try {
       const userBalance = balanceNativeToken?.formatted;
@@ -57,10 +44,10 @@ function useBalance(): BalanceProviderValue {
               return;
             }
             const tokenBalance = await getTokenBalance(
-              address,
+              user,
               decimals,
               tokenAddress,
-              web3provider
+              ethersProvider
             );
             if (!tokenBalance) {
               return;
@@ -75,19 +62,13 @@ function useBalance(): BalanceProviderValue {
     } catch (error: any) {
       LoggerInstance.error('[useBalance] Error: ', error.message);
     }
-  }, [
-    address,
-    approvedBaseTokens,
-    chain?.id,
-    web3provider,
-    balanceNativeToken,
-  ]);
+  }, [user, approvedBaseTokens, ethersProvider, balanceNativeToken]);
 
   useEffect(() => {
     getUserBalance();
   }, [getUserBalance]);
 
-  return { balance };
+  return { balance, getUserBalance };
 }
 
 export default useBalance;

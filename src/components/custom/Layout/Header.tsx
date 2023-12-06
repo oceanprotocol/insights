@@ -3,41 +3,30 @@ import { NextPage } from "next";
 import Image from "next/image";
 import { useTranslation } from "react-i18next";
 import cx from "classnames";
-import styles from "./styles.module.scss";
-import Button from "../Button";
-import profile from "../../../assets/profile.svg";
-import cart from "../../../assets/cartHeader.svg";
-import logo from "../../../assets/logo.svg";
-import Wallet from "../Wallet";
-import Networks from "../Networks";
-import config from "../../../../config";
+import styles from './styles.module.scss';
+import profile from '../../../assets/profile.svg';
+import logo from '../../../assets/logo.svg';
+import Wallet from '../Wallet';
+import config from '../../../../config';
 
 import ConnectButton from '../ConnectButton';
-import { useAccount } from "wagmi";
+import { useWalletContext } from '../../../shared/@ocean/context/WalletContext';
+import Link from 'next/link';
 
 const Navigation = () => {
   const Profile = config.routes.profile;
-  const { isConnected } = useAccount();
+  const { user } = useWalletContext();
   return (
     <div className="d-flex flex-column flex-md-row align-center">
-      <div>
-        {!isConnected ? (
-          <ConnectButton />
-        ) : (
-          <Wallet />
-        )}
-      </div>
-      <Networks />
+      <div>{!user ? <ConnectButton /> : <Wallet />}</div>
       <div className="d-flex flex-row align-center order-0 order-md-1">
-        <Button
+        <Link
           className="me-3 bg-transparent border-0 d-flex align-items-center"
-          path={Profile}
+          href={Profile}
+          prefetch
         >
           <Image src={profile} width={20} height={20} alt="profile" />
-        </Button>
-        <Button className="me-3 bg-transparent border-0">
-          <Image src={cart} width={23} height={22} alt="cart" />
-        </Button>
+        </Link>
       </div>
     </div>
   );
@@ -45,11 +34,9 @@ const Navigation = () => {
 
 const Logo = () => {
   return (
-    <Button path="/">
-      <div className="d-flex">
-        <Image src={logo} alt="logo" />
-      </div>
-    </Button>
+    <Link href="/">
+      <Image src={logo} alt="logo" />
+    </Link>
   );
 };
 
@@ -72,7 +59,7 @@ const Mobile = () => {
           data-toggle="collapse"
           data-target="#navbarNav"
           aria-controls="navbarNav"
-          aria-expanded={isMenuOpen ? "true" : "false"}
+          aria-expanded={isMenuOpen ? 'true' : 'false'}
           aria-label="Toggle navigation"
           onClick={() => handleMenuToggle(isMenuOpen)}
         >
@@ -82,7 +69,7 @@ const Mobile = () => {
         </button>
 
         <div
-          className={cx(styles.heightNav, "collapse navbar-collapse", {
+          className={cx(styles.heightNav, 'collapse navbar-collapse', {
             show: isMenuOpen,
           })}
           id="navbarNav"
@@ -90,18 +77,16 @@ const Mobile = () => {
           <ul className="navbar-nav ml-auto">
             <li className="nav-item">
               <a className="nav-link scroll-link" href="#top-content">
-                <Button
-                  className={cx(styles.profileCard, "d-flex flex-row")}
-                  path={Profile}
-                  onClick={() => handleMenuToggle(isMenuOpen)}
+                <Link
+                  className={cx(styles.profileCard, 'd-flex flex-row')}
+                  href={Profile}
                 >
                   <Image src={profile} width={20} height={20} alt="profile" />
                   <div className="ms-3">Profile</div>
-                </Button>
+                </Link>
               </a>
             </li>
             <div className="nav-item d-flex flex-row justify-content-between">
-              <Networks />
               <Wallet />
             </div>
           </ul>

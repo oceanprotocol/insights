@@ -7,7 +7,8 @@ import {
 } from 'urql';
 import React, { ReactElement, ReactNode, useEffect, useState } from 'react';
 import { LoggerInstance } from '@oceanprotocol/lib';
-import { getOceanConfig } from '../utils/ocean';
+import { getOceanConfig } from '../utilities/ocean';
+import config from '../../../../config';
 
 let urqlClient: Client;
 
@@ -36,7 +37,7 @@ export default function UrqlClientProvider({
   const [client, setClient] = useState<Client>();
 
   useEffect(() => {
-    const oceanConfig = getOceanConfig(1);
+    const oceanConfig = getOceanConfig(config.network.acceptedChainId);
 
     if (!oceanConfig?.subgraphUri) {
       LoggerInstance.error(
