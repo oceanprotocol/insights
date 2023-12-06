@@ -8,11 +8,6 @@ import React, {
 import { magic } from '../../utilities/libs/magic';
 import { WalletInfo } from 'magic-sdk';
 import { Signer, ethers } from 'ethers';
-import { LoggerInstance } from '@oceanprotocol/lib';
-import { useBalance as useBalanceWagmi } from 'wagmi';
-import config from '../../../../config';
-import { useMarketMetadata } from './MarketMetadata';
-import { getTokenBalance } from '../../utilities/wallet';
 
 type EthersContextType = {
   ethersProvider: ethers.providers.Web3Provider | null;

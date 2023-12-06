@@ -224,7 +224,7 @@ const config: ConfigType = {
       1: 'Ethereum',
       11155111: 'Sepolia Testnet',
     },
-    rpcUrl: 'https://rpc-mumbai.maticvigil.com',
+    rpcUrl: 'https://sepolia.infura.io/v3/',
     pleaseSelectNetwork: {
       1: 'Please select Ethereum Mainnet from wallet.',
       11155111: 'Please select Sepolia Testnet from wallet.',

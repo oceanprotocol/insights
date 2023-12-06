@@ -1,4 +1,3 @@
-// import { Button } from '@chakra-ui/react';
 import cs from 'classnames';
 
 import styles from './style.module.scss';

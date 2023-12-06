@@ -8,7 +8,7 @@ const createMagic = (key: string) => {
     typeof window !== 'undefined' &&
     new Magic(key, {
       network: {
-        rpcUrl: `https://sepolia.infura.io/v3/${config.oceanApp.infuraProjectId}`,
+        rpcUrl: `${config.network.rpcUrl}${config.oceanApp.infuraProjectId}`,
         chainId: config.network.acceptedChainId,
       },
     })

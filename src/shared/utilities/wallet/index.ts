@@ -10,119 +10,14 @@ import { publicProvider } from 'wagmi/providers/public';
 import { ethers } from 'ethers';
 import { formatEther } from 'ethers/lib/utils';
 import oceanAbi from '../../@ocean/abi/oceanAbi.json';
+import config from '../../../../config';
 
-import {
-  UniversalWalletConnector,
-} from '@magiclabs/wagmi-connector';
+import { UniversalWalletConnector } from '@magiclabs/wagmi-connector';
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
   [mainnet, polygon, polygonMumbai, sepolia],
   [publicProvider()]
 );
-
-export class MagicWalletConnector extends Connector<UniversalWalletConnector, any> {
-  readonly id = 'magicwallet';
-  readonly name = 'Magic Wallet';
-  readonly ready = true;
-
-  readonly isModalOpen = false;
-
-  provider?: UniversalWalletConnector;
-
-  constructor(config: {
-    chains;
-    options: {
-      // apiKey: "pk_live_0E5D589855DCF6D3",
-      apiKey: 'pk_live_D184E64BFC294E38';
-      /* Make sure to enable OAuth options from magic dashboard */
-      networks: [
-        {
-          rpcUrl: 'https://mainnet.infura.io/v3';
-          chainId: 1;
-        },
-        {
-          rpcUrl: 'https://polygon-rpc.com';
-          chainId: 137;
-        },
-        {
-          rpcUrl: 'https://rpc-mumbai.maticvigil.com';
-          chainId: 80001;
-        },
-        {
-          // rpcUrl: `https://sepolia.infura.io/v3/${process.env.NEXT_PUBLIC_INFURA_PROJECT_ID}`;
-          rpcUrl: `https://sepolia.infura.io/v3/853bee732cdf4e4383f88047e46ea89d`;
-          chainId: 11155111;
-        }
-      ];
-      magicSdkConfiguration: {
-        network: {
-          // rpcUrl: `https://sepolia.infura.io/v3/${process.env.NEXT_PUBLIC_INFURA_PROJECT_ID}`;
-          rpcUrl: `https://sepolia.infura.io/v3/853bee732cdf4e4383f88047e46ea89d`;
-          chainId: 11155111;
-        };
-        extensions: true;
-      };
-    };
-  }) {
-    super(config);
-  }
-
-  async connect(config?: {
-    chainId?: number;
-  }): Promise<Required<ConnectorData>> {
-    try {
-      const wallet = await this.connect();
-      return wallet;
-    } catch (error) {
-      console.log(error);
-      throw error;
-    }
-  }
-
-  async disconnect() {
-    await this.disconnect();
-  }
-
-  async getAccount() {
-    if (!this.provider) throw new Error('Wallet not connected');
-    return await this.getAccount();
-  }
-
-  async getProvider() {
-    if (!this.provider) {
-      this.provider = new UniversalWalletConnector(this.options);
-    }
-    return this.provider;
-  }
-
-  async getChainId() {
-    if (!this.provider) throw new Error('Wallet not connected');
-    return await this.getChainId();
-  }
-
-  async getWalletClient() {
-    if (!this.provider) throw new Error('Wallet not connected');
-    return await this.getWalletClient();
-  }
-
-  async isAuthorized(): Promise<boolean> {
-    return await this.isAuthorized();
-  }
-
-  async onAccountsChanged(accounts: `0x${string}`[]) {
-    if (!this.provider) throw new Error('Wallet not connected');
-
-    await this.onAccountsChanged(accounts);
-  }
-
-  async onChainChanged(chain: string | number) {
-    await this.onChainChanged(chain);
-  }
-
-  protected async onDisconnect(error: Error) {
-    await this.onDisconnect(error);
-  }
-}
 
 export const wagmiClient = createConfig({
   // autoConnect: true,
@@ -133,7 +28,7 @@ export const wagmiClient = createConfig({
       chains,
       options: {
         // apiKey: "pk_live_0E5D589855DCF6D3",
-        apiKey: 'pk_live_D184E64BFC294E38',
+        apiKey: config.magicApiKey,
         /* Make sure to enable OAuth options from magic dashboard */
         networks: [
           {
@@ -141,55 +36,14 @@ export const wagmiClient = createConfig({
             chainId: 1,
           },
           {
-            rpcUrl: 'https://polygon-rpc.com',
-            chainId: 137,
-          },
-          {
-            rpcUrl: 'https://rpc-mumbai.maticvigil.com',
-            chainId: 80001,
-          },
-          {
-            rpcUrl: `https://sepolia.infura.io/v3/${process.env.NEXT_PUBLIC_INFURA_PROJECT_ID}`,
-            chainId: 11155111,
+            rpcUrl: `${config.network.rpcUrl}${process.env.NEXT_PUBLIC_INFURA_PROJECT_ID}`,
+            chainId: config.network.acceptedChainId,
           },
         ],
         magicSdkConfiguration: {
           network: {
-            rpcUrl: `https://sepolia.infura.io/v3/${process.env.NEXT_PUBLIC_INFURA_PROJECT_ID}`,
-            chainId: 11155111,
-          },
-          extensions: true,
-        },
-      },
-    }) as unknown as Connector,
-    new MagicWalletConnector({
-      chains,
-      options: {
-        // apiKey: "pk_live_0E5D589855DCF6D3",
-        apiKey: 'pk_live_D184E64BFC294E38',
-        /* Make sure to enable OAuth options from magic dashboard */
-        networks: [
-          {
-            rpcUrl: 'https://mainnet.infura.io/v3',
-            chainId: 1,
-          },
-          {
-            rpcUrl: 'https://polygon-rpc.com',
-            chainId: 137,
-          },
-          {
-            rpcUrl: 'https://rpc-mumbai.maticvigil.com',
-            chainId: 80001,
-          },
-          {
-            rpcUrl: `https://sepolia.infura.io/v3/853bee732cdf4e4383f88047e46ea89d`,
-            chainId: 11155111,
-          },
-        ],
-        magicSdkConfiguration: {
-          network: {
-            rpcUrl: `https://sepolia.infura.io/v3/853bee732cdf4e4383f88047e46ea89d`,
-            chainId: 11155111,
+            rpcUrl: `${config.network.rpcUrl}${process.env.NEXT_PUBLIC_INFURA_PROJECT_ID}`,
+            chainId: config.network.acceptedChainId,
           },
           extensions: true,
         },
